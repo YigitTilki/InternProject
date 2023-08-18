@@ -68,14 +68,14 @@ class _LoginPageSState extends State<LoginPageS> {
             SizedBox(
               child: ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    FocusManager.instance.primaryFocus?.unfocus();
+                  Future.delayed(const Duration(milliseconds: 200), () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const StudentPage(),
+                      ),
+                    );
                   });
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const StudentPage(),
-                    ),
-                  );
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,

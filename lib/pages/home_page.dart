@@ -14,7 +14,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    time(context);
+
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const LoginPageS()));
+    });
   }
 
   @override
@@ -29,13 +33,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
-
-time(BuildContext context) async {
-  var duration = const Duration(seconds: 3);
-
-  return Timer(duration, () {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: ((context) => const LoginPageS())));
-  });
 }

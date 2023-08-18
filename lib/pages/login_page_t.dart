@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sanofi_main/pages/login_page_s.dart';
 
 import 'package:sanofi_main/pages/student_page.dart';
+import 'package:sanofi_main/pages/qr_scan_teacher.dart';
+import 'package:sanofi_main/pages/teacher_page.dart';
 
 class LoginPageT extends StatefulWidget {
   const LoginPageT({super.key});
@@ -80,11 +83,14 @@ class _LoginPageTState extends State<LoginPageT> {
             SizedBox(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const StudentPage(),
-                    ),
-                  );
+                  Future.delayed(const Duration(milliseconds: 220), () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TeacherPage(),
+                      ),
+                    );
+                  });
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,
@@ -98,9 +104,25 @@ class _LoginPageTState extends State<LoginPageT> {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPageS(),
+                  ),
+                );
+              },
+              child: const Text(
+                "Öğrenci Girişi",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
             const Expanded(
               child: SizedBox(
-                height: 125,
+                height: 100,
               ),
             ),
           ],
