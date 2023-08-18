@@ -3,8 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:sanofi_main/generate_qr.dart';
 import 'package:sanofi_main/pages/login_page_s.dart';
 
+// ignore: must_be_immutable
 class StudentPage extends StatefulWidget {
-  const StudentPage({super.key});
+  StudentPage({super.key, this.data1, this.data2});
+  TextEditingController? data1 = TextEditingController();
+  TextEditingController? data2 = TextEditingController();
 
   @override
   State<StudentPage> createState() => _StudentPageState();
@@ -20,7 +23,6 @@ class _StudentPageState extends State<StudentPage> {
 
   @override
   Widget build(BuildContext context) {
-    final getTfF = LoginPageS();
     return Scaffold(
       body: Column(
         children: [
@@ -62,7 +64,9 @@ class _StudentPageState extends State<StudentPage> {
           const SizedBox(
             height: 100,
           ),
-          generateQR(""),
+          // Inside the StudentPage's build method
+          generateQR('${widget.data1?.text ?? ""} ${widget.data2?.text ?? ""}'),
+
           const SizedBox(
             height: 70,
           ),

@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
 
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const LoginPageS()));
+          context, MaterialPageRoute(builder: (context) => LoginPageS()));
     });
   }
 
