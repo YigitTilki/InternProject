@@ -17,8 +17,8 @@ class QrScanTeacher extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => QRViewExample()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const QRViewExample()));
               },
               child: Stack(
                 alignment: Alignment.center,

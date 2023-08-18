@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sanofi_main/pages/login_page_s.dart';
 
-import 'package:sanofi_main/pages/student_page.dart';
-import 'package:sanofi_main/pages/qr_scan_teacher.dart';
 import 'package:sanofi_main/pages/teacher_page.dart';
 
 class LoginPageT extends StatefulWidget {
@@ -87,7 +85,7 @@ class _LoginPageTState extends State<LoginPageT> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TeacherPage(),
+                        builder: (context) => const TeacherPage(),
                       ),
                     );
                   });
@@ -111,7 +109,7 @@ class _LoginPageTState extends State<LoginPageT> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const LoginPageS(),
+                    builder: (context) => LoginPageS(),
                   ),
                 );
               },

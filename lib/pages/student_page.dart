@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sanofi_main/generate_qr.dart';
+import 'package:sanofi_main/pages/login_page_s.dart';
 
 class StudentPage extends StatefulWidget {
   const StudentPage({super.key});
@@ -19,6 +20,7 @@ class _StudentPageState extends State<StudentPage> {
 
   @override
   Widget build(BuildContext context) {
+    final getTfF = LoginPageS();
     return Scaffold(
       body: Column(
         children: [
@@ -60,7 +62,7 @@ class _StudentPageState extends State<StudentPage> {
           const SizedBox(
             height: 100,
           ),
-          generateQR(),
+          generateQR(""),
           const SizedBox(
             height: 70,
           ),

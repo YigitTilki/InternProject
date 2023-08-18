@@ -64,11 +64,11 @@ class _TeacherPageState extends State<TeacherPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 10.0),
+                padding: const EdgeInsets.only(right: 10.0),
                 child: IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => QrScanTeacher()));
+                        builder: (context) => const QrScanTeacher()));
                   },
                   icon: const Icon(
                     Icons.add,

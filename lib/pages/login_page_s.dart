@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:sanofi_main/pages/login_page_t.dart';
 
-import 'package:sanofi_main/pages/student_page.dart';
+import 'package:sanofi_main/widgets/text_form_field.dart';
 
-class LoginPageS extends StatefulWidget {
-  const LoginPageS({super.key});
+import '../widgets/sign_in_button.dart';
 
-  @override
-  State<LoginPageS> createState() => _LoginPageSState();
-}
+class LoginPageS extends StatelessWidget {
+  LoginPageS({super.key});
 
-class _LoginPageSState extends State<LoginPageS> {
+  final myController1 = TextEditingController();
+
+  final myController2 = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,57 +38,16 @@ class _LoginPageSState extends State<LoginPageS> {
                 height: 227,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 25.0, left: 25, top: 10),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Ad-Soyad",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-              ),
-            ),
+            textFormFieldProcess("Ad-Soyad", myController1),
             const SizedBox(
               height: 35,
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 25.0, left: 25, top: 10),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Sicil No",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-              ),
-            ),
+            textFormFieldProcess("Sicil No", myController2),
             const SizedBox(
               height: 30,
             ),
             SizedBox(
-              child: ElevatedButton(
-                onPressed: () {
-                  Future.delayed(const Duration(milliseconds: 200), () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const StudentPage(),
-                      ),
-                    );
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40),
-                    ),
-                    minimumSize: const Size(100, 35)),
-                child: const Text(
-                  "Giriş",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
+              child: signInMethod(context),
             ),
             const SizedBox(
               height: 10,

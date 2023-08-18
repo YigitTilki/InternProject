@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "642138788323",
+    "project_id": "sanofi-attendance-app",
+    "storage_bucket": "sanofi-attendance-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642138788323:android:4439f75e77d5e4cce710d6",
+        "android_client_info": {
+          "package_name": "com.example.sanofi_main"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642138788323-51t1tbdaht0l122ej4n1vn31qlrs5i11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvfpqNNJJ02Rw1CofK73LGgCx9qVQX2D0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642138788323-51t1tbdaht0l122ej4n1vn31qlrs5i11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
