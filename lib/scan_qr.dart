@@ -1,9 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:sanofi_main/list_sicil.dart';
+import 'package:sanofi_main/pages/teacher_page.dart';
 
 class QRViewExample extends StatefulWidget {
   const QRViewExample({Key? key}) : super(key: key);
@@ -13,6 +16,9 @@ class QRViewExample extends StatefulWidget {
 }
 
 class _QRViewExampleState extends State<QRViewExample> {
+  late final String? id;
+  late final String? fullName;
+  late final String? sicil;
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -30,6 +36,10 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   @override
   Widget build(BuildContext context) {
+    var listSicil = ListSicil().data;
+    var lessons = TeacherPage().data4;
+    CollectionReference attendance =
+        FirebaseFirestore.instance.collection(lessons.toString());
     return Scaffold(
       body: Column(
         children: <Widget>[

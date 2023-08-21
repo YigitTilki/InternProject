@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sanofi_main/pages/qr_scan_teacher.dart';
 
+import '../scan_qr.dart';
+
+// ignore: must_be_immutable
 class TeacherPage extends StatefulWidget {
-  const TeacherPage({super.key});
+  TeacherPage({super.key, this.data1, this.data2, this.data3, this.data4});
+  TextEditingController? data1 = TextEditingController();
+  TextEditingController? data2 = TextEditingController();
+  TextEditingController? data3 = TextEditingController();
+  String? data4;
 
   @override
   State<TeacherPage> createState() => _TeacherPageState();
@@ -20,65 +27,56 @@ class _TeacherPageState extends State<TeacherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Container(
-                    height: 139,
-                    width: 320,
-                    decoration: const BoxDecoration(
-                      color: Color(0xff8432C5),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(44),
-                      ),
-                    ),
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 20.0),
-                            child: Text(
-                              "İbrahim Çerkezoğlu",
-                              style:
-                                  TextStyle(fontSize: 36, color: Colors.black),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            "15664",
-                            style: TextStyle(fontSize: 24, color: Colors.white),
-                          ),
-                        ),
-                      ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                Text(
+                  widget.data1?.text.toString() ?? "",
+                  style: const TextStyle(fontSize: 36),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  widget.data4?.toString() ?? "",
+                  style: const TextStyle(
+                      fontSize: 36, color: Color.fromRGBO(83, 42, 155, 1)),
+                ),
+              ],
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const QRViewExample()));
+              },
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  const Icon(
+                    Icons.camera_alt_outlined,
+                    size: 140,
+                  ),
+                  Opacity(
+                    opacity: 0.5,
+                    child: Image.asset(
+                      "assets/pngwing.com.png",
+                      width: 200,
+                      height: 200,
                     ),
                   ),
-                ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10.0),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const QrScanTeacher()));
-                  },
-                  icon: const Icon(
-                    Icons.add,
-                    size: 50,
-                  ),
-                ),
-              )
-            ],
-          ),
-        ],
+            ),
+            Image.asset(
+              "assets/SNY_BIG.png",
+              width: 278,
+              height: 61,
+            ),
+          ],
+        ),
       ),
     );
   }

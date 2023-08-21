@@ -1,10 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sanofi_main/pages/login_page_t.dart';
 
 import 'package:sanofi_main/pages/student_page.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
-
-import '../widgets/sign_in_button.dart';
 
 class LoginPageS extends StatefulWidget {
   const LoginPageS({super.key});
@@ -14,10 +13,12 @@ class LoginPageS extends StatefulWidget {
 }
 
 class _LoginPageSState extends State<LoginPageS> {
+  FirebaseFirestore db = FirebaseFirestore.instance;
   final myController1 = TextEditingController();
   final myController2 = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final docRef = db.collection("Users").doc("1");
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Center(
@@ -53,16 +54,26 @@ class _LoginPageSState extends State<LoginPageS> {
             SizedBox(
               child: ElevatedButton(
                 onPressed: () {
-                  Future.delayed(const Duration(milliseconds: 200), () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => StudentPage(
-                          data1: myController1,
-                          data2: myController2,
-                        ),
-                      ),
-                    );
+                  Future.delayed(const Duration(milliseconds: 200), () async {
+                    await docRef.get().then((DocumentSnapshot doc) {
+                      final data = doc.data() as Map<String, dynamic>;
+                      if (data["FullName"].toString() ==
+                              myController1.text.toString() &&
+                          data["Sicil"].toString() ==
+                              myController2.text.toString()) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => StudentPage(
+                              data1: myController1,
+                              data2: myController2,
+                            ),
+                          ),
+                        );
+                      } else {
+                        debugPrint("olmadı");
+                      }
+                    });
                   });
                 },
                 style: ElevatedButton.styleFrom(
