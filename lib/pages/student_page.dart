@@ -74,11 +74,7 @@ class _StudentPageState extends State<StudentPage> {
                 ],
               ),
             ),
-            Image.asset(
-              "assets/SNY_BIG.png",
-              width: 278,
-              height: 61,
-            ),
+            Constants.sanofiBig(),
           ],
         ),
       ),

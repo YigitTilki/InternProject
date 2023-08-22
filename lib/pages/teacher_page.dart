@@ -46,11 +46,7 @@ class _TeacherPageState extends State<TeacherPage> {
           const SizedBox(
             height: 70,
           ),
-          Image.asset(
-            "assets/SNY_BIG.png",
-            width: 278,
-            height: 61,
-          ),
+          Constants.sanofiBig(),
           const SizedBox(
             height: 100,
           )

@@ -35,14 +35,7 @@ class _LoginPageTState extends State<LoginPageT> {
                 height: 119,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0, bottom: 8),
-              child: SizedBox(
-                height: 51.56,
-                width: 200,
-                child: Image.asset("assets/SNY_BIG.png"),
-              ),
-            ),
+            Constants.sanofiBig(),
             Text(
               "Eğitim Yoklama Sistemi",
               style: Constants.getTextStyle(Colors.black, 15.0),

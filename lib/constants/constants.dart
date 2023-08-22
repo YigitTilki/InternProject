@@ -9,4 +9,15 @@ class Constants {
       fontSize: size,
     );
   }
+
+  static Padding sanofiBig() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0, bottom: 8),
+      child: SizedBox(
+        height: 61,
+        width: 278,
+        child: Image.asset("assets/SNY_BIG.png"),
+      ),
+    );
+  }
 }
