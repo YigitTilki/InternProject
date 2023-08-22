@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sanofi_main/pages/login_page_t.dart';
-
 import 'package:sanofi_main/pages/student_page.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 
 class LoginPageS extends StatefulWidget {
-  const LoginPageS({super.key});
+  const LoginPageS({Key? key}) : super(key: key);
 
   @override
   State<LoginPageS> createState() => _LoginPageSState();
@@ -16,9 +15,9 @@ class _LoginPageSState extends State<LoginPageS> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   final myController1 = TextEditingController();
   final myController2 = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final docRef = db.collection("Users").doc("1");
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Center(
@@ -53,14 +52,19 @@ class _LoginPageSState extends State<LoginPageS> {
             ),
             SizedBox(
               child: ElevatedButton(
-                onPressed: () {
-                  Future.delayed(const Duration(milliseconds: 200), () async {
-                    await docRef.get().then((DocumentSnapshot doc) {
+                onPressed: () async {
+                  final sicilNo = myController2.text.toString();
+
+                  if (sicilNo.isNotEmpty) {
+                    final docRef = db.collection("Users").doc(sicilNo);
+
+                    try {
+                      final doc = await docRef.get();
                       final data = doc.data() as Map<String, dynamic>;
+
                       if (data["FullName"].toString() ==
-                              myController1.text.toString() &&
-                          data["Sicil"].toString() ==
-                              myController2.text.toString()) {
+                          myController1.text.toString()) {
+                        // ignore: use_build_context_synchronously
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -73,15 +77,26 @@ class _LoginPageSState extends State<LoginPageS> {
                       } else {
                         debugPrint("olmadı");
                       }
-                    });
-                  });
+                    } catch (e) {
+                      // Handle errors, such as document not found
+                      debugPrint("Error: $e");
+                    }
+                  } else {
+                    // Handle the case where Sicil No is empty
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Sicil No alanını doldurun.'),
+                      ),
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40),
-                    ),
-                    minimumSize: const Size(100, 35)),
+                  backgroundColor: Colors.purple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  minimumSize: const Size(100, 35),
+                ),
                 child: const Text(
                   "Giriş",
                   style: TextStyle(fontSize: 16),

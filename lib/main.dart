@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sanofi_main/dropdown.dart';
 import 'package:sanofi_main/pages/home_page.dart';
 
 import 'package:flutter/material.dart';
@@ -27,7 +26,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(focusColor: Colors.red),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }

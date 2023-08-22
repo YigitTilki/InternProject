@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sanofi_main/pages/qr_scan_teacher.dart';
 
-import '../scan_qr.dart';
+import '../generate_qr.dart';
 
 // ignore: must_be_immutable
 class TeacherPage extends StatefulWidget {
@@ -27,56 +26,70 @@ class _TeacherPageState extends State<TeacherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              children: [
-                Text(
-                  widget.data1?.text.toString() ?? "",
-                  style: const TextStyle(fontSize: 36),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  widget.data4?.toString() ?? "",
-                  style: const TextStyle(
-                      fontSize: 36, color: Color.fromRGBO(83, 42, 155, 1)),
-                ),
-              ],
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const QRViewExample()));
-              },
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  const Icon(
-                    Icons.camera_alt_outlined,
-                    size: 140,
-                  ),
-                  Opacity(
-                    opacity: 0.5,
-                    child: Image.asset(
-                      "assets/pngwing.com.png",
-                      width: 200,
-                      height: 200,
-                    ),
-                  ),
-                ],
+      body: Column(
+        children: [
+          Align(
+            alignment: Alignment.topLeft,
+            child: student_p_purple_container(),
+          ),
+          const SizedBox(
+            height: 100,
+          ),
+          Text(
+            "${widget.data4 ?? ""} için QR kod",
+            style: const TextStyle(fontSize: 20),
+          ),
+          // Inside the StudentPage's build method
+          generateQR(widget.data4 ?? ""),
+
+          const SizedBox(
+            height: 70,
+          ),
+          Image.asset(
+            "assets/SNY_BIG.png",
+            width: 278,
+            height: 61,
+          ),
+          const SizedBox(
+            height: 100,
+          )
+        ],
+      ),
+    );
+  }
+
+  // ignore: non_constant_identifier_names
+  Container student_p_purple_container() {
+    return Container(
+      height: 139,
+      width: 256,
+      decoration: const BoxDecoration(
+        color: Color(0xff8432C5),
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(44),
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Text(
+                widget.data1?.text.toString() ?? "",
+                style: const TextStyle(fontSize: 36, color: Colors.black),
               ),
             ),
-            Image.asset(
-              "assets/SNY_BIG.png",
-              width: 278,
-              height: 61,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: Text(
+              widget.data2?.text.toString() ?? "",
+              style: const TextStyle(fontSize: 24, color: Colors.white),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

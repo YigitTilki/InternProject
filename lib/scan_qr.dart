@@ -1,24 +1,25 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:sanofi_main/list_sicil.dart';
-import 'package:sanofi_main/pages/teacher_page.dart';
 
 class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key? key}) : super(key: key);
+  final String? fullName;
+  final String? sicil;
+  const QRViewExample({
+    Key? key,
+    required this.fullName,
+    required this.sicil,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _QRViewExampleState();
 }
 
 class _QRViewExampleState extends State<QRViewExample> {
-  late final String? id;
-  late final String? fullName;
-  late final String? sicil;
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -36,11 +37,42 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   @override
   Widget build(BuildContext context) {
-    var listSicil = ListSicil().data;
-    var lessons = TeacherPage().data4;
+    String? dersVeri = result?.code;
     CollectionReference attendance =
-        FirebaseFirestore.instance.collection(lessons.toString());
+        FirebaseFirestore.instance.collection(dersVeri.toString());
+
+    Future<void> addUser() {
+      return attendance.doc(widget.sicil).set({
+        "FullName": widget.fullName.toString(),
+        "Sicil": widget.sicil.toString()
+      });
+    }
+
     return Scaffold(
+      body: Column(
+        children: [
+          Expanded(flex: 4, child: _buildQrView(context)),
+          Expanded(
+            flex: 1,
+            child: result != null
+                ? FutureBuilder<void>(
+                    future: addUser(), // Call addUser when result is not null
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return const Text('Kod okundu derse girildi');
+                      } else {
+                        // Handle loading state here if needed
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  )
+                : const Text('Scan a code'),
+          ),
+        ],
+      ),
+    );
+
+    /*Scaffold(
       body: Column(
         children: <Widget>[
           Expanded(flex: 4, child: _buildQrView(context)),
@@ -127,7 +159,7 @@ class _QRViewExampleState extends State<QRViewExample> {
           )
         ],
       ),
-    );
+    );*/
   }
 
   Widget _buildQrView(BuildContext context) {

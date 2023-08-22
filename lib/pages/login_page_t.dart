@@ -75,7 +75,7 @@ class _LoginPageTState extends State<LoginPageT> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: 25.0, left: 25, top: 5),
+              padding: const EdgeInsets.only(right: 25.0, left: 25, top: 5),
               child: DropDown(
                   selectedLesson: selectedLesson,
                   onSelectionChanged: (newValue) {
