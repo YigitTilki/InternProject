@@ -4,6 +4,8 @@ import 'package:sanofi_main/pages/login_page_t.dart';
 import 'package:sanofi_main/pages/student_page.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 
+import '../constants/constants.dart';
+
 class LoginPageS extends StatefulWidget {
   const LoginPageS({Key? key}) : super(key: key);
 
@@ -36,7 +38,10 @@ class _LoginPageSState extends State<LoginPageS> {
                 child: Image.asset("assets/SNY_BIG.png"),
               ),
             ),
-            const Text("Eğitim Yoklama Sistemi"),
+            Text(
+              "Eğitim Yoklama Sistemi",
+              style: Constants.getTextStyle(Colors.black, 15.0),
+            ),
             const Expanded(
               child: SizedBox(
                 height: 227,
@@ -97,9 +102,9 @@ class _LoginPageSState extends State<LoginPageS> {
                   ),
                   minimumSize: const Size(100, 35),
                 ),
-                child: const Text(
+                child: Text(
                   "Giriş",
-                  style: TextStyle(fontSize: 16),
+                  style: Constants.getTextStyle(Colors.white, 16.0),
                 ),
               ),
             ),
@@ -114,9 +119,9 @@ class _LoginPageSState extends State<LoginPageS> {
                   ),
                 );
               },
-              child: const Text(
+              child: Text(
                 "Eğitimci Girişi",
-                style: TextStyle(color: Colors.black),
+                style: Constants.getTextStyle(Colors.black, 14.0),
               ),
             ),
             const Expanded(

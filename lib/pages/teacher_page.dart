@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../constants/constants.dart';
 import '../generate_qr.dart';
 
 // ignore: must_be_immutable
@@ -37,7 +38,7 @@ class _TeacherPageState extends State<TeacherPage> {
           ),
           Text(
             "${widget.data4 ?? ""} için QR kod",
-            style: const TextStyle(fontSize: 20),
+            style: Constants.getTextStyle(Colors.black, 20.0),
           ),
           // Inside the StudentPage's build method
           generateQR(widget.data4 ?? ""),
@@ -78,7 +79,7 @@ class _TeacherPageState extends State<TeacherPage> {
               padding: const EdgeInsets.only(left: 20.0),
               child: Text(
                 widget.data1?.text.toString() ?? "",
-                style: const TextStyle(fontSize: 36, color: Colors.black),
+                style: Constants.getTextStyle(Colors.black, 36.0),
               ),
             ),
           ),
@@ -86,7 +87,7 @@ class _TeacherPageState extends State<TeacherPage> {
             padding: const EdgeInsets.only(left: 15.0),
             child: Text(
               widget.data2?.text.toString() ?? "",
-              style: const TextStyle(fontSize: 24, color: Colors.white),
+              style: Constants.getTextStyle(Colors.white, 24.0),
             ),
           ),
         ],

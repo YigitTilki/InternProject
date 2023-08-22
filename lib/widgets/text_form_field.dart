@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants/constants.dart';
+
 Padding textFormFieldProcess(
     String labeltext, TextEditingController controller) {
   return Padding(
@@ -8,6 +10,7 @@ Padding textFormFieldProcess(
       controller: controller,
       decoration: InputDecoration(
         labelText: labeltext,
+        labelStyle: Constants.getTextStyle(Colors.grey, 14.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
         ),

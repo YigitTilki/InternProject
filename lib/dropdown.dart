@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'constants/constants.dart';
+
 class DropDown extends StatefulWidget {
   const DropDown(
       {super.key,
@@ -40,13 +42,19 @@ class _DropDownState extends State<DropDown> {
         }).toList();
 
         return DropdownButton<String>(
-          hint: const Text("Ders Seçiniz"),
+          hint: Text(
+            "Ders Seçiniz",
+            style: Constants.getTextStyle(Colors.grey, 14.0),
+          ),
 
           value: widget.selectedLesson, // Seçili değer
           items: lessonList.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value),
+              child: Text(
+                value,
+                style: Constants.getTextStyle(Colors.black, 14.0),
+              ),
             );
           }).toList(),
           onChanged: (String? newValue) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../constants/constants.dart';
 import '../scan_qr.dart';
 
 // ignore: must_be_immutable
@@ -32,15 +33,15 @@ class _StudentPageState extends State<StudentPage> {
               children: [
                 Text(
                   widget.data1?.text.toString() ?? "",
-                  style: const TextStyle(fontSize: 36),
+                  style: Constants.getTextStyle(Colors.black, 36.0),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 Text(
                   widget.data2?.text.toString() ?? "",
-                  style: const TextStyle(
-                      fontSize: 36, color: Color.fromRGBO(83, 42, 155, 1)),
+                  style: Constants.getTextStyle(
+                      const Color.fromRGBO(83, 42, 155, 1), 36.0),
                 ),
               ],
             ),
