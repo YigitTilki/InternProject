@@ -5,8 +5,6 @@ import 'package:sanofi_main/adminstator_process.dart/add_participant.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_teacher.dart';
 import 'package:sanofi_main/constants/constants.dart';
 import 'package:sanofi_main/widgets/alert_dialog.dart';
-import 'package:sanofi_main/widgets/elevated_button.dart';
-import 'package:sanofi_main/widgets/text_form_field.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
