@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/constants.dart';
 import '../widgets/alert_dialog.dart';
 import '../widgets/elevated_button.dart';
 import '../widgets/text_form_field.dart';
@@ -20,6 +21,16 @@ GestureDetector teacherAdd(context) {
         "Sicil": myController2.text.toString(),
         "Password": myController3.text.toString()
       });
+
+      Navigator.pop(context);
+    } catch (error) {
+      debugPrint("Hata oluştu: $error");
+    }
+  }
+
+  Future<void> deleteUserE() async {
+    try {
+      await attendance.doc(myController2.text.toString()).delete();
 
       Navigator.pop(context);
     } catch (error) {
@@ -48,43 +59,84 @@ GestureDetector teacherAdd(context) {
                 height: 250,
                 child: Column(
                   children: [
-                    textFormFieldProcess("Ad-Soyad", myController1),
-                    textFormFieldProcess("Sicil No", myController2),
-                    textFormFieldProcess("Password", myController3),
+                    Expanded(
+                        flex: 2,
+                        child: textFormFieldProcess("Ad-Soyad", myController1)),
+                    Expanded(
+                        flex: 2,
+                        child: textFormFieldProcess("Sicil No", myController2)),
+                    Expanded(
+                        flex: 2,
+                        child: textFormFieldProcess("Password", myController3)),
                   ],
                 ),
               ),
             ),
             [
               Expanded(
-                  child: elevatedButtonProcess(
-                      const Text("Ekle"),
-                      () => FutureBuilder<void>(
-                            future: addUserE(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                return const Text('Kod okundu derse girildi');
-                              } else {
-                                return const CircularProgressIndicator();
-                              }
-                            },
-                          )))
+                child: elevatedButtonProcess(
+                  const Text("Ekle/Güncelle"),
+                  () => FutureBuilder<void>(
+                    future: addUserE(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return const Text('Kod okundu derse girildi');
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: elevatedButtonProcess(
+                  const Text("Sil"),
+                  () => FutureBuilder<void>(
+                    future: deleteUserE(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return const Text('Kullanıcı Silindi');
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  ),
+                ),
+              ),
             ],
           );
         },
       );
     },
     child: Container(
-      width: 328,
-      height: 105,
+      width: 160,
+      height: 99,
       decoration: ShapeDecoration(
         color: const Color(0xCC7B00EB),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      child: Image.asset("assets/teacher.png"),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: Image.asset(
+              "assets/teacher.png",
+              width: 70,
+              height: 70,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Text(
+              "Eğitimci Ekle",
+              style: Constants.getTextStyle(Colors.white, 15.0),
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }

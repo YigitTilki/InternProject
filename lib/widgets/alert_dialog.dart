@@ -11,8 +11,7 @@ AlertDialog alertDialogProcess(
     icon: icon,
     content: content,
     iconPadding: const EdgeInsets.only(top: 10, bottom: 5),
-    contentPadding:
-        const EdgeInsets.only(top: 10, bottom: 10, right: 25, left: 25),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     actionsAlignment: MainAxisAlignment.center,
     actionsPadding: const EdgeInsets.all(5),
     actions: actions,

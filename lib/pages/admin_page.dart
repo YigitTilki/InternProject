@@ -33,10 +33,47 @@ class _AdminPageState extends State<AdminPage> {
               flex: 1,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(127, 80, 127, 100),
-                child: Image.asset(
-                  "assets/adminicon.png",
-                  height: 95,
-                  width: 95,
+                child: GestureDetector(
+                  onDoubleTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return alertDialogProcess(
+                              Text(
+                                "Saygılarla",
+                                textAlign: TextAlign.center,
+                                style:
+                                    Constants.getTextStyle(Colors.black, 36.0),
+                              ),
+                              null,
+                              SizedBox(
+                                height: 100,
+                                width: 500,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      "Yiğit Tilki",
+                                      style: Constants.getTextStyle(
+                                          Colors.black, 15.0),
+                                    ),
+                                    Text(
+                                      "İbrahim Çerkezoğlu",
+                                      style: Constants.getTextStyle(
+                                          Colors.black, 15.0),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              null);
+                        });
+                  },
+                  child: Image.asset(
+                    "assets/adminicon.png",
+                    height: 95,
+                    width: 95,
+                  ),
                 ),
               ),
             ),
