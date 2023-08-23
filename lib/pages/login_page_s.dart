@@ -27,7 +27,7 @@ class _LoginPageSState extends State<LoginPageS> {
           children: [
             const Expanded(
               child: SizedBox(
-                height: 119,
+                height: 100,
               ),
             ),
             Constants.sanofiBig(),
@@ -37,16 +37,16 @@ class _LoginPageSState extends State<LoginPageS> {
             ),
             const Expanded(
               child: SizedBox(
-                height: 227,
+                height: 50,
               ),
             ),
             textFormFieldProcess("Ad-Soyad", myController1),
             const SizedBox(
-              height: 35,
+              height: 10,
             ),
             textFormFieldProcess("Sicil No", myController2),
             const SizedBox(
-              height: 30,
+              height: 10,
             ),
             SizedBox(
               child: ElevatedButton(
@@ -102,7 +102,7 @@ class _LoginPageSState extends State<LoginPageS> {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             TextButton(
               onPressed: () {

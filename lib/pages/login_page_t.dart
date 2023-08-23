@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sanofi_main/dropdown.dart';
+import 'package:sanofi_main/pages/admin_page.dart';
 import 'package:sanofi_main/pages/login_page_s.dart';
 
 import 'package:sanofi_main/pages/teacher_page.dart';
+import 'package:sanofi_main/widgets/alert_dialog.dart';
+import 'package:sanofi_main/widgets/elevated_button.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 
 import '../constants/constants.dart';
@@ -22,17 +25,19 @@ class _LoginPageTState extends State<LoginPageT> {
   final myController2 = TextEditingController();
   final myController3 = TextEditingController();
   String? selectedLesson;
-
+  final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    String password = "sifre";
     final docRef = db.collection("UsersE").doc("1");
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
           children: [
             const Expanded(
               child: SizedBox(
-                height: 119,
+                height: 100,
               ),
             ),
             Constants.sanofiBig(),
@@ -42,38 +47,24 @@ class _LoginPageTState extends State<LoginPageT> {
             ),
             const Expanded(
               child: SizedBox(
-                height: 227,
+                height: 100,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 25.0, left: 25, top: 5),
-              child: textFormFieldProcess("Ad-Soyad", myController1),
+            textFormFieldProcess("Ad-Soyad", myController1),
+            const SizedBox(
+              height: 10,
             ),
-            const Expanded(
-              child: SizedBox(
-                height: 35,
-              ),
+            textFormFieldProcess("Sicil No", myController2),
+            const SizedBox(
+              height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 25.0, left: 25, top: 5),
-              child: textFormFieldProcess("Sicil No", myController2),
-            ),
-            const Expanded(
-              child: SizedBox(
-                height: 30,
-              ),
+            textFormFieldProcess("Şifre", myController3),
+            const SizedBox(
+              height: 10,
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 25.0, left: 25, top: 5),
-              child: textFormFieldProcess("Şifre", myController3),
-            ),
-            const Expanded(
-              child: SizedBox(
-                height: 20,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 25.0, left: 25, top: 5),
+              padding: const EdgeInsets.only(
+                  right: 25.0, left: 25, top: 15, bottom: 50),
               child: DropDown(
                   selectedLesson: selectedLesson,
                   onSelectionChanged: (newValue) {
@@ -81,11 +72,6 @@ class _LoginPageTState extends State<LoginPageT> {
                       selectedLesson = newValue;
                     });
                   }),
-            ),
-            const Expanded(
-              child: SizedBox(
-                height: 20,
-              ),
             ),
             SizedBox(
               child: ElevatedButton(
@@ -128,11 +114,6 @@ class _LoginPageTState extends State<LoginPageT> {
                 ),
               ),
             ),
-            const Expanded(
-              child: SizedBox(
-                height: 10,
-              ),
-            ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).push(
@@ -146,11 +127,71 @@ class _LoginPageTState extends State<LoginPageT> {
                 style: Constants.getTextStyle(Colors.black, 14.0),
               ),
             ),
-            const Expanded(
-              child: SizedBox(
-                height: 100,
+            const SizedBox(
+              height: 50,
+            ),
+            GestureDetector(
+              onLongPress: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return alertDialogProcess(
+                      null,
+                      const Icon(Icons.lock_outlined),
+                      SizedBox(
+                        width: 400,
+                        child: textFormFieldProcess(
+                            "Admin Password", passwordController),
+                      ),
+                      [
+                        elevatedButtonProcess(
+                          Text(
+                            "Giriş",
+                            style: Constants.getTextStyle(Colors.white, 16.0),
+                          ),
+                          () {
+                            if (passwordController.text.toString() ==
+                                password) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const AdminPage(),
+                                ),
+                              );
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    elevation: 0,
+                                    backgroundColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    title: Text(
+                                      "Şifre Hatalı",
+                                      style: Constants.getTextStyle(
+                                          Colors.red, 48.0),
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Image.asset(
+                "assets/SNY.png",
+                height: 20,
+                width: 20,
               ),
             ),
+            const SizedBox(
+              height: 25,
+            )
           ],
         ),
       ),

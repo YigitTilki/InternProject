@@ -41,8 +41,8 @@ class _QRViewExampleState extends State<QRViewExample> {
     CollectionReference attendance =
         FirebaseFirestore.instance.collection(dersVeri.toString());
 
-    Future<void> addUser() {
-      return attendance.doc(widget.sicil).set({
+    Future<void> addUser() async {
+      return await attendance.doc(widget.sicil).set({
         "FullName": widget.fullName.toString(),
         "Sicil": widget.sicil.toString()
       });

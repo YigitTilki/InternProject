@@ -71,6 +71,15 @@ flutter:
     - assets/SNY.png
     - assets/SNY_BIG.png
     - assets/pngwing.com.png
+    - assets/adminicon.png
+    - assets/library.png
+    - assets/participant.png
+    - assets/plusicon.png
+    - assets/teacher.png
+
+
+
+    
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
