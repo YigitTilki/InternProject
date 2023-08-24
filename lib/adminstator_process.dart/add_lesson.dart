@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sanofi_main/widgets/containers.dart';
 
 import '../constants/constants.dart';
 import '../widgets/alert_dialog.dart';
@@ -42,18 +43,19 @@ GestureDetector lessonAdd(context) {
           myController1 = TextEditingController();
 
           return alertDialogProcess(
-            const Text(
-              "Ders Ekle",
+            Text(
+              "Eğitim",
               textAlign: TextAlign.center,
+              style: Constants.getTextStyle(Colors.black, 24.0),
             ),
             null,
             Expanded(
               child: SizedBox(
                 width: 500,
-                height: 100,
+                height: 80,
                 child: Column(
                   children: [
-                    textFormFieldProcess("Ders Adı", myController1),
+                    textFormFieldProcess("Eğitim Adı", myController1),
                   ],
                 ),
               ),
@@ -94,35 +96,6 @@ GestureDetector lessonAdd(context) {
         },
       );
     },
-    child: Container(
-      width: 152,
-      height: 99,
-      decoration: ShapeDecoration(
-        color: const Color(0xCC7B00EB),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: Image.asset(
-              "assets/library.png",
-              height: 70,
-              width: 70,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Text(
-              "Eğitim Ekle",
-              style: Constants.getTextStyle(Colors.white, 15.0),
-            ),
-          ),
-        ],
-      ),
-    ),
+    child: adminPageContainerDesign("assets/library.png", "Eğitim"),
   );
 }

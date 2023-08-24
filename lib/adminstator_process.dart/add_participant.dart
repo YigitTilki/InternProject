@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sanofi_main/constants/constants.dart';
 
-import '../widgets/alert_dialog.dart';
-import '../widgets/elevated_button.dart';
-import '../widgets/text_form_field.dart';
+import '../widgets/containers.dart';
 
-GestureDetector attendanceAdd(context) {
+import 'admin_pop_up.dart/adddelete_user_popup.dart';
+
+GestureDetector participantAdd(context) {
   TextEditingController myController1 = TextEditingController();
   TextEditingController myController2 = TextEditingController();
   CollectionReference attendance =
@@ -35,103 +34,22 @@ GestureDetector attendanceAdd(context) {
     }
   }
 
-  return GestureDetector(
-    onTap: () {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          myController1 = TextEditingController();
-          myController2 = TextEditingController();
+  Future<void> updateUser() {
+    return attendance
+        .doc(myController2.text.toString())
+        .update({'FullName': myController1.text.toString()})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
 
-          return alertDialogProcess(
-            Text(
-              "Katılımcı",
-              textAlign: TextAlign.center,
-              style: Constants.getTextStyle(Colors.black, 24.0),
-            ),
-            null,
-            Expanded(
-              flex: 1,
-              child: SizedBox(
-                width: 500,
-                height: 150,
-                child: Column(
-                  children: [
-                    Expanded(
-                        flex: 2,
-                        child: textFormFieldProcess("Ad-Soyad", myController1)),
-                    Expanded(
-                        flex: 2,
-                        child: textFormFieldProcess("Sicil No", myController2)),
-                  ],
-                ),
-              ),
-            ),
-            [
-              Expanded(
-                child: elevatedButtonProcess(
-                  const Text("Ekle/Güncelle"),
-                  () => FutureBuilder<void>(
-                    future: addUser(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return const Text('Kod okundu derse girildi');
-                      } else {
-                        return const CircularProgressIndicator();
-                      }
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                child: elevatedButtonProcess(
-                  const Text("Sil"),
-                  () => FutureBuilder<void>(
-                    future: deleteUser(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return const Text('Kullanıcı Silindi');
-                      } else {
-                        return const CircularProgressIndicator();
-                      }
-                    },
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      );
+  return GestureDetector(
+    onLongPress: () {
+      deleteUserPopUp(context, myController2, deleteUser);
     },
-    child: Container(
-      width: 152,
-      height: 99,
-      decoration: ShapeDecoration(
-        color: const Color(0xCC7B00EB),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: Image.asset(
-              "assets/participant.png",
-              height: 70,
-              width: 70,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Text(
-              "Katılımcı Ekle",
-              style: Constants.getTextStyle(Colors.white, 15.0),
-            ),
-          ),
-        ],
-      ),
-    ),
+    onTap: () {
+      addUserPopUp(context, myController1, myController2, attendance, addUser,
+          updateUser);
+    },
+    child: adminPageContainerDesign("assets/participant.png", "Katılımcı"),
   );
 }

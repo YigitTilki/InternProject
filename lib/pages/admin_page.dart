@@ -4,7 +4,6 @@ import 'package:sanofi_main/adminstator_process.dart/add_lesson.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_participant.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_teacher.dart';
 import 'package:sanofi_main/constants/constants.dart';
-import 'package:sanofi_main/widgets/alert_dialog.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -21,52 +20,73 @@ class _AdminPageState extends State<AdminPage> {
     super.initState();
   }
 
+  Future<bool> _onBackPressed() async {
+    return await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            backgroundColor: Colors.white, // Popup arka plan rengi
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20), // Şekil ayarı
+            ),
+            title: Text(
+              "Uygulamadan çıkmak istiyor musunuz?",
+              style: Constants.getTextStyle(Colors.black, 20.0),
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      Colors.purple, // İstenilen renge ayarlayabilirsiniz
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  // Diğer stil ayarları
+                ),
+                child: Text(
+                  "Hayır",
+                  style: Constants.getTextStyle(Colors.white, 14.0),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 0.0, right: 10.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                    SystemNavigator.pop(); // Uygulamadan çık
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        Colors.purple, // İstenilen renge ayarlayabilirsiniz
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    // Diğer stil ayarları
+                  ),
+                  child: Text(
+                    "Evet",
+                    style: Constants.getTextStyle(Colors.white, 14.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(127, 80, 127, 100),
-                child: GestureDetector(
-                  onDoubleTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return alertDialogProcess(
-                              Text(
-                                "Saygılarla",
-                                textAlign: TextAlign.center,
-                                style:
-                                    Constants.getTextStyle(Colors.black, 36.0),
-                              ),
-                              null,
-                              SizedBox(
-                                height: 100,
-                                width: 500,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      "Yiğit Tilki",
-                                      style: Constants.getTextStyle(
-                                          Colors.black, 15.0),
-                                    ),
-                                    Text(
-                                      "İbrahim Çerkezoğlu",
-                                      style: Constants.getTextStyle(
-                                          Colors.black, 15.0),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              null);
-                        });
-                  },
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(127, 80, 127, 100),
                   child: Image.asset(
                     "assets/adminicon.png",
                     height: 95,
@@ -74,20 +94,20 @@ class _AdminPageState extends State<AdminPage> {
                   ),
                 ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                attendanceAdd(context),
-                lessonAdd(context),
-              ],
-            ),
-            const SizedBox(
-              height: 21,
-            ),
-            teacherAdd(context),
-            Expanded(flex: 1, child: Constants.sanofiBig())
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  participantAdd(context),
+                  lessonAdd(context),
+                ],
+              ),
+              const SizedBox(
+                height: 21,
+              ),
+              teacherAdd(context),
+              Expanded(flex: 1, child: Constants.sanofiBig())
+            ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sanofi_main/widgets/containers.dart';
 
 import '../constants/constants.dart';
 import '../widgets/alert_dialog.dart';
@@ -39,6 +40,47 @@ GestureDetector teacherAdd(context) {
   }
 
   return GestureDetector(
+    onLongPress: () {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            myController2 = TextEditingController();
+
+            return alertDialogProcess(
+              Text(
+                "Eğitimci Sil",
+                textAlign: TextAlign.center,
+                style: Constants.getTextStyle(Colors.black, 24.0),
+              ),
+              null,
+              Expanded(
+                  child: SizedBox(
+                height: 80,
+                width: 500,
+                child: Expanded(
+                    flex: 2,
+                    child: textFormFieldProcess("Sicil No", myController2)),
+              )),
+              [
+                Expanded(
+                  child: elevatedButtonProcess(
+                    const Text("Sil"),
+                    () => FutureBuilder<void>(
+                      future: deleteUserE(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return const Text('Kullanıcı Silindi');
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            );
+          });
+    },
     onTap: () {
       showDialog(
         context: context,
@@ -48,9 +90,10 @@ GestureDetector teacherAdd(context) {
           myController3 = TextEditingController();
 
           return alertDialogProcess(
-            const Text(
+            Text(
               "Eğitimci Ekle",
               textAlign: TextAlign.center,
+              style: Constants.getTextStyle(Colors.black, 24.0),
             ),
             null,
             Expanded(
@@ -88,55 +131,11 @@ GestureDetector teacherAdd(context) {
                   ),
                 ),
               ),
-              Expanded(
-                child: elevatedButtonProcess(
-                  const Text("Sil"),
-                  () => FutureBuilder<void>(
-                    future: deleteUserE(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return const Text('Kullanıcı Silindi');
-                      } else {
-                        return const CircularProgressIndicator();
-                      }
-                    },
-                  ),
-                ),
-              ),
             ],
           );
         },
       );
     },
-    child: Container(
-      width: 160,
-      height: 99,
-      decoration: ShapeDecoration(
-        color: const Color(0xCC7B00EB),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: Image.asset(
-              "assets/teacher.png",
-              width: 70,
-              height: 70,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Text(
-              "Eğitimci Ekle",
-              style: Constants.getTextStyle(Colors.white, 15.0),
-            ),
-          ),
-        ],
-      ),
-    ),
+    child: adminPageContainerDesign("assets/teacher.png", "Eğitimci"),
   );
 }

@@ -4,10 +4,10 @@ class Constants {
   Constants._();
   static TextStyle getTextStyle(color, size) {
     return TextStyle(
-      color: color,
-      fontFamily: "JosefinSans",
-      fontSize: size,
-    );
+        color: color,
+        fontFamily: "JosefinSans",
+        fontSize: size,
+        decoration: TextDecoration.none);
   }
 
   static Padding sanofiBig() {
