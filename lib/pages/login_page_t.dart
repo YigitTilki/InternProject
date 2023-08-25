@@ -3,7 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sanofi_main/dropdown.dart';
+import 'package:sanofi_main/widgets/dropdown.dart';
 import 'package:sanofi_main/pages/admin_page.dart';
 import 'package:sanofi_main/pages/login_page_s.dart';
 

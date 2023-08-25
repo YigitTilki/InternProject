@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../constants/constants.dart';
-import '../generate_qr.dart';
+import '../widgets/generate_qr.dart';
 
 // ignore: must_be_immutable
 class TeacherPage extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../constants/constants.dart';
-import '../scan_qr.dart';
+import '../widgets/scan_qr.dart';
 
 // ignore: must_be_immutable
 class StudentPage extends StatefulWidget {
