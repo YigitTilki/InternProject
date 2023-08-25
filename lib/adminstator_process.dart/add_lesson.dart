@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sanofi_main/widgets/containers.dart';
 
-import 'admin_pop_up.dart/adddelete_user_popup.dart';
+import 'admin_pop_up.dart/adddeleteupdate_popup.dart';
 
 GestureDetector lessonAdd(context) {
   TextEditingController myController1 = TextEditingController();

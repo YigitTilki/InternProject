@@ -3,7 +3,7 @@ import 'package:sanofi_main/pages/home_page.dart';
 
 import 'package:flutter/material.dart';
 
-import 'firebase_options.dart';
+import 'db_helper.dart/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -77,13 +77,7 @@ Future<dynamic> addUserPopUp(
             ),
           ),
           Expanded(
-            child: elevatedButtonProcess(
-              Text(
-                "Geri Dön",
-                style: Constants.getTextStyle(Colors.white, 13.0),
-              ),
-              () => Navigator.pop(context),
-            ),
+            child: backElevatedButton(context, "Geri Dön"),
           ),
         ],
       );
@@ -132,14 +126,11 @@ Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
                           elevatedButtonProcess(
                             const Text("Onaylıyorum"),
                             () async {
-                              // Veritabanı referansını oluşturun (Firestore kullanıldığını varsayalım).
                               final docRef = collectionReference
                                   .doc(myController2.text.toString());
 
-                              // Dökümanı veritabanından alın.
                               final doc = await docRef.get();
 
-                              // Eğer döküman varsa (eşleşme bulunuyorsa):
                               if (doc.exists) {
                                 Navigator.pop(context);
                                 await docRef.delete();
@@ -170,13 +161,7 @@ Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
               ),
             ),
             Expanded(
-              child: elevatedButtonProcess(
-                Text(
-                  "Geri Dön",
-                  style: Constants.getTextStyle(Colors.white, 13.0),
-                ),
-                () => Navigator.pop(context),
-              ),
+              child: backElevatedButton(context, "Geri Dön"),
             ),
           ],
         );
@@ -249,13 +234,7 @@ Future<dynamic> addUserEpopUp(
             ),
           ),
           Expanded(
-            child: elevatedButtonProcess(
-              Text(
-                "Geri Dön",
-                style: Constants.getTextStyle(Colors.white, 13.0),
-              ),
-              () => Navigator.pop(context),
-            ),
+            child: backElevatedButton(context, "Geri Dön"),
           ),
         ],
       );
@@ -336,13 +315,7 @@ AlertDialog deleteUserEpopUp(
         ),
       ),
       Expanded(
-        child: elevatedButtonProcess(
-          Text(
-            "Geri Dön",
-            style: Constants.getTextStyle(Colors.white, 13.0),
-          ),
-          () => Navigator.pop(context),
-        ),
+        child: backElevatedButton(context, "Geri Dön"),
       ),
     ],
   );
@@ -379,130 +352,145 @@ Future<dynamic> addDeleteLessonPopUp(
         ),
         [
           Expanded(
-            child: elevatedButtonProcess(
-              const Text("Ekle"),
-              () {
-                Navigator.pop(context);
-                return showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return areYouSureUser(
-                      "Eklenilecek Kullanıcı: ${myController1.text.toString()}",
-                      "",
-                      "",
-                      attendance,
-                      context,
-                      addLesson,
-                      elevatedButtonProcess(
-                        const Text("Onaylıyorum"),
-                        () async {
-                          if (myController1.text.toString().isNotEmpty) {
-                            final docRef =
-                                attendance.doc(myController1.text.toString());
-
-                            // Dökümanı veritabanından alın.
-                            final doc = await docRef.get();
-                            if (doc.exists) {
-                              Navigator.pop(context);
-
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    elevation: 0,
-                                    backgroundColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    title: Text(
-                                      "Böyle bir ders zaten var",
-                                      style: Constants.getTextStyle(
-                                          Colors.red, 48.0),
-                                    ),
-                                  );
-                                },
-                              );
-                            } else {
-                              await addLesson();
-                            }
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Hatalı Giriş.'),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+            child:
+                addLessonButton(context, myController1, attendance, addLesson),
           ),
           Expanded(
-            child: elevatedButtonProcess(
-              const Text("Sil"),
-              () {
-                Navigator.pop(context);
-                return showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return areYouSureUser(
-                      "Silinecek Kullanıcı: ${myController1.text.toString()}",
-                      "",
-                      "",
-                      attendance,
-                      context,
-                      addLesson,
-                      elevatedButtonProcess(
-                        const Text("Onaylıyorum"),
-                        () async {
-                          if (myController1.text.toString().isNotEmpty) {
-                            final docRef =
-                                attendance.doc(myController1.text.toString());
-
-                            // Dökümanı veritabanından alın.
-                            final doc = await docRef.get();
-                            if (doc.exists) {
-                              await deleteLesson();
-                            } else {
-                              Navigator.pop(context);
-
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    elevation: 0,
-                                    backgroundColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    title: Text(
-                                      "Böyle bir ders yok",
-                                      style: Constants.getTextStyle(
-                                          Colors.red, 48.0),
-                                    ),
-                                  );
-                                },
-                              );
-                            }
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Hatalı Giriş.'),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+            child: deleteLessonButton(
+                context, myController1, attendance, addLesson, deleteLesson),
           ),
         ],
+      );
+    },
+  );
+}
+
+ElevatedButton deleteLessonButton(
+    BuildContext context,
+    TextEditingController myController1,
+    CollectionReference<Object?> attendance,
+    Future<void> Function() addLesson,
+    Future<void> Function() deleteLesson) {
+  return elevatedButtonProcess(
+    const Text("Sil"),
+    () {
+      Navigator.pop(context);
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return areYouSureUser(
+            "Silinecek Kullanıcı: ${myController1.text.toString()}",
+            "",
+            "",
+            attendance,
+            context,
+            addLesson,
+            elevatedButtonProcess(
+              const Text("Onaylıyorum"),
+              () async {
+                if (myController1.text.toString().isNotEmpty) {
+                  final docRef = attendance.doc(myController1.text.toString());
+
+                  // Dökümanı veritabanından alın.
+                  final doc = await docRef.get();
+                  if (doc.exists) {
+                    await deleteLesson();
+                  } else {
+                    Navigator.pop(context);
+
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          title: Text(
+                            "Böyle bir ders yok",
+                            style: Constants.getTextStyle(Colors.red, 48.0),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Hatalı Giriş.'),
+                    ),
+                  );
+                }
+              },
+            ),
+          );
+        },
+      );
+    },
+  );
+}
+
+ElevatedButton addLessonButton(
+    BuildContext context,
+    TextEditingController myController1,
+    CollectionReference<Object?> attendance,
+    Future<void> Function() addLesson) {
+  return elevatedButtonProcess(
+    const Text("Ekle"),
+    () {
+      Navigator.pop(context);
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return areYouSureUser(
+            "Eklenilecek Kullanıcı: ${myController1.text.toString()}",
+            "",
+            "",
+            attendance,
+            context,
+            addLesson,
+            elevatedButtonProcess(
+              const Text("Onaylıyorum"),
+              () async {
+                if (myController1.text.toString().isNotEmpty) {
+                  final docRef = attendance.doc(myController1.text.toString());
+
+                  // Dökümanı veritabanından alın.
+                  final doc = await docRef.get();
+                  if (doc.exists) {
+                    Navigator.pop(context);
+
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          title: Text(
+                            "Böyle bir ders zaten var",
+                            style: Constants.getTextStyle(Colors.red, 48.0),
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    await addLesson();
+                  }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Hatalı Giriş.'),
+                    ),
+                  );
+                }
+              },
+            ),
+          );
+        },
       );
     },
   );

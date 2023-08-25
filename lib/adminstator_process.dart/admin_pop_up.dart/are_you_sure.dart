@@ -52,13 +52,7 @@ Padding areYouSureUser(
           const SizedBox(
             width: 15,
           ),
-          elevatedButtonProcess(
-            Text(
-              "İptal",
-              style: Constants.getTextStyle(Colors.white, 16.0),
-            ),
-            () => Navigator.pop(context),
-          ),
+          backElevatedButton(context, "İptal"),
         ],
       ),
     ],

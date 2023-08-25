@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants/constants.dart';
+
 ElevatedButton elevatedButtonProcess(Widget widget, Function() onpressed) {
   return ElevatedButton(
     onPressed: onpressed,
@@ -11,5 +13,15 @@ ElevatedButton elevatedButtonProcess(Widget widget, Function() onpressed) {
       minimumSize: const Size(100, 35),
     ),
     child: widget,
+  );
+}
+
+ElevatedButton backElevatedButton(context, String text) {
+  return elevatedButtonProcess(
+    Text(
+      text,
+      style: Constants.getTextStyle(Colors.white, 13.0),
+    ),
+    () => Navigator.pop(context),
   );
 }

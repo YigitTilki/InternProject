@@ -73,10 +73,7 @@ ElevatedButton iAmSureUser(
                               const SizedBox(
                                 width: 20,
                               ),
-                              elevatedButtonProcess(
-                                const Text("İptal"),
-                                () => Navigator.pop(context),
-                              ),
+                              backElevatedButton(context, "İptal"),
                             ],
                           ),
                         ),
