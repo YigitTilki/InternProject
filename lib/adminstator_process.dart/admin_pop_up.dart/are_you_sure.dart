@@ -5,26 +5,25 @@ import 'package:sanofi_main/widgets/elevated_button.dart';
 
 import '../../constants/constants.dart';
 
-import 'i_am_sure.dart';
-
 Padding areYouSureUser(
-    TextEditingController myController1,
-    TextEditingController myController2,
-    CollectionReference<Object?> collectionReference,
-    BuildContext context,
-    Future<void> Function() addUser,
-    Future<void> Function() updateUser) {
+  String? containerText1,
+  String? containerText2,
+  CollectionReference<Object?> collectionReference,
+  BuildContext context,
+  Future<void> Function()? deleteUser,
+  ElevatedButton iAmSure,
+) {
   return areYouSureContainer(
     [
       Text(
-        "Ad-Soyad: ${myController1.text.toString()}",
+        containerText1!,
         style: Constants.getTextStyle(Colors.white, 18.0),
       ),
       const SizedBox(
         height: 10,
       ),
       Text(
-        "Sicil No: ${myController2.text.toString()}",
+        containerText2!,
         style: Constants.getTextStyle(Colors.white, 18.0),
       ),
       const SizedBox(
@@ -41,8 +40,7 @@ Padding areYouSureUser(
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          iAmSureUser(myController1, myController2, collectionReference,
-              context, addUser, updateUser),
+          iAmSure,
           const SizedBox(
             width: 15,
           ),

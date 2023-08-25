@@ -38,13 +38,13 @@ GestureDetector participantAdd(context) {
     return attendance
         .doc(myController2.text.toString())
         .update({'FullName': myController1.text.toString()})
-        .then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .then((value) => debugPrint("User Updated"))
+        .catchError((error) => debugPrint("Failed to update user: $error"));
   }
 
   return GestureDetector(
     onLongPress: () {
-      deleteUserPopUp(context, myController2, deleteUser);
+      deleteUserPopUp(context, myController2, attendance, deleteUser);
     },
     onTap: () {
       addUserPopUp(context, myController1, myController2, attendance, addUser,

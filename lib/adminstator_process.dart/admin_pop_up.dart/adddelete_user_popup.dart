@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +8,7 @@ import '../../widgets/alert_dialog.dart';
 import '../../widgets/elevated_button.dart';
 import '../../widgets/text_form_field.dart';
 import 'are_you_sure.dart';
+import 'i_am_sure.dart';
 
 Future<dynamic> addUserPopUp(
     context,
@@ -58,8 +61,15 @@ Future<dynamic> addUserPopUp(
                 return showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return areYouSureUser(myController1, myController2,
-                        collectionReference, context, addUser, updateUser);
+                    return areYouSureUser(
+                      "Ad-Soyad: ${myController1.text.toString()}",
+                      "Sicil No: ${myController2.text.toString()}",
+                      collectionReference,
+                      context,
+                      null,
+                      iAmSureUser(myController1, myController2,
+                          collectionReference, context, addUser, updateUser),
+                    );
                   },
                 );
               },
@@ -81,7 +91,7 @@ Future<dynamic> addUserPopUp(
 }
 
 Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
-    Future<void> Function() deleteUser) {
+    collectionReference, Future<void> Function() deleteUser) {
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -104,18 +114,73 @@ Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
           )),
           [
             Expanded(
+              child: elevatedButtonProcess(const Text("Sil"), () {
+                Navigator.pop(context);
+                return showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return areYouSureUser(
+                          "Silinecek Kullanıcı: ${myController2.text.toString()}",
+                          "",
+                          collectionReference,
+                          context,
+                          deleteUser,
+                          elevatedButtonProcess(const Text("Onaylıyorum"),
+                              () async {
+                            // Veritabanı referansını oluşturun (Firestore kullanıldığını varsayalım).
+                            final docRef = collectionReference
+                                .doc(myController2.text.toString());
+
+                            // Dökümanı veritabanından alın.
+                            final doc = await docRef.get();
+
+                            // Eğer döküman varsa (eşleşme bulunuyorsa):
+                            if (doc.exists) {
+                              Navigator.pop(context);
+                              await docRef.delete();
+                              print("Belirtilen Kullanıcı başarıyla silindi.");
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    elevation: 0,
+                                    backgroundColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    title: Text(
+                                      "Böyle bir sicil no yok",
+                                      style: Constants.getTextStyle(
+                                          Colors.red, 48.0),
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                          }));
+
+                      /*return FutureBuilder<void>(
+                            future: deleteUser(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                return const Text('Kullanıcı Silindi');
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
+                            },
+                          );*/
+                    });
+              }),
+            ),
+            Expanded(
               child: elevatedButtonProcess(
-                const Text("Sil"),
-                () => FutureBuilder<void>(
-                  future: deleteUser(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return const Text('Kullanıcı Silindi');
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  },
+                Text(
+                  "Geri Dön",
+                  style: Constants.getTextStyle(Colors.white, 13.0),
                 ),
+                () => Navigator.pop(context),
               ),
             ),
           ],
