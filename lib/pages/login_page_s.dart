@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:sanofi_main/pages/admin_page.dart';
 import 'package:sanofi_main/pages/login_page_t.dart';
 import 'package:sanofi_main/pages/student_page.dart';
-import 'package:sanofi_main/widgets/alert_dialog.dart';
 import 'package:sanofi_main/widgets/elevated_button.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 
+import '../adminstator_process.dart/admin_router.dart';
 import '../constants/constants.dart';
+import '../widgets/back_buttons.dart';
 
 class LoginPageS extends StatefulWidget {
   const LoginPageS({Key? key}) : super(key: key);
@@ -24,63 +23,11 @@ class _LoginPageSState extends State<LoginPageS> {
   final passwordController = TextEditingController();
 
   Future<bool> _onBackPressed() async {
-    return await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            backgroundColor: Colors.white, // Popup arka plan rengi
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), // Şekil ayarı
-            ),
-            title: Text(
-              "Uygulamadan çıkmak istiyor musunuz?",
-              style: Constants.getTextStyle(Colors.black, 20.0),
-            ),
-            actions: <Widget>[
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      Colors.purple, // İstenilen renge ayarlayabilirsiniz
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  // Diğer stil ayarları
-                ),
-                child: Text(
-                  "Hayır",
-                  style: Constants.getTextStyle(Colors.white, 14.0),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                    SystemNavigator.pop(); // Uygulamadan çık
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Colors.purple, // İstenilen renge ayarlayabilirsiniz
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    // Diğer stil ayarları
-                  ),
-                  child: Text(
-                    "Evet",
-                    style: Constants.getTextStyle(Colors.white, 14.0),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ) ??
-        false;
+    return await BackFunctions.onBackPressed(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    String password = "sifre";
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
@@ -89,7 +36,7 @@ class _LoginPageSState extends State<LoginPageS> {
           child: Column(
             children: [
               const Expanded(
-                flex: 0,
+                flex: 2,
                 child: SizedBox(
                   height: 100,
                 ),
@@ -114,8 +61,12 @@ class _LoginPageSState extends State<LoginPageS> {
                 height: 10,
               ),
               SizedBox(
-                child: ElevatedButton(
-                  onPressed: () async {
+                child: elevatedButtonProcess(
+                  Text(
+                    "Giriş",
+                    style: Constants.getTextStyle(Colors.white, 16.0),
+                  ),
+                  () async {
                     final sicilNo = myController2.text.toString();
 
                     if (sicilNo.isNotEmpty) {
@@ -141,11 +92,9 @@ class _LoginPageSState extends State<LoginPageS> {
                           debugPrint("olmadı");
                         }
                       } catch (e) {
-                        // Handle errors, such as document not found
                         debugPrint("Error: $e");
                       }
                     } else {
-                      // Handle the case where Sicil No is empty
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Sicil No alanını doldurun.'),
@@ -153,17 +102,6 @@ class _LoginPageSState extends State<LoginPageS> {
                       );
                     }
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40),
-                    ),
-                    minimumSize: const Size(100, 35),
-                  ),
-                  child: Text(
-                    "Giriş",
-                    style: Constants.getTextStyle(Colors.white, 16.0),
-                  ),
                 ),
               ),
               const SizedBox(
@@ -187,56 +125,7 @@ class _LoginPageSState extends State<LoginPageS> {
               ),
               GestureDetector(
                 onLongPress: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return alertDialogProcess(
-                        null,
-                        const Icon(Icons.lock_outlined),
-                        SizedBox(
-                          width: 400,
-                          child: textFormFieldProcess(
-                              "Admin Password", passwordController),
-                        ),
-                        [
-                          elevatedButtonProcess(
-                            Text(
-                              "Giriş",
-                              style: Constants.getTextStyle(Colors.white, 16.0),
-                            ),
-                            () {
-                              if (passwordController.text.toString() ==
-                                  password) {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const AdminPage(),
-                                  ),
-                                );
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      elevation: 0,
-                                      backgroundColor: Colors.transparent,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      title: Text(
-                                        "Şifre Hatalı",
-                                        style: Constants.getTextStyle(
-                                            Colors.red, 48.0),
-                                      ),
-                                    );
-                                  },
-                                );
-                              }
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                  adminRouter(context, passwordController);
                 },
                 child: Image.asset(
                   "assets/SNY.png",

@@ -21,3 +21,5 @@ class Constants {
     );
   }
 }
+
+String sifre = "sifre";

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_lesson.dart';
@@ -5,6 +7,8 @@ import 'package:sanofi_main/adminstator_process.dart/add_participant.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_teacher.dart';
 import 'package:sanofi_main/constants/constants.dart';
 import 'package:sanofi_main/pages/login_page_t.dart';
+
+import '../widgets/back_buttons.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -22,110 +26,13 @@ class _AdminPageState extends State<AdminPage> {
   }
 
   Future<bool> _onBackPressed() async {
-    return await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            backgroundColor: Colors.white, // Popup arka plan rengi
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), // Şekil ayarı
-            ),
-            title: Text(
-              "Uygulamadan çıkmak istiyor musunuz?",
-              style: Constants.getTextStyle(Colors.black, 20.0),
-            ),
-            actions: <Widget>[
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      Colors.purple, // İstenilen renge ayarlayabilirsiniz
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  // Diğer stil ayarları
-                ),
-                child: Text(
-                  "Hayır",
-                  style: Constants.getTextStyle(Colors.white, 14.0),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                    SystemNavigator.pop(); // Uygulamadan çık
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Colors.purple, // İstenilen renge ayarlayabilirsiniz
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    // Diğer stil ayarları
-                  ),
-                  child: Text(
-                    "Evet",
-                    style: Constants.getTextStyle(Colors.white, 14.0),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ) ??
-        false;
+    return await BackFunctions.onBackPressed(context);
   }
 
   Future<bool> _onBackPressedFromAppBar() async {
-    bool shouldNavigate = await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        title: Text(
-          "Bir önceki sayfaya dönmek istiyor musunuz?",
-          style: Constants.getTextStyle(Colors.black, 20.0),
-        ),
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.purple,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            child: Text(
-              "Hayır",
-              style: Constants.getTextStyle(Colors.white, 14.0),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: Text(
-                "Evet",
-                style: Constants.getTextStyle(Colors.white, 14.0),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    bool shouldNavigate = await BackFunctions.onBackPressedFromAppBar(context);
 
     if (shouldNavigate) {
-      // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginPageT()),
       );
@@ -139,23 +46,7 @@ class _AdminPageState extends State<AdminPage> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Padding(
-              padding: EdgeInsets.only(left: 10, top: 10),
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-                size: 40,
-              ),
-            ), // Geri simgesi
-            onPressed: () {
-              _onBackPressedFromAppBar(); // Doğru fonksiyonu burada çağırın
-            },
-          ),
-        ),
+        appBar: arrowBack(),
         body: Center(
           child: Column(
             children: [
@@ -185,6 +76,26 @@ class _AdminPageState extends State<AdminPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  AppBar arrowBack() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: IconButton(
+        icon: const Padding(
+          padding: EdgeInsets.only(left: 10, top: 10),
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+            size: 40,
+          ),
+        ),
+        onPressed: () {
+          _onBackPressedFromAppBar();
+        },
       ),
     );
   }

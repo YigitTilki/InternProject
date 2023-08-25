@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sanofi_main/widgets/containers.dart';
 
+import '../db_helper.dart/db_process.dart';
 import 'admin_pop_up.dart/adddeleteupdate_popup.dart';
 
 GestureDetector lessonAdd(context) {
@@ -14,25 +15,13 @@ GestureDetector lessonAdd(context) {
       FirebaseFirestore.instance.collection("Dersler");
 
   Future<void> addLesson() async {
-    try {
-      await attendance.doc(myController1.text.toString()).set({
-        "Ders": myController1.text.toString(),
-      });
-
-      Navigator.pop(context);
-    } catch (error) {
-      debugPrint("Hata oluştu: $error");
-    }
+    return await add(context, attendance, myController1, {
+      "Ders": myController1.text.toString(),
+    });
   }
 
   Future<void> deleteLesson() async {
-    try {
-      await attendance.doc(myController1.text.toString()).delete();
-
-      Navigator.pop(context);
-    } catch (error) {
-      debugPrint("Hata oluştu: $error");
-    }
+    return await delete(context, attendance, myController1);
   }
 
   return GestureDetector(

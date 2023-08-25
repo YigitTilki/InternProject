@@ -2,17 +2,15 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:sanofi_main/widgets/dropdown.dart';
-import 'package:sanofi_main/pages/admin_page.dart';
 import 'package:sanofi_main/pages/login_page_s.dart';
 
 import 'package:sanofi_main/pages/teacher_page.dart';
-import 'package:sanofi_main/widgets/alert_dialog.dart';
-import 'package:sanofi_main/widgets/elevated_button.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 
+import '../adminstator_process.dart/admin_router.dart';
 import '../constants/constants.dart';
+import '../widgets/back_buttons.dart';
 
 class LoginPageT extends StatefulWidget {
   const LoginPageT({super.key});
@@ -31,63 +29,11 @@ class _LoginPageTState extends State<LoginPageT> {
   final passwordController = TextEditingController();
 
   Future<bool> _onBackPressed() async {
-    return await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            backgroundColor: Colors.white, // Popup arka plan rengi
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), // Şekil ayarı
-            ),
-            title: Text(
-              "Uygulamadan çıkmak istiyor musunuz?",
-              style: Constants.getTextStyle(Colors.black, 20.0),
-            ),
-            actions: <Widget>[
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      Colors.purple, // İstenilen renge ayarlayabilirsiniz
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  // Diğer stil ayarları
-                ),
-                child: Text(
-                  "Hayır",
-                  style: Constants.getTextStyle(Colors.white, 14.0),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                    SystemNavigator.pop(); // Uygulamadan çık
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Colors.purple, // İstenilen renge ayarlayabilirsiniz
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    // Diğer stil ayarları
-                  ),
-                  child: Text(
-                    "Evet",
-                    style: Constants.getTextStyle(Colors.white, 14.0),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ) ??
-        false;
+    return await BackFunctions.onBackPressed(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    String password = "sifre";
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
@@ -123,8 +69,7 @@ class _LoginPageTState extends State<LoginPageT> {
                 height: 10,
               ),
               Padding(
-                padding: const EdgeInsets.only(
-                    right: 25.0, left: 25, top: 15, bottom: 50),
+                padding: const EdgeInsets.only(top: 15, bottom: 50),
                 child: DropDown(
                     selectedLesson: selectedLesson,
                     onSelectionChanged: (newValue) {
@@ -163,7 +108,6 @@ class _LoginPageTState extends State<LoginPageT> {
                         debugPrint("olmadı");
                       }
                     } catch (e) {
-                      // Hata yakalama işlemi, örneğin dökümanın bulunamadığı durum
                       debugPrint("Hata: $e");
                     }
                   },
@@ -197,56 +141,7 @@ class _LoginPageTState extends State<LoginPageT> {
               ),
               GestureDetector(
                 onLongPress: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return alertDialogProcess(
-                        null,
-                        const Icon(Icons.lock_outlined),
-                        SizedBox(
-                          width: 400,
-                          child: textFormFieldProcess(
-                              "Admin Password", passwordController),
-                        ),
-                        [
-                          elevatedButtonProcess(
-                            Text(
-                              "Giriş",
-                              style: Constants.getTextStyle(Colors.white, 16.0),
-                            ),
-                            () {
-                              if (passwordController.text.toString() ==
-                                  password) {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const AdminPage(),
-                                  ),
-                                );
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      elevation: 0,
-                                      backgroundColor: Colors.transparent,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      title: Text(
-                                        "Şifre Hatalı",
-                                        style: Constants.getTextStyle(
-                                            Colors.red, 48.0),
-                                      ),
-                                    );
-                                  },
-                                );
-                              }
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                  adminRouter(context, passwordController);
                 },
                 child: Image.asset(
                   "assets/SNY.png",
@@ -256,7 +151,7 @@ class _LoginPageTState extends State<LoginPageT> {
               ),
               const SizedBox(
                 height: 25,
-              )
+              ),
             ],
           ),
         ),

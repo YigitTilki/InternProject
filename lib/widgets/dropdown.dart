@@ -32,10 +32,8 @@ class _DropDownState extends State<DropDown> {
           return const Text('Veriler yükleniyor...');
         }
 
-        // Firestore'dan gelen dokümanları bir liste olarak saklayın
         List<DocumentSnapshot> documents = snapshot.data!.docs;
 
-        // Dokümanları kullanarak liste oluşturun
         lessonList = documents.map((doc) {
           var lessonData = doc.data() as Map<String, dynamic>;
           return "${lessonData["Ders"]}";
@@ -46,8 +44,7 @@ class _DropDownState extends State<DropDown> {
             "Ders Seçiniz",
             style: Constants.getTextStyle(Colors.grey, 14.0),
           ),
-
-          value: widget.selectedLesson, // Seçili değer
+          value: widget.selectedLesson,
           items: lessonList.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -58,7 +55,7 @@ class _DropDownState extends State<DropDown> {
             );
           }).toList(),
           onChanged: (String? newValue) {
-            widget.onSelectionChanged(newValue); // Call the callback function
+            widget.onSelectionChanged(newValue);
           },
         );
       },

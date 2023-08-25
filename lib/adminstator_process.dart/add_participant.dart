@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sanofi_main/db_helper.dart/db_process.dart';
 
 import '../widgets/containers.dart';
 
@@ -12,34 +13,19 @@ GestureDetector participantAdd(context) {
       FirebaseFirestore.instance.collection("Users");
 
   Future<void> addUser() async {
-    try {
-      await attendance.doc(myController2.text.toString()).set({
-        "FullName": myController1.text.toString(),
-        "Sicil": myController2.text.toString(),
-      });
-
-      Navigator.pop(context);
-    } catch (error) {
-      debugPrint("Hata oluştu: $error");
-    }
+    return await add(context, attendance, myController2, {
+      "FullName": myController1.text.toString(),
+      "Sicil": myController2.text.toString(),
+    });
   }
 
   Future<void> deleteUser() async {
-    try {
-      await attendance.doc(myController2.text.toString()).delete();
-
-      Navigator.pop(context);
-    } catch (error) {
-      debugPrint("Hata oluştu: $error");
-    }
+    return await delete(context, attendance, myController2);
   }
 
-  Future<void> updateUser() {
-    return attendance
-        .doc(myController2.text.toString())
-        .update({'FullName': myController1.text.toString()})
-        .then((value) => debugPrint("User Updated"))
-        .catchError((error) => debugPrint("Failed to update user: $error"));
+  Future<void> updateUser() async {
+    return await update(context, attendance, myController2,
+        {'FullName': myController1.text.toString()});
   }
 
   return GestureDetector(
