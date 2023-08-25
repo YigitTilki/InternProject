@@ -1,11 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sanofi_main/widgets/containers.dart';
 
-import '../constants/constants.dart';
-import '../widgets/alert_dialog.dart';
-import '../widgets/elevated_button.dart';
-import '../widgets/text_form_field.dart';
+import 'admin_pop_up.dart/adddelete_user_popup.dart';
 
 GestureDetector teacherAdd(context) {
   TextEditingController myController1 = TextEditingController();
@@ -39,6 +38,17 @@ GestureDetector teacherAdd(context) {
     }
   }
 
+  Future<void> updateUserE() {
+    return attendance
+        .doc(myController2.text.toString())
+        .update({
+          'FullName': myController1.text.toString(),
+          "Password": myController3.text.toString()
+        })
+        .then((value) => debugPrint("User Updated"))
+        .catchError((error) => debugPrint("Failed to update user: $error"));
+  }
+
   return GestureDetector(
     onLongPress: () {
       showDialog(
@@ -46,95 +56,13 @@ GestureDetector teacherAdd(context) {
           builder: (BuildContext context) {
             myController2 = TextEditingController();
 
-            return alertDialogProcess(
-              Text(
-                "Eğitimci Sil",
-                textAlign: TextAlign.center,
-                style: Constants.getTextStyle(Colors.black, 24.0),
-              ),
-              null,
-              Expanded(
-                  child: SizedBox(
-                height: 80,
-                width: 500,
-                child: Expanded(
-                    flex: 2,
-                    child: textFormFieldProcess("Sicil No", myController2)),
-              )),
-              [
-                Expanded(
-                  child: elevatedButtonProcess(
-                    const Text("Sil"),
-                    () => FutureBuilder<void>(
-                      future: deleteUserE(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return const Text('Kullanıcı Silindi');
-                        } else {
-                          return const CircularProgressIndicator();
-                        }
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            );
+            return deleteUserEpopUp(
+                myController2, context, attendance, deleteUserE);
           });
     },
     onTap: () {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          myController1 = TextEditingController();
-          myController2 = TextEditingController();
-          myController3 = TextEditingController();
-
-          return alertDialogProcess(
-            Text(
-              "Eğitimci Ekle",
-              textAlign: TextAlign.center,
-              style: Constants.getTextStyle(Colors.black, 24.0),
-            ),
-            null,
-            Expanded(
-              child: SizedBox(
-                width: 500,
-                height: 250,
-                child: Column(
-                  children: [
-                    Expanded(
-                        flex: 2,
-                        child: textFormFieldProcess("Ad-Soyad", myController1)),
-                    Expanded(
-                        flex: 2,
-                        child: textFormFieldProcess("Sicil No", myController2)),
-                    Expanded(
-                        flex: 2,
-                        child: textFormFieldProcess("Password", myController3)),
-                  ],
-                ),
-              ),
-            ),
-            [
-              Expanded(
-                child: elevatedButtonProcess(
-                  const Text("Ekle/Güncelle"),
-                  () => FutureBuilder<void>(
-                    future: addUserE(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return const Text('Kod okundu derse girildi');
-                      } else {
-                        return const CircularProgressIndicator();
-                      }
-                    },
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      );
+      addUserEpopUp(context, myController1, myController2, myController3,
+          attendance, addUserE, updateUserE);
     },
     child: adminPageContainerDesign("assets/teacher.png", "Eğitimci"),
   );

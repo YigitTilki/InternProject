@@ -11,6 +11,7 @@ import '../../widgets/elevated_button.dart';
 ElevatedButton iAmSureUser(
     TextEditingController myController1,
     TextEditingController myController2,
+    TextEditingController? myController3,
     CollectionReference<Object?> collectionReference,
     BuildContext context,
     Future<void> Function() addUser,
@@ -23,8 +24,9 @@ ElevatedButton iAmSureUser(
     () async {
       final sicilNo = myController2.text.toString();
       final adSoyad = myController1.text.toString();
+      final password = myController3?.text.toString();
 
-      if (sicilNo.isNotEmpty && adSoyad.isNotEmpty) {
+      if (sicilNo.isNotEmpty && adSoyad.isNotEmpty && password!.isNotEmpty) {
         final docRef = collectionReference.doc(sicilNo);
 
         try {

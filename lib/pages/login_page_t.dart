@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -86,7 +88,6 @@ class _LoginPageTState extends State<LoginPageT> {
   @override
   Widget build(BuildContext context) {
     String password = "sifre";
-    final docRef = db.collection("UsersE").doc("1");
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
@@ -134,32 +135,37 @@ class _LoginPageTState extends State<LoginPageT> {
               ),
               SizedBox(
                 child: ElevatedButton(
-                  onPressed: () {
-                    Future.delayed(const Duration(milliseconds: 200), () async {
-                      await docRef.get().then((DocumentSnapshot doc) {
-                        final data = doc.data() as Map<String, dynamic>;
-                        if (data["FullName"].toString() ==
-                                myController1.text.toString() &&
-                            data["Sicil"].toString() ==
-                                myController2.text.toString() &&
-                            data["Password"].toString() ==
-                                myController3.text.toString()) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TeacherPage(
-                                data1: myController1,
-                                data2: myController2,
-                                data3: myController3,
-                                data4: selectedLesson,
-                              ),
+                  onPressed: () async {
+                    final docRef = db
+                        .collection("UsersE")
+                        .doc(myController2.text.toString());
+                    try {
+                      final doc = await docRef.get();
+                      final data = doc.data() as Map<String, dynamic>;
+                      if (data["FullName"].toString() ==
+                              myController1.text.toString() &&
+                          data["Sicil"].toString() ==
+                              myController2.text.toString() &&
+                          data["Password"].toString() ==
+                              myController3.text.toString()) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TeacherPage(
+                              data1: myController1,
+                              data2: myController2,
+                              data3: myController3,
+                              data4: selectedLesson,
                             ),
-                          );
-                        } else {
-                          debugPrint("olmadı");
-                        }
-                      });
-                    });
+                          ),
+                        );
+                      } else {
+                        debugPrint("olmadı");
+                      }
+                    } catch (e) {
+                      // Hata yakalama işlemi, örneğin dökümanın bulunamadığı durum
+                      debugPrint("Hata: $e");
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.purple,

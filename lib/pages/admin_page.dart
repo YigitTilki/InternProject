@@ -4,6 +4,7 @@ import 'package:sanofi_main/adminstator_process.dart/add_lesson.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_participant.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_teacher.dart';
 import 'package:sanofi_main/constants/constants.dart';
+import 'package:sanofi_main/pages/login_page_t.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -75,18 +76,93 @@ class _AdminPageState extends State<AdminPage> {
         false;
   }
 
+  Future<bool> _onBackPressedFromAppBar() async {
+    bool shouldNavigate = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        title: Text(
+          "Bir önceki sayfaya dönmek istiyor musunuz?",
+          style: Constants.getTextStyle(Colors.black, 20.0),
+        ),
+        actions: <Widget>[
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.purple,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: Text(
+              "Hayır",
+              style: Constants.getTextStyle(Colors.white, 14.0),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: Text(
+                "Evet",
+                style: Constants.getTextStyle(Colors.white, 14.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (shouldNavigate) {
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const LoginPageT()),
+      );
+    }
+
+    return shouldNavigate;
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Padding(
+              padding: EdgeInsets.only(left: 10, top: 10),
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+                size: 40,
+              ),
+            ), // Geri simgesi
+            onPressed: () {
+              _onBackPressedFromAppBar(); // Doğru fonksiyonu burada çağırın
+            },
+          ),
+        ),
         body: Center(
           child: Column(
             children: [
               Expanded(
                 flex: 1,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(127, 80, 127, 100),
+                  padding: const EdgeInsets.fromLTRB(127, 50, 127, 100),
                   child: Image.asset(
                     "assets/adminicon.png",
                     height: 95,

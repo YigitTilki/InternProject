@@ -8,6 +8,7 @@ import '../../constants/constants.dart';
 Padding areYouSureUser(
   String? containerText1,
   String? containerText2,
+  String? containerText3,
   CollectionReference<Object?> collectionReference,
   BuildContext context,
   Future<void> Function()? deleteUser,
@@ -24,6 +25,13 @@ Padding areYouSureUser(
       ),
       Text(
         containerText2!,
+        style: Constants.getTextStyle(Colors.white, 18.0),
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      Text(
+        containerText3!,
         style: Constants.getTextStyle(Colors.white, 18.0),
       ),
       const SizedBox(
