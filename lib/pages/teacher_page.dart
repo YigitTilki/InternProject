@@ -7,7 +7,6 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 import '../constants/constants.dart';
 import '../widgets/attendance_list.dart';
-import '../widgets/generate_qr.dart';
 import '../widgets/back_buttons.dart';
 import 'login_page_t.dart';
 
@@ -55,6 +54,7 @@ class _TeacherPageState extends State<TeacherPage> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 246, 198, 255),
         appBar: arrowBack(),
         body: Column(
           children: [
@@ -62,16 +62,22 @@ class _TeacherPageState extends State<TeacherPage> {
               alignment: Alignment.topLeft,
               child: userInfo(),
             ),
-            const SizedBox(
-              height: 100,
+            const Expanded(
+              flex: 1,
+              child: SizedBox(
+                height: 100,
+              ),
             ),
             Text(
               "${widget.data4 ?? ""} için QR kod",
               style: Constants.getTextStyle(Colors.black, 20.0),
             ),
             generateQR(widget.data4 ?? "", docref, context),
-            const SizedBox(
-              height: 70,
+            const Expanded(
+              flex: 1,
+              child: SizedBox(
+                height: 70,
+              ),
             ),
             Constants.sanofiBig(),
             const SizedBox(

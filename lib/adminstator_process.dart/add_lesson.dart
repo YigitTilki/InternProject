@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:sanofi_main/widgets/containers.dart';
 
-import '../db_helper.dart/db_process.dart';
 import 'admin_pop_up.dart/adddeleteupdate_popup.dart';
 
 GestureDetector lessonAdd(context) {
