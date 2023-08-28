@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sanofi_main/pages/login_page_s.dart';
+import 'package:sizer/sizer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,8 +27,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Center(
         child: SizedBox(
-          height: 170,
-          width: 150,
+          height: 170.sp,
+          width: 150.sp,
           child: Image.asset("assets/SNY.png"),
         ),
       ),

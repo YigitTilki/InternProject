@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart';
 import '../widgets/attendance_list.dart';
@@ -62,26 +63,26 @@ class _TeacherPageState extends State<TeacherPage> {
               alignment: Alignment.topLeft,
               child: userInfo(),
             ),
-            const Expanded(
+            Expanded(
               flex: 1,
               child: SizedBox(
-                height: 100,
+                height: 100.sp,
               ),
             ),
             Text(
               "${widget.data4 ?? ""} için QR kod",
-              style: Constants.getTextStyle(Colors.black, 20.0),
+              style: Constants.getTextStyle(Colors.black, 20.0.sp),
             ),
             generateQR(widget.data4 ?? "", docref, context),
-            const Expanded(
+            Expanded(
               flex: 1,
               child: SizedBox(
-                height: 70,
+                height: 70.sp,
               ),
             ),
             Constants.sanofiBig(),
-            const SizedBox(
-              height: 100,
+            SizedBox(
+              height: 100.sp,
             )
           ],
         ),
@@ -116,22 +117,22 @@ class _TeacherPageState extends State<TeacherPage> {
         Align(
           alignment: Alignment.center,
           child: Padding(
-            padding: const EdgeInsets.only(left: 20.0),
+            padding: EdgeInsets.only(left: 20.0.sp),
             child: Padding(
-              padding: const EdgeInsets.only(top: 25),
+              padding: EdgeInsets.only(top: 25.sp),
               child: Text(
                 widget.data1?.text.toString() ?? "",
-                style: Constants.getTextStyle(Colors.black, 36.0),
+                style: Constants.getTextStyle(Colors.black, 36.0.sp),
               ),
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 15.0),
+          padding: EdgeInsets.only(left: 15.0.sp),
           child: Text(
             widget.data2?.text.toString() ?? "",
             style: Constants.getTextStyle(
-                const Color.fromRGBO(83, 42, 155, 1), 36.0),
+                const Color.fromRGBO(83, 42, 155, 1), 36.0.sp),
           ),
         ),
       ],

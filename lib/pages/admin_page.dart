@@ -7,6 +7,7 @@ import 'package:sanofi_main/adminstator_process.dart/add_participant.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_teacher.dart';
 import 'package:sanofi_main/constants/constants.dart';
 import 'package:sanofi_main/pages/login_page_t.dart';
+import 'package:sizer/sizer.dart';
 
 import '../widgets/back_buttons.dart';
 
@@ -56,8 +57,8 @@ class _AdminPageState extends State<AdminPage> {
                   padding: const EdgeInsets.fromLTRB(127, 50, 127, 100),
                   child: Image.asset(
                     "assets/adminicon.png",
-                    height: 95,
-                    width: 95,
+                    height: 95.sp,
+                    width: 95.sp,
                   ),
                 ),
               ),
@@ -68,8 +69,8 @@ class _AdminPageState extends State<AdminPage> {
                   lessonAdd(context),
                 ],
               ),
-              const SizedBox(
-                height: 21,
+              SizedBox(
+                height: 21.sp,
               ),
               teacherAdd(context),
               Expanded(flex: 1, child: Constants.sanofiBig())
@@ -85,9 +86,9 @@ class _AdminPageState extends State<AdminPage> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: IconButton(
-        icon: const Padding(
-          padding: EdgeInsets.only(left: 10, top: 10),
-          child: Icon(
+        icon: Padding(
+          padding: EdgeInsets.only(left: 10.sp, top: 10.sp),
+          child: const Icon(
             Icons.arrow_back,
             color: Colors.black,
             size: 40,

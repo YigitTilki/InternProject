@@ -4,6 +4,7 @@ import 'package:sanofi_main/pages/login_page_t.dart';
 import 'package:sanofi_main/pages/student_page.dart';
 import 'package:sanofi_main/widgets/elevated_button.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
+import 'package:sizer/sizer.dart';
 
 import '../adminstator_process.dart/admin_router.dart';
 import '../constants/constants.dart';
@@ -35,36 +36,36 @@ class _LoginPageSState extends State<LoginPageS> {
         body: Center(
           child: Column(
             children: [
-              const Expanded(
+              Expanded(
                 flex: 2,
                 child: SizedBox(
-                  height: 100,
+                  height: 100.sp,
                 ),
               ),
               Constants.sanofiBig(),
               Text(
                 "Eğitim Yoklama Sistemi",
-                style: Constants.getTextStyle(Colors.black, 15.0),
+                style: Constants.getTextStyle(Colors.black, 15.0.sp),
               ),
-              const Expanded(
+              Expanded(
                 flex: 2,
                 child: SizedBox(
-                  height: 50,
+                  height: 50.sp,
                 ),
               ),
               textFormFieldProcess("Ad-Soyad", myController1),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 10.sp,
               ),
               textFormFieldProcess("Sicil No", myController2),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 10.sp,
               ),
               SizedBox(
                 child: elevatedButtonProcess(
                   Text(
                     "Giriş",
-                    style: Constants.getTextStyle(Colors.white, 16.0),
+                    style: Constants.getTextStyle(Colors.white, 16.0.sp),
                   ),
                   () async {
                     final sicilNo = myController2.text.toString();
@@ -104,8 +105,8 @@ class _LoginPageSState extends State<LoginPageS> {
                   },
                 ),
               ),
-              const SizedBox(
-                height: 5,
+              SizedBox(
+                height: 5.sp,
               ),
               TextButton(
                 onPressed: () {
@@ -117,11 +118,11 @@ class _LoginPageSState extends State<LoginPageS> {
                 },
                 child: Text(
                   "Eğitimci Girişi",
-                  style: Constants.getTextStyle(Colors.black, 14.0),
+                  style: Constants.getTextStyle(Colors.black, 14.0.sp),
                 ),
               ),
-              const SizedBox(
-                height: 170,
+              SizedBox(
+                height: 170.sp,
               ),
               GestureDetector(
                 onLongPress: () {
@@ -129,14 +130,14 @@ class _LoginPageSState extends State<LoginPageS> {
                 },
                 child: Image.asset(
                   "assets/SNY.png",
-                  height: 20,
-                  width: 20,
+                  height: 20.sp,
+                  width: 20.sp,
                 ),
               ),
-              const Expanded(
+              Expanded(
                 flex: 1,
                 child: SizedBox(
-                  height: 30,
+                  height: 30.sp,
                 ),
               ),
             ],

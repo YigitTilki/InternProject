@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sanofi_main/pages/login_page_s.dart';
+import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart';
 import '../widgets/back_buttons.dart';
@@ -62,15 +63,15 @@ class _StudentPageState extends State<StudentPage> {
                 children: [
                   Text(
                     widget.data1?.text.toString() ?? "",
-                    style: Constants.getTextStyle(Colors.black, 36.0),
+                    style: Constants.getTextStyle(Colors.black, 36.0.sp),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: 15.sp,
                   ),
                   Text(
                     widget.data2?.text.toString() ?? "",
                     style: Constants.getTextStyle(
-                        const Color.fromRGBO(83, 42, 155, 1), 36.0),
+                        const Color.fromRGBO(83, 42, 155, 1), 36.0.sp),
                   ),
                 ],
               ),
@@ -90,7 +91,7 @@ class _StudentPageState extends State<StudentPage> {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.camera_alt_outlined,
                       size: 140,
                     ),
@@ -118,9 +119,9 @@ class _StudentPageState extends State<StudentPage> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: IconButton(
-        icon: const Padding(
-          padding: EdgeInsets.only(left: 10, top: 10),
-          child: Icon(
+        icon: Padding(
+          padding: EdgeInsets.only(left: 10.sp, top: 10.sp),
+          child: const Icon(
             Icons.arrow_back,
             color: Colors.black,
             size: 40,

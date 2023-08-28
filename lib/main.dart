@@ -4,6 +4,7 @@ import 'package:sanofi_main/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 import 'db_helper.dart/firebase_options.dart';
+import 'package:sizer/sizer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,10 +24,12 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(focusColor: Colors.red),
-      home: const HomePage(),
-    );
+    return Sizer(builder: (context, orientation, deviceType) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(focusColor: Colors.red),
+        home: const HomePage(),
+      );
+    });
   }
 }

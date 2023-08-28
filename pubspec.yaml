@@ -75,7 +75,7 @@ flutter:
     - assets/adminicon.png
     - assets/library.png
     - assets/participant.png
-    - assets/plusicon.png
+    
     - assets/teacher.png
     - assets/check-green-unscreen.gif
 
