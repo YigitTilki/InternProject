@@ -9,10 +9,14 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 class QRViewExample extends StatefulWidget {
   final String? fullName;
   final String? sicil;
+  final String? date;
+  final String? time;
   const QRViewExample({
     Key? key,
     required this.fullName,
     required this.sicil,
+    required this.date,
+    required this.time,
   }) : super(key: key);
 
   @override
@@ -44,7 +48,9 @@ class _QRViewExampleState extends State<QRViewExample> {
     Future<void> addUser() async {
       return await attendance.doc(widget.sicil).set({
         "FullName": widget.fullName.toString(),
-        "Sicil": widget.sicil.toString()
+        "Sicil": widget.sicil.toString(),
+        "Tarih": widget.date,
+        "Saat": widget.time
       });
     }
 

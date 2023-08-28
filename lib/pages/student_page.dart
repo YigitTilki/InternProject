@@ -44,6 +44,12 @@ class _StudentPageState extends State<StudentPage> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+
+    // Tarih ve saat bilgisini biçimlendir
+    String formattedDate = "${now.day}/${now.month}/${now.year}";
+    String formattedTime = "${now.hour}:${now.minute}:${now.second}";
+
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
@@ -75,6 +81,8 @@ class _StudentPageState extends State<StudentPage> {
                       builder: (context) => QRViewExample(
                         fullName: widget.data1!.text.toString(),
                         sicil: widget.data2!.text.toString(),
+                        date: formattedDate,
+                        time: formattedTime,
                       ),
                     ),
                   );

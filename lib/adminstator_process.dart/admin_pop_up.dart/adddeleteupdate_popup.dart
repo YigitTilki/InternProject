@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/constants.dart';
 import '../../widgets/alert_dialog.dart';
+import '../../widgets/containers.dart';
 import '../../widgets/elevated_button.dart';
 import '../../widgets/text_form_field.dart';
 import 'are_you_sure.dart';
@@ -215,19 +216,136 @@ Future<dynamic> addUserEpopUp(
               const Text("Ekle/Güncelle"),
               () {
                 Navigator.pop(context);
+
                 return showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return areYouSureUser(
-                      "Ad-Soyad: ${myController1.text.toString()}",
-                      "Sicil No: ${myController2.text.toString()}",
-                      "Şifre: ${myController3.text.toString()}",
-                      attendance,
-                      context,
-                      null,
-                      iAmSureUser(myController1, myController2, myController3,
-                          attendance, context, addUserE, updateUserE),
-                    );
+                        "Ad-Soyad: ${myController1.text.toString()}",
+                        "Sicil No: ${myController2.text.toString()}",
+                        "Şifre: ${myController3.text.toString()}",
+                        attendance,
+                        context,
+                        null,
+                        elevatedButtonProcess(
+                          Text(
+                            "Onaylıyorum",
+                            style: Constants.getTextStyle(Colors.white, 16.0),
+                          ),
+                          () async {
+                            final sicilNo = myController2.text.toString();
+                            final adSoyad = myController1.text.toString();
+                            final password = myController3.text.toString();
+
+                            if (sicilNo.isNotEmpty &&
+                                adSoyad.isNotEmpty &&
+                                password.isNotEmpty) {
+                              final docRef = attendance.doc(sicilNo);
+
+                              try {
+                                final doc = await docRef.get();
+                                if (doc.exists) {
+                                  final data =
+                                      doc.data() as Map<String, dynamic>;
+
+                                  if (data != null &&
+                                      data["Sicil"].toString() == sicilNo) {
+                                    Navigator.pop(context);
+
+                                    return showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return areYouSureContainer(
+                                          [
+                                            const SizedBox(
+                                              height: 50,
+                                            ),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  "Böyle bir sicil mevcut ismi ve şifreyi güncellemek ister misin?",
+                                                  textAlign: TextAlign.center,
+                                                  style: Constants.getTextStyle(
+                                                      Colors.white, 24.0),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Center(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    elevatedButtonProcess(
+                                                      const Text("Güncelle"),
+                                                      () async {
+                                                        await attendance
+                                                            .doc(myController2
+                                                                .text
+                                                                .toString())
+                                                            .update({
+                                                              'FullName':
+                                                                  myController1
+                                                                      .text
+                                                                      .toString(),
+                                                              "Password":
+                                                                  myController3
+                                                                      .text
+                                                                      .toString()
+                                                            })
+                                                            .then((value) =>
+                                                                debugPrint(
+                                                                    "Updated"))
+                                                            .catchError((error) =>
+                                                                debugPrint(
+                                                                    "Failed to update : $error"));
+
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 20,
+                                                    ),
+                                                    backElevatedButton(
+                                                        context, "İptal"),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 50,
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                } else {
+                                  await attendance
+                                      .doc(myController2.text.toString())
+                                      .set({
+                                    "FullName": myController1.text.toString(),
+                                    "Sicil": myController2.text.toString(),
+                                    "Password": myController3.text.toString()
+                                  });
+                                  Navigator.pop(context);
+                                }
+                              } catch (e) {
+                                debugPrint("Error: $e");
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Hatalı Giriş.'),
+                                ),
+                              );
+                            }
+                          },
+                        ));
                   },
                 );
               },
@@ -267,6 +385,7 @@ AlertDialog deleteUserEpopUp(
           const Text("Sil"),
           () {
             Navigator.pop(context);
+
             return showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -286,9 +405,13 @@ AlertDialog deleteUserEpopUp(
                       final doc = await docRef.get();
 
                       if (doc.exists) {
+                        await attendance
+                            .doc(myController2.text.toString())
+                            .delete();
                         Navigator.pop(context);
-                        await docRef.delete();
                       } else {
+                        Navigator.pop(context);
+
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -322,11 +445,10 @@ AlertDialog deleteUserEpopUp(
 }
 
 Future<dynamic> addDeleteLessonPopUp(
-    context,
-    TextEditingController myController1,
-    CollectionReference<Object?> attendance,
-    Future<void> Function() addLesson,
-    Future<void> Function() deleteLesson) {
+  context,
+  TextEditingController myController1,
+  CollectionReference<Object?> attendance,
+) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -352,12 +474,10 @@ Future<dynamic> addDeleteLessonPopUp(
         ),
         [
           Expanded(
-            child:
-                addLessonButton(context, myController1, attendance, addLesson),
+            child: addLessonButton(context, myController1, attendance),
           ),
           Expanded(
-            child: deleteLessonButton(
-                context, myController1, attendance, addLesson, deleteLesson),
+            child: deleteLessonButton(context, myController1, attendance),
           ),
         ],
       );
@@ -366,11 +486,10 @@ Future<dynamic> addDeleteLessonPopUp(
 }
 
 ElevatedButton deleteLessonButton(
-    BuildContext context,
-    TextEditingController myController1,
-    CollectionReference<Object?> attendance,
-    Future<void> Function() addLesson,
-    Future<void> Function() deleteLesson) {
+  BuildContext context,
+  TextEditingController myController1,
+  CollectionReference<Object?> attendance,
+) {
   return elevatedButtonProcess(
     const Text("Sil"),
     () {
@@ -384,7 +503,7 @@ ElevatedButton deleteLessonButton(
             "",
             attendance,
             context,
-            addLesson,
+            null,
             elevatedButtonProcess(
               const Text("Onaylıyorum"),
               () async {
@@ -394,7 +513,11 @@ ElevatedButton deleteLessonButton(
                   // Dökümanı veritabanından alın.
                   final doc = await docRef.get();
                   if (doc.exists) {
-                    await deleteLesson();
+                    await attendance
+                        .doc(myController1.text.toString())
+                        .delete();
+
+                    Navigator.pop(context);
                   } else {
                     Navigator.pop(context);
 
@@ -432,10 +555,10 @@ ElevatedButton deleteLessonButton(
 }
 
 ElevatedButton addLessonButton(
-    BuildContext context,
-    TextEditingController myController1,
-    CollectionReference<Object?> attendance,
-    Future<void> Function() addLesson) {
+  BuildContext context,
+  TextEditingController myController1,
+  CollectionReference<Object?> attendance,
+) {
   return elevatedButtonProcess(
     const Text("Ekle"),
     () {
@@ -449,36 +572,42 @@ ElevatedButton addLessonButton(
             "",
             attendance,
             context,
-            addLesson,
+            null,
             elevatedButtonProcess(
               const Text("Onaylıyorum"),
               () async {
                 if (myController1.text.toString().isNotEmpty) {
                   final docRef = attendance.doc(myController1.text.toString());
 
-                  // Dökümanı veritabanından alın.
-                  final doc = await docRef.get();
-                  if (doc.exists) {
-                    Navigator.pop(context);
+                  try {
+                    final doc = await docRef.get();
+                    if (doc.exists) {
+                      Navigator.pop(context);
 
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          elevation: 0,
-                          backgroundColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          title: Text(
-                            "Böyle bir ders zaten var",
-                            style: Constants.getTextStyle(Colors.red, 48.0),
-                          ),
-                        );
-                      },
-                    );
-                  } else {
-                    await addLesson();
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            title: Text(
+                              "Böyle bir ders zaten var",
+                              style: Constants.getTextStyle(Colors.red, 48.0),
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      await attendance
+                          .doc(myController1.text.toString())
+                          .set({"Ders": myController1.text.toString()});
+                      Navigator.pop(context);
+                    }
+                  } catch (e) {
+                    debugPrint("Error: $e");
                   }
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(

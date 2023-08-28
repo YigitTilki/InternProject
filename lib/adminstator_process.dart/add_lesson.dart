@@ -14,20 +14,9 @@ GestureDetector lessonAdd(context) {
   CollectionReference attendance =
       FirebaseFirestore.instance.collection("Dersler");
 
-  Future<void> addLesson() async {
-    return await add(context, attendance, myController1, {
-      "Ders": myController1.text.toString(),
-    });
-  }
-
-  Future<void> deleteLesson() async {
-    return await delete(context, attendance, myController1);
-  }
-
   return GestureDetector(
-    onTap: () {
-      addDeleteLessonPopUp(
-          context, myController1, attendance, addLesson, deleteLesson);
+    onTap: () async {
+      await addDeleteLessonPopUp(context, myController1, attendance);
     },
     child: adminPageContainerDesign("assets/library.png", "Eğitim"),
   );

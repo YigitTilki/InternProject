@@ -1,9 +1,12 @@
 // ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../constants/constants.dart';
+import '../widgets/attendance_list.dart';
 import '../widgets/generate_qr.dart';
 import '../widgets/back_buttons.dart';
 import 'login_page_t.dart';
@@ -44,8 +47,11 @@ class _TeacherPageState extends State<TeacherPage> {
     return shouldNavigate;
   }
 
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
+    final docref = db.collection(widget.data4.toString());
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
@@ -63,7 +69,7 @@ class _TeacherPageState extends State<TeacherPage> {
               "${widget.data4 ?? ""} için QR kod",
               style: Constants.getTextStyle(Colors.black, 20.0),
             ),
-            generateQR(widget.data4 ?? ""),
+            generateQR(widget.data4 ?? "", docref, context),
             const SizedBox(
               height: 70,
             ),
@@ -125,4 +131,28 @@ class _TeacherPageState extends State<TeacherPage> {
       ],
     );
   }
+}
+
+generateQR(String data, CollectionReference collectionReference, context) {
+  return GestureDetector(
+    onLongPress: () {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => AttendanceListBuilder(
+                collectionReference: collectionReference,
+              )));
+    },
+    child: Expanded(
+      child: SizedBox(
+        height: 250,
+        width: 250,
+        child: Center(
+          child: QrImageView(
+            data: data,
+            version: QrVersions.auto,
+            size: 250,
+          ),
+        ),
+      ),
+    ),
+  );
 }
