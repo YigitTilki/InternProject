@@ -6,6 +6,7 @@ import 'package:sanofi_main/widgets/dropdown.dart';
 import 'package:sanofi_main/pages/login_page_s.dart';
 
 import 'package:sanofi_main/pages/teacher_page.dart';
+import 'package:sanofi_main/widgets/elevated_button.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 import 'package:sizer/sizer.dart';
 
@@ -43,6 +44,7 @@ class _LoginPageTState extends State<LoginPageT> {
           child: Column(
             children: [
               Expanded(
+                flex: 2,
                 child: SizedBox(
                   height: 100.sp,
                 ),
@@ -80,50 +82,43 @@ class _LoginPageTState extends State<LoginPageT> {
                     }),
               ),
               SizedBox(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    final docRef = db
-                        .collection("UsersE")
-                        .doc(myController2.text.toString());
-                    try {
-                      final doc = await docRef.get();
-                      final data = doc.data() as Map<String, dynamic>;
-                      if (data["FullName"].toString() ==
-                              myController1.text.toString() &&
-                          data["Sicil"].toString() ==
-                              myController2.text.toString() &&
-                          data["Password"].toString() ==
-                              myController3.text.toString()) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TeacherPage(
-                              data1: myController1,
-                              data2: myController2,
-                              data3: myController3,
-                              data4: selectedLesson,
-                            ),
-                          ),
-                        );
-                      } else {
-                        debugPrint("olmadı");
-                      }
-                    } catch (e) {
-                      debugPrint("Hata: $e");
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.sp),
-                      ),
-                      minimumSize: Size(100.sp, 35.sp)),
-                  child: Text(
-                    "Giriş",
-                    style: Constants.getTextStyle(Colors.white, 16.0.sp),
-                  ),
+                  child: elevatedButtonProcess(
+                Text(
+                  "Giriş",
+                  style: Constants.getTextStyle(Colors.white, 14.sp),
                 ),
-              ),
+                () async {
+                  final docRef = db
+                      .collection("UsersE")
+                      .doc(myController2.text.toString());
+                  try {
+                    final doc = await docRef.get();
+                    final data = doc.data() as Map<String, dynamic>;
+                    if (data["FullName"].toString() ==
+                            myController1.text.toString() &&
+                        data["Sicil"].toString() ==
+                            myController2.text.toString() &&
+                        data["Password"].toString() ==
+                            myController3.text.toString()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TeacherPage(
+                            data1: myController1,
+                            data2: myController2,
+                            data3: myController3,
+                            data4: selectedLesson,
+                          ),
+                        ),
+                      );
+                    } else {
+                      debugPrint("olmadı");
+                    }
+                  } catch (e) {
+                    debugPrint("Hata: $e");
+                  }
+                },
+              )),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).push(
@@ -134,7 +129,7 @@ class _LoginPageTState extends State<LoginPageT> {
                 },
                 child: Text(
                   "Öğrenci Girişi",
-                  style: Constants.getTextStyle(Colors.black, 14.0.sp),
+                  style: Constants.getTextStyle(Colors.black, 12.0.sp),
                 ),
               ),
               SizedBox(
@@ -150,8 +145,11 @@ class _LoginPageTState extends State<LoginPageT> {
                   width: 20.sp,
                 ),
               ),
-              SizedBox(
-                height: 25.sp,
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                  height: 25.sp,
+                ),
               ),
             ],
           ),

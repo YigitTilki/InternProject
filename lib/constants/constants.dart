@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class Constants {
   Constants._();
@@ -12,10 +13,10 @@ class Constants {
 
   static Padding sanofiBig() {
     return Padding(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 8),
+      padding: EdgeInsets.only(top: 16.0.sp, bottom: 8.sp),
       child: SizedBox(
-        height: 61,
-        width: 278,
+        height: 50.sp,
+        width: 250.sp,
         child: Image.asset("assets/SNY_BIG.png"),
       ),
     );

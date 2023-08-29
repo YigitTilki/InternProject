@@ -66,7 +66,7 @@ class _StudentPageState extends State<StudentPage> {
                     style: Constants.getTextStyle(Colors.black, 36.0.sp),
                   ),
                   SizedBox(
-                    height: 15.sp,
+                    height: 5.sp,
                   ),
                   Text(
                     widget.data2?.text.toString() ?? "",
@@ -93,14 +93,14 @@ class _StudentPageState extends State<StudentPage> {
                   children: [
                     Icon(
                       Icons.camera_alt_outlined,
-                      size: 140,
+                      size: 140.sp,
                     ),
                     Opacity(
                       opacity: 0.5,
                       child: Image.asset(
                         "assets/pngwing.com.png",
-                        width: 200,
-                        height: 200,
+                        width: 200.sp,
+                        height: 200.sp,
                       ),
                     ),
                   ],

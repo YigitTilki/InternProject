@@ -59,13 +59,13 @@ class _LoginPageSState extends State<LoginPageS> {
               ),
               textFormFieldProcess("Sicil No", myController2),
               SizedBox(
-                height: 10.sp,
+                height: 15.sp,
               ),
               SizedBox(
                 child: elevatedButtonProcess(
                   Text(
                     "Giriş",
-                    style: Constants.getTextStyle(Colors.white, 16.0.sp),
+                    style: Constants.getTextStyle(Colors.white, 14.0.sp),
                   ),
                   () async {
                     final sicilNo = myController2.text.toString();
@@ -105,9 +105,6 @@ class _LoginPageSState extends State<LoginPageS> {
                   },
                 ),
               ),
-              SizedBox(
-                height: 5.sp,
-              ),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).push(
@@ -118,7 +115,7 @@ class _LoginPageSState extends State<LoginPageS> {
                 },
                 child: Text(
                   "Eğitimci Girişi",
-                  style: Constants.getTextStyle(Colors.black, 14.0.sp),
+                  style: Constants.getTextStyle(Colors.black, 12.0.sp),
                 ),
               ),
               SizedBox(
@@ -137,7 +134,7 @@ class _LoginPageSState extends State<LoginPageS> {
               Expanded(
                 flex: 1,
                 child: SizedBox(
-                  height: 30.sp,
+                  height: 25.sp,
                 ),
               ),
             ],
