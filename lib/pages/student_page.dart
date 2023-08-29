@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sanofi_main/pages/login_page_s.dart';
+
 import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart';
@@ -32,15 +32,7 @@ class _StudentPageState extends State<StudentPage> {
   }
 
   Future<bool> _onBackPressedFromAppBar() async {
-    bool shouldNavigate = await BackFunctions.onBackPressedFromAppBar(context);
-
-    if (shouldNavigate) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginPageS()),
-      );
-    }
-
-    return shouldNavigate;
+    return await BackFunctions.onBackPressedFromAppBar(context);
   }
 
   @override
@@ -57,7 +49,7 @@ class _StudentPageState extends State<StudentPage> {
         appBar: arrowBack(),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(
                 children: [
@@ -93,14 +85,14 @@ class _StudentPageState extends State<StudentPage> {
                   children: [
                     Icon(
                       Icons.camera_alt_outlined,
-                      size: 140.sp,
+                      size: 100.sp,
                     ),
                     Opacity(
                       opacity: 0.5,
                       child: Image.asset(
                         "assets/pngwing.com.png",
-                        width: 200.sp,
-                        height: 200.sp,
+                        width: 150.sp,
+                        height: 150.sp,
                       ),
                     ),
                   ],
@@ -128,6 +120,8 @@ class _StudentPageState extends State<StudentPage> {
           ),
         ),
         onPressed: () {
+          FieldUtils.clearFields(
+              controller1: widget.data1, controller2: widget.data2);
           _onBackPressedFromAppBar();
         },
       ),

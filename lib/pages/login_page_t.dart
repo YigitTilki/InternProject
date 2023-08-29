@@ -59,15 +59,16 @@ class _LoginPageTState extends State<LoginPageT> {
                   height: 100.sp,
                 ),
               ),
-              textFormFieldProcess("Ad-Soyad", myController1),
+              textFormFieldProcess("Ad-Soyad", myController1,
+                  [UppercaseInputFormatter(), nameFormatter]),
               SizedBox(
                 height: 10.sp,
               ),
-              textFormFieldProcess("Sicil No", myController2),
+              textFormFieldProcess("Sicil No", myController2, [sicilFormatter]),
               SizedBox(
                 height: 10.sp,
               ),
-              textFormFieldProcess("Şifre", myController3),
+              textFormFieldProcess("Şifre", myController3, null),
               SizedBox(
                 height: 10.sp,
               ),

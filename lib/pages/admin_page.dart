@@ -30,8 +30,9 @@ class _AdminPageState extends State<AdminPage> {
     return await BackFunctions.onBackPressed(context);
   }
 
-  Future<bool> _onBackPressedFromAppBar() async {
-    bool shouldNavigate = await BackFunctions.onBackPressedFromAppBar(context);
+  Future<bool> _onBackPressedFromAppBarAdmin() async {
+    bool shouldNavigate =
+        await BackFunctions.onBackPressedFromAppBarAdmin(context);
 
     if (shouldNavigate) {
       Navigator.of(context).pushReplacement(
@@ -95,7 +96,7 @@ class _AdminPageState extends State<AdminPage> {
           ),
         ),
         onPressed: () {
-          _onBackPressedFromAppBar();
+          _onBackPressedFromAppBarAdmin();
         },
       ),
     );

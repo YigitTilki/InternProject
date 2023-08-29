@@ -61,6 +61,59 @@ class BackFunctions {
   }
 
   static Future<bool> onBackPressedFromAppBar(context) async {
+    return await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: Text(
+              "Bir önceki sayfaya dönmek istiyor musunuz?",
+              style: Constants.getTextStyle(Colors.black, 20.0),
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  "Hayır",
+                  style: Constants.getTextStyle(Colors.white, 14.0),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: 10,
+                ),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purple,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Text(
+                    "Evet",
+                    style: Constants.getTextStyle(Colors.white, 14.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
+
+  static Future<bool> onBackPressedFromAppBarAdmin(context) async {
     bool shouldNavigate = await showDialog(
       context: context,
       builder: (context) => AlertDialog(

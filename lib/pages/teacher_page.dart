@@ -9,7 +9,6 @@ import 'package:sizer/sizer.dart';
 import '../constants/constants.dart';
 import '../widgets/attendance_list.dart';
 import '../widgets/back_buttons.dart';
-import 'login_page_t.dart';
 
 // ignore: must_be_immutable
 class TeacherPage extends StatefulWidget {
@@ -36,15 +35,7 @@ class _TeacherPageState extends State<TeacherPage> {
   }
 
   Future<bool> _onBackPressedFromAppBar() async {
-    bool shouldNavigate = await BackFunctions.onBackPressedFromAppBar(context);
-
-    if (shouldNavigate) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginPageT()),
-      );
-    }
-
-    return shouldNavigate;
+    return await BackFunctions.onBackPressedFromAppBar(context);
   }
 
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -104,6 +95,10 @@ class _TeacherPageState extends State<TeacherPage> {
           ),
         ),
         onPressed: () {
+          FieldUtils.clearFields(
+              controller1: widget.data1,
+              controller2: widget.data2,
+              controller3: widget.data3);
           _onBackPressedFromAppBar();
         },
       ),

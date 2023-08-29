@@ -40,11 +40,13 @@ Future<dynamic> addUserPopUp(
               children: [
                 Expanded(
                   flex: 2,
-                  child: textFormFieldProcess("Ad-Soyad", myController1),
+                  child: textFormFieldProcess("Ad-Soyad", myController1,
+                      [UppercaseInputFormatter(), nameFormatter]),
                 ),
                 Expanded(
                   flex: 2,
-                  child: textFormFieldProcess("Sicil No", myController2),
+                  child: textFormFieldProcess(
+                      "Sicil No", myController2, [sicilFormatter]),
                 ),
               ],
             ),
@@ -106,7 +108,8 @@ Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
             width: 500,
             child: Expanded(
                 flex: 2,
-                child: textFormFieldProcess("Sicil No", myController2)),
+                child: textFormFieldProcess(
+                    "Sicil No", myController2, [sicilFormatter])),
           )),
           [
             Expanded(
@@ -199,13 +202,16 @@ Future<dynamic> addUserEpopUp(
               children: [
                 Expanded(
                     flex: 2,
-                    child: textFormFieldProcess("Ad-Soyad", myController1)),
+                    child: textFormFieldProcess("Ad-Soyad", myController1,
+                        [UppercaseInputFormatter(), nameFormatter])),
                 Expanded(
                     flex: 2,
-                    child: textFormFieldProcess("Sicil No", myController2)),
+                    child: textFormFieldProcess(
+                        "Sicil No", myController2, [sicilFormatter])),
                 Expanded(
                     flex: 2,
-                    child: textFormFieldProcess("Password", myController3)),
+                    child:
+                        textFormFieldProcess("Password", myController3, null)),
               ],
             ),
           ),
@@ -377,7 +383,8 @@ AlertDialog deleteUserEpopUp(
       height: 80,
       width: 500,
       child: Expanded(
-          flex: 2, child: textFormFieldProcess("Sicil No", myController2)),
+          flex: 2,
+          child: textFormFieldProcess("Sicil No", myController2, null)),
     )),
     [
       Expanded(
@@ -467,7 +474,8 @@ Future<dynamic> addDeleteLessonPopUp(
             height: 80,
             child: Column(
               children: [
-                textFormFieldProcess("Eğitim Adı", myController1),
+                textFormFieldProcess("Eğitim Adı", myController1,
+                    [UppercaseInputFormatter(), sicilFormatter]),
               ],
             ),
           ),
