@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:sanofi_main/constants/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class QRViewExample extends StatefulWidget {
   final String? fullName;
@@ -68,8 +69,8 @@ class _QRViewExampleState extends State<QRViewExample> {
                           return Center(
                             child: Image.asset(
                               "assets/check-green-unscreen.gif",
-                              height: 50,
-                              width: 50,
+                              height: 35.sp,
+                              width: 35.sp,
                             ),
                           );
                         } else {
@@ -82,7 +83,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                 : Center(
                     child: Text(
                     'Scan a code',
-                    style: Constants.getTextStyle(Colors.black, 36.0),
+                    style: Constants.getTextStyle(Colors.black, 24.0.sp),
                   )),
           ),
         ],
@@ -91,19 +92,19 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   Widget _buildQrView(BuildContext context) {
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
-            MediaQuery.of(context).size.height < 400)
-        ? 150.0
-        : 300.0;
+    var scanArea = (MediaQuery.of(context).size.width < 400.sp ||
+            MediaQuery.of(context).size.height < 400.sp)
+        ? 150.0.sp
+        : 300.0.sp;
 
     return QRView(
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
           borderColor: const Color.fromARGB(255, 239, 183, 249),
-          borderRadius: 10,
-          borderLength: 20,
-          borderWidth: 10,
+          borderRadius: 10.sp,
+          borderLength: 20.sp,
+          borderWidth: 10.sp,
           cutOutSize: scanArea),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
@@ -124,14 +125,14 @@ class _QRViewExampleState extends State<QRViewExample> {
                 backgroundColor: Colors.white,
                 content: Image.asset(
                   "assets/check-green-unscreen.gif",
-                  height: 50,
-                  width: 50,
+                  height: 35.sp,
+                  width: 35.sp,
                 ),
                 actions: [
                   Center(
                     child: Text(
                       "Yoklamaya katıldınız",
-                      style: Constants.getTextStyle(Colors.green, 24.0),
+                      style: Constants.getTextStyle(Colors.green, 24.0.sp),
                     ),
                   )
                 ],

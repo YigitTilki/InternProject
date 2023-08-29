@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart';
 
@@ -42,7 +43,7 @@ class _DropDownState extends State<DropDown> {
         return DropdownButton<String>(
           hint: Text(
             "Ders Seçiniz",
-            style: Constants.getTextStyle(Colors.grey, 14.0),
+            style: Constants.getTextStyle(Colors.grey, 12.0.sp),
           ),
           value: widget.selectedLesson,
           items: lessonList.map((String value) {
@@ -50,7 +51,7 @@ class _DropDownState extends State<DropDown> {
               value: value,
               child: Text(
                 value,
-                style: Constants.getTextStyle(Colors.black, 14.0),
+                style: Constants.getTextStyle(Colors.black, 12.0.sp),
               ),
             );
           }).toList(),

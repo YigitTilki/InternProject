@@ -66,7 +66,7 @@ class _LoginPageSState extends State<LoginPageS> {
                 child: elevatedButtonProcess(
                   Text(
                     "Giriş",
-                    style: Constants.getTextStyle(Colors.white, 14.0.sp),
+                    style: Constants.getTextStyle(Colors.white, 12.0.sp),
                   ),
                   () async {
                     final sicilNo = myController2.text.toString();

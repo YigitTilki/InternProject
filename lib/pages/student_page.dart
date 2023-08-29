@@ -6,8 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart';
+import '../widgets/arrow_back.dart';
 import '../widgets/back_buttons.dart';
 import '../widgets/scan_qr.dart';
+import '../widgets/user_info.dart';
 
 // ignore: must_be_immutable
 class StudentPage extends StatefulWidget {
@@ -31,10 +33,6 @@ class _StudentPageState extends State<StudentPage> {
     return await BackFunctions.onBackPressed(context);
   }
 
-  Future<bool> _onBackPressedFromAppBar() async {
-    return await BackFunctions.onBackPressedFromAppBar(context);
-  }
-
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
@@ -46,27 +44,13 @@ class _StudentPageState extends State<StudentPage> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
-        appBar: arrowBack(),
+        resizeToAvoidBottomInset: false,
+        appBar: arrowBack(context, widget.data1, widget.data2, null),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                children: [
-                  Text(
-                    widget.data1?.text.toString() ?? "",
-                    style: Constants.getTextStyle(Colors.black, 36.0.sp),
-                  ),
-                  SizedBox(
-                    height: 5.sp,
-                  ),
-                  Text(
-                    widget.data2?.text.toString() ?? "",
-                    style: Constants.getTextStyle(
-                        const Color.fromRGBO(83, 42, 155, 1), 36.0.sp),
-                  ),
-                ],
-              ),
+              userInfo(widget.data1, widget.data2),
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
@@ -102,28 +86,6 @@ class _StudentPageState extends State<StudentPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  AppBar arrowBack() {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: IconButton(
-        icon: Padding(
-          padding: EdgeInsets.only(left: 10.sp, top: 10.sp),
-          child: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-            size: 40,
-          ),
-        ),
-        onPressed: () {
-          FieldUtils.clearFields(
-              controller1: widget.data1, controller2: widget.data2);
-          _onBackPressedFromAppBar();
-        },
       ),
     );
   }

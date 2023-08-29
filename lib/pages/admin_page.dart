@@ -6,9 +6,10 @@ import 'package:sanofi_main/adminstator_process.dart/add_lesson.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_participant.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_teacher.dart';
 import 'package:sanofi_main/constants/constants.dart';
-import 'package:sanofi_main/pages/login_page_t.dart';
+
 import 'package:sizer/sizer.dart';
 
+import '../widgets/arrow_back.dart';
 import '../widgets/back_buttons.dart';
 
 class AdminPage extends StatefulWidget {
@@ -30,25 +31,13 @@ class _AdminPageState extends State<AdminPage> {
     return await BackFunctions.onBackPressed(context);
   }
 
-  Future<bool> _onBackPressedFromAppBarAdmin() async {
-    bool shouldNavigate =
-        await BackFunctions.onBackPressedFromAppBarAdmin(context);
-
-    if (shouldNavigate) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginPageT()),
-      );
-    }
-
-    return shouldNavigate;
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
-        appBar: arrowBack(),
+        resizeToAvoidBottomInset: false,
+        appBar: arrowBackAdmin(context),
         body: Center(
           child: Column(
             children: [
@@ -58,8 +47,8 @@ class _AdminPageState extends State<AdminPage> {
                   padding: const EdgeInsets.fromLTRB(127, 50, 127, 100),
                   child: Image.asset(
                     "assets/adminicon.png",
-                    height: 95.sp,
-                    width: 95.sp,
+                    height: 80.sp,
+                    width: 80.sp,
                   ),
                 ),
               ),
@@ -78,26 +67,6 @@ class _AdminPageState extends State<AdminPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  AppBar arrowBack() {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: IconButton(
-        icon: Padding(
-          padding: EdgeInsets.only(left: 10.sp, top: 10.sp),
-          child: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-            size: 40,
-          ),
-        ),
-        onPressed: () {
-          _onBackPressedFromAppBarAdmin();
-        },
       ),
     );
   }

@@ -7,8 +7,10 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart';
+import '../widgets/arrow_back.dart';
 import '../widgets/attendance_list.dart';
 import '../widgets/back_buttons.dart';
+import '../widgets/user_info.dart';
 
 // ignore: must_be_immutable
 class TeacherPage extends StatefulWidget {
@@ -34,10 +36,6 @@ class _TeacherPageState extends State<TeacherPage> {
     return await BackFunctions.onBackPressed(context);
   }
 
-  Future<bool> _onBackPressedFromAppBar() async {
-    return await BackFunctions.onBackPressedFromAppBar(context);
-  }
-
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
@@ -46,13 +44,14 @@ class _TeacherPageState extends State<TeacherPage> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color.fromARGB(255, 246, 198, 255),
-        appBar: arrowBack(),
+        appBar: arrowBack(context, widget.data1, widget.data2, widget.data3),
         body: Column(
           children: [
             Align(
               alignment: Alignment.topLeft,
-              child: userInfo(),
+              child: userInfo(widget.data1, widget.data2),
             ),
             Expanded(
               flex: 1,
@@ -78,59 +77,6 @@ class _TeacherPageState extends State<TeacherPage> {
           ],
         ),
       ),
-    );
-  }
-
-  AppBar arrowBack() {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: IconButton(
-        icon: const Padding(
-          padding: EdgeInsets.only(left: 10, top: 10),
-          child: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-            size: 40,
-          ),
-        ),
-        onPressed: () {
-          FieldUtils.clearFields(
-              controller1: widget.data1,
-              controller2: widget.data2,
-              controller3: widget.data3);
-          _onBackPressedFromAppBar();
-        },
-      ),
-    );
-  }
-
-  Column userInfo() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Align(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: EdgeInsets.only(left: 20.0.sp),
-            child: Padding(
-              padding: EdgeInsets.only(top: 25.sp),
-              child: Text(
-                widget.data1?.text.toString() ?? "",
-                style: Constants.getTextStyle(Colors.black, 36.0.sp),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 15.0.sp),
-          child: Text(
-            widget.data2?.text.toString() ?? "",
-            style: Constants.getTextStyle(
-                const Color.fromRGBO(83, 42, 155, 1), 36.0.sp),
-          ),
-        ),
-      ],
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sanofi_main/widgets/containers.dart';
 import 'package:sanofi_main/widgets/elevated_button.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../constants/constants.dart';
 
@@ -18,39 +19,39 @@ Padding areYouSureUser(
     [
       Text(
         containerText1!,
-        style: Constants.getTextStyle(Colors.white, 18.0),
+        style: Constants.getTextStyle(Colors.white, 14.0.sp),
       ),
-      const SizedBox(
-        height: 10,
+      SizedBox(
+        height: 10.sp,
       ),
       Text(
         containerText2!,
-        style: Constants.getTextStyle(Colors.white, 18.0),
+        style: Constants.getTextStyle(Colors.white, 14.0.sp),
       ),
-      const SizedBox(
-        height: 10,
+      SizedBox(
+        height: 10.sp,
       ),
       Text(
         containerText3!,
-        style: Constants.getTextStyle(Colors.white, 18.0),
+        style: Constants.getTextStyle(Colors.white, 14.0.sp),
       ),
-      const SizedBox(
-        height: 20,
+      SizedBox(
+        height: 20.sp,
       ),
       Text(
         "Bilgileri onaylıyor musunuz",
         textAlign: TextAlign.center,
-        style: Constants.getTextStyle(Colors.white, 24.0),
+        style: Constants.getTextStyle(Colors.white, 18.0.sp),
       ),
-      const SizedBox(
-        height: 10,
+      SizedBox(
+        height: 10.sp,
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           iAmSure,
-          const SizedBox(
-            width: 15,
+          SizedBox(
+            width: 15.sp,
           ),
           backElevatedButton(context, "İptal"),
         ],

@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sanofi_main/widgets/containers.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../constants/constants.dart';
 
@@ -19,7 +20,7 @@ ElevatedButton iAmSureUser(
   return elevatedButtonProcess(
     Text(
       "Onaylıyorum",
-      style: Constants.getTextStyle(Colors.white, 16.0),
+      style: Constants.getTextStyle(Colors.white, 11.0.sp),
     ),
     () async {
       final sicilNo = myController2.text.toString();
@@ -41,17 +42,18 @@ ElevatedButton iAmSureUser(
                 builder: (BuildContext context) {
                   return areYouSureContainer(
                     [
-                      const SizedBox(
-                        height: 50,
+                      SizedBox(
+                        height: 50.sp,
                       ),
                       Expanded(
                         flex: 2,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0.sp),
                           child: Text(
                             "Böyle bir sicil mevcut ismi güncellemek ister misin?",
                             textAlign: TextAlign.center,
-                            style: Constants.getTextStyle(Colors.white, 24.0),
+                            style:
+                                Constants.getTextStyle(Colors.white, 18.0.sp),
                           ),
                         ),
                       ),
@@ -69,16 +71,16 @@ ElevatedButton iAmSureUser(
                                   Navigator.pop(context);
                                 },
                               ),
-                              const SizedBox(
-                                width: 20,
+                              SizedBox(
+                                width: 20.sp,
                               ),
                               backElevatedButton(context, "İptal"),
                             ],
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 50,
+                      SizedBox(
+                        height: 50.sp,
                       ),
                     ],
                   );

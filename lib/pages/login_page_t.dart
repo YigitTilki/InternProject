@@ -86,7 +86,7 @@ class _LoginPageTState extends State<LoginPageT> {
                   child: elevatedButtonProcess(
                 Text(
                   "Giriş",
-                  style: Constants.getTextStyle(Colors.white, 14.sp),
+                  style: Constants.getTextStyle(Colors.white, 12.sp),
                 ),
                 () async {
                   final docRef = db

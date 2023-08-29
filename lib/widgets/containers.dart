@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart';
 
 Container adminPageContainerDesign(String image, String text) {
   return Container(
-    width: 152,
-    height: 99,
+    width: 120.sp,
+    height: 90.sp,
     decoration: ShapeDecoration(
       color: const Color(0xCC7B00EB),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20.sp),
       ),
     ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.all(3.0),
+          padding: EdgeInsets.all(3.0.sp),
           child: Image.asset(
             image,
-            height: 70,
-            width: 70,
+            height: 50.sp,
+            width: 50.sp,
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: EdgeInsets.all(4.0.sp),
           child: Text(
             text,
-            style: Constants.getTextStyle(Colors.white, 15.0),
+            style: Constants.getTextStyle(Colors.white, 12.0.sp),
           ),
         ),
       ],
@@ -37,17 +38,17 @@ Container adminPageContainerDesign(String image, String text) {
 
 Padding areYouSureContainer(List<Widget> children) {
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding: EdgeInsets.all(8.0.sp),
     child: Center(
       child: Container(
         decoration: ShapeDecoration(
           color: Colors.black.withOpacity(0.8),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.sp),
           ),
         ),
-        height: 250,
-        width: double.infinity,
+        height: 200.sp,
+        width: double.infinity.sp,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: children,

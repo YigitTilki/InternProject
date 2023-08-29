@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../constants/constants.dart';
 import '../../widgets/alert_dialog.dart';
@@ -28,14 +29,14 @@ Future<dynamic> addUserPopUp(
         Text(
           "Katılımcı Ekle",
           textAlign: TextAlign.center,
-          style: Constants.getTextStyle(Colors.black, 24.0),
+          style: Constants.getTextStyle(Colors.black, 20.0.sp),
         ),
         null,
         Expanded(
           flex: 1,
           child: SizedBox(
-            width: 500,
-            height: 150,
+            width: 500.sp,
+            height: 125.sp,
             child: Column(
               children: [
                 Expanded(
@@ -57,7 +58,7 @@ Future<dynamic> addUserPopUp(
             child: elevatedButtonProcess(
               Text(
                 "Ekle/Güncelle",
-                style: Constants.getTextStyle(Colors.white, 13.0),
+                style: Constants.getTextStyle(Colors.white, 11.0.sp),
               ),
               () {
                 Navigator.pop(context);
@@ -99,13 +100,13 @@ Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
           Text(
             "Katılımcı Sil",
             textAlign: TextAlign.center,
-            style: Constants.getTextStyle(Colors.black, 24.0),
+            style: Constants.getTextStyle(Colors.black, 20.0.sp),
           ),
           null,
           Expanded(
               child: SizedBox(
-            height: 80,
-            width: 500,
+            height: 60.sp,
+            width: 500.sp,
             child: Expanded(
                 flex: 2,
                 child: textFormFieldProcess(
@@ -150,8 +151,9 @@ Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
                                       ),
                                       title: Text(
                                         "Böyle bir sicil no yok",
+                                        textAlign: TextAlign.center,
                                         style: Constants.getTextStyle(
-                                            Colors.red, 48.0),
+                                            Colors.red, 48.0.sp),
                                       ),
                                     );
                                   },
@@ -191,13 +193,13 @@ Future<dynamic> addUserEpopUp(
         Text(
           "Eğitimci Ekle",
           textAlign: TextAlign.center,
-          style: Constants.getTextStyle(Colors.black, 24.0),
+          style: Constants.getTextStyle(Colors.black, 20.0.sp),
         ),
         null,
         Expanded(
           child: SizedBox(
-            width: 500,
-            height: 250,
+            width: 500.sp,
+            height: 175.sp,
             child: Column(
               children: [
                 Expanded(
@@ -236,7 +238,8 @@ Future<dynamic> addUserEpopUp(
                         elevatedButtonProcess(
                           Text(
                             "Onaylıyorum",
-                            style: Constants.getTextStyle(Colors.white, 16.0),
+                            style:
+                                Constants.getTextStyle(Colors.white, 11.0.sp),
                           ),
                           () async {
                             final sicilNo = myController2.text.toString();
@@ -263,19 +266,18 @@ Future<dynamic> addUserEpopUp(
                                       builder: (BuildContext context) {
                                         return areYouSureContainer(
                                           [
-                                            const SizedBox(
-                                              height: 50,
+                                            SizedBox(
+                                              height: 50.sp,
                                             ),
                                             Expanded(
                                               flex: 2,
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
+                                                padding: EdgeInsets.all(8.0.sp),
                                                 child: Text(
                                                   "Böyle bir sicil mevcut ismi ve şifreyi güncellemek ister misin?",
                                                   textAlign: TextAlign.center,
                                                   style: Constants.getTextStyle(
-                                                      Colors.white, 24.0),
+                                                      Colors.white, 18.0.sp),
                                                 ),
                                               ),
                                             ),
@@ -313,8 +315,8 @@ Future<dynamic> addUserEpopUp(
                                                         Navigator.pop(context);
                                                       },
                                                     ),
-                                                    const SizedBox(
-                                                      width: 20,
+                                                    SizedBox(
+                                                      width: 20.sp,
                                                     ),
                                                     backElevatedButton(
                                                         context, "İptal"),
@@ -322,8 +324,8 @@ Future<dynamic> addUserEpopUp(
                                                 ),
                                               ),
                                             ),
-                                            const SizedBox(
-                                              height: 50,
+                                            SizedBox(
+                                              height: 50.sp,
                                             ),
                                           ],
                                         );
@@ -375,13 +377,13 @@ AlertDialog deleteUserEpopUp(
     Text(
       "Eğitimci Sil",
       textAlign: TextAlign.center,
-      style: Constants.getTextStyle(Colors.black, 24.0),
+      style: Constants.getTextStyle(Colors.black, 20.0.sp),
     ),
     null,
     Expanded(
         child: SizedBox(
-      height: 80,
-      width: 500,
+      height: 60.sp,
+      width: 500.sp,
       child: Expanded(
           flex: 2,
           child: textFormFieldProcess("Sicil No", myController2, null)),
@@ -426,11 +428,13 @@ AlertDialog deleteUserEpopUp(
                               elevation: 0,
                               backgroundColor: Colors.transparent,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(20.sp),
                               ),
                               title: Text(
                                 "Böyle bir sicil no yok",
-                                style: Constants.getTextStyle(Colors.red, 48.0),
+                                textAlign: TextAlign.center,
+                                style:
+                                    Constants.getTextStyle(Colors.red, 30.0.sp),
                               ),
                             );
                           },
@@ -465,13 +469,13 @@ Future<dynamic> addDeleteLessonPopUp(
         Text(
           "Eğitim",
           textAlign: TextAlign.center,
-          style: Constants.getTextStyle(Colors.black, 24.0),
+          style: Constants.getTextStyle(Colors.black, 20.0.sp),
         ),
         null,
         Expanded(
           child: SizedBox(
-            width: 500,
-            height: 80,
+            width: 500.sp,
+            height: 60.sp,
             child: Column(
               children: [
                 textFormFieldProcess("Eğitim Adı", myController1,
@@ -540,7 +544,8 @@ ElevatedButton deleteLessonButton(
                           ),
                           title: Text(
                             "Böyle bir ders yok",
-                            style: Constants.getTextStyle(Colors.red, 48.0),
+                            textAlign: TextAlign.center,
+                            style: Constants.getTextStyle(Colors.red, 30.0.sp),
                           ),
                         );
                       },
@@ -599,11 +604,13 @@ ElevatedButton addLessonButton(
                             elevation: 0,
                             backgroundColor: Colors.transparent,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(20.sp),
                             ),
                             title: Text(
                               "Böyle bir ders zaten var",
-                              style: Constants.getTextStyle(Colors.red, 48.0),
+                              textAlign: TextAlign.center,
+                              style:
+                                  Constants.getTextStyle(Colors.red, 30.0.sp),
                             ),
                           );
                         },

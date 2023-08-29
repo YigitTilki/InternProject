@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart';
 import '../pages/admin_page.dart';
@@ -11,18 +12,19 @@ Future<dynamic> adminRouter(
   return showDialog(
     context: context,
     builder: (BuildContext context) {
+      FieldUtils.clearFields(controller1: controller);
       return alertDialogProcess(
         null,
         const Icon(Icons.lock_outlined),
         SizedBox(
-          width: 400,
+          width: 400.sp,
           child: textFormFieldProcess("Admin Password", controller, null),
         ),
         [
           elevatedButtonProcess(
             Text(
               "Giriş",
-              style: Constants.getTextStyle(Colors.white, 16.0),
+              style: Constants.getTextStyle(Colors.white, 12.0.sp),
             ),
             () {
               if (controller.text.toString() == sifre) {
@@ -32,6 +34,7 @@ Future<dynamic> adminRouter(
                   ),
                 );
               } else {
+                FieldUtils.clearFields(controller1: controller);
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -43,7 +46,8 @@ Future<dynamic> adminRouter(
                       ),
                       title: Text(
                         "Şifre Hatalı",
-                        style: Constants.getTextStyle(Colors.red, 48.0),
+                        textAlign: TextAlign.center,
+                        style: Constants.getTextStyle(Colors.red, 48.0.sp),
                       ),
                     );
                   },
