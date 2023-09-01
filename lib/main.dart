@@ -1,10 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
+
 import 'package:sanofi_main/pages/home_page.dart';
 
 import 'package:flutter/material.dart';
 
 import 'db_helper.dart/firebase_options.dart';
 import 'package:sizer/sizer.dart';
+
+import 'widgets/translater.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,9 +29,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
+      return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(focusColor: Colors.red),
+        translations: Dil(),
+        //supportedLocales: Dil.diller,
+        // ignore: prefer_if_null_operators
+        locale: Get.locale == null ? Get.deviceLocale : Get.locale,
+        fallbackLocale: Dil.varsayilan,
         home: const HomePage(),
       );
     });

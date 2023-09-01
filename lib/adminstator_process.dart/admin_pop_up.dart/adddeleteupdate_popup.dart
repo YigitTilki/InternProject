@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants/constants.dart';
@@ -27,7 +28,7 @@ Future<dynamic> addUserPopUp(
 
       return alertDialogProcess(
         Text(
-          "Katılımcı Ekle",
+          'katilimci-ekle'.tr,
           textAlign: TextAlign.center,
           style: Constants.getTextStyle(Colors.black, 20.0.sp),
         ),
@@ -41,13 +42,13 @@ Future<dynamic> addUserPopUp(
               children: [
                 Expanded(
                   flex: 2,
-                  child: textFormFieldProcess("Ad-Soyad", myController1,
+                  child: textFormFieldProcess('ad-soyad'.tr, myController1,
                       [UppercaseInputFormatter(), nameFormatter]),
                 ),
                 Expanded(
                   flex: 2,
                   child: textFormFieldProcess(
-                      "Sicil No", myController2, [sicilFormatter]),
+                      'sicil'.tr, myController2, [sicilFormatter]),
                 ),
               ],
             ),
@@ -57,7 +58,7 @@ Future<dynamic> addUserPopUp(
           Expanded(
             child: elevatedButtonProcess(
               Text(
-                "Ekle/Güncelle",
+                'ekle-guncelle'.tr,
                 style: Constants.getTextStyle(Colors.white, 11.0.sp),
               ),
               () {
