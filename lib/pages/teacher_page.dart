@@ -88,6 +88,7 @@ generateQR(String data, CollectionReference collectionReference, context) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => AttendanceListBuilder(
                 collectionReference: collectionReference,
+                colStr: data,
               )));
     },
     child: Expanded(

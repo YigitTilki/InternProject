@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sanofi_main/pages/login_page_t.dart';
 import 'package:sanofi_main/pages/student_page.dart';
 import 'package:sanofi_main/widgets/elevated_button.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 import 'package:sizer/sizer.dart';
-import 'package:get/get.dart';
 
 import '../adminstator_process.dart/admin_router.dart';
 import '../constants/constants.dart';
@@ -59,7 +59,7 @@ class _LoginPageSState extends State<LoginPageS> {
               SizedBox(
                 height: 10.sp,
               ),
-              textFormFieldProcess("sicil".tr, myController2, [sicilFormatter]),
+              textFormFieldProcess('sicil'.tr, myController2, [sicilFormatter]),
               SizedBox(
                 height: 15.sp,
               ),
@@ -71,8 +71,9 @@ class _LoginPageSState extends State<LoginPageS> {
                   ),
                   () async {
                     final sicilNo = myController2.text.toString();
+                    final fullName = myController1.text.toString();
 
-                    if (sicilNo.isNotEmpty) {
+                    if (sicilNo.isNotEmpty && fullName.isNotEmpty) {
                       final docRef = db.collection("Users").doc(sicilNo);
 
                       try {
@@ -80,7 +81,9 @@ class _LoginPageSState extends State<LoginPageS> {
                         final data = doc.data() as Map<String, dynamic>;
 
                         if (data["FullName"].toString() ==
-                            myController1.text.toString()) {
+                                myController1.text.toString() &&
+                            data["Sicil"].toString() ==
+                                myController2.text.toString()) {
                           // ignore: use_build_context_synchronously
                           Navigator.push(
                             context,
@@ -100,6 +103,7 @@ class _LoginPageSState extends State<LoginPageS> {
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
+                          backgroundColor: Colors.purple,
                           content: Text('sicil-no-alani-doldurun'.tr),
                         ),
                       );
