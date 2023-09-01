@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:get/get.dart';
 
 import '../constants/constants.dart';
 import '../pages/admin_page.dart';
@@ -18,12 +19,12 @@ Future<dynamic> adminRouter(
         const Icon(Icons.lock_outlined),
         SizedBox(
           width: 400.sp,
-          child: textFormFieldProcess("Admin Password", controller, null),
+          child: textFormFieldProcess('admin-password'.tr, controller, null),
         ),
         [
           elevatedButtonProcess(
             Text(
-              "Giriş",
+              'giris'.tr,
               style: Constants.getTextStyle(Colors.white, 12.0.sp),
             ),
             () {
@@ -45,7 +46,7 @@ Future<dynamic> adminRouter(
                         borderRadius: BorderRadius.circular(20),
                       ),
                       title: Text(
-                        "Şifre Hatalı",
+                        'sifre-hata'.tr,
                         textAlign: TextAlign.center,
                         style: Constants.getTextStyle(Colors.red, 48.0.sp),
                       ),

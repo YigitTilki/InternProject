@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
+import 'package:get/get.dart';
 
 import '../constants/constants.dart';
 import '../pages/login_page_t.dart';
@@ -15,7 +16,7 @@ class BackFunctions {
               borderRadius: BorderRadius.circular(20.sp), // Şekil ayarı
             ),
             title: Text(
-              "Uygulamadan çıkmak istiyor musunuz?",
+              'cikis'.tr,
               style: Constants.getTextStyle(Colors.black, 17.0.sp),
             ),
             actions: <Widget>[
@@ -30,7 +31,7 @@ class BackFunctions {
                   // Diğer stil ayarları
                 ),
                 child: Text(
-                  "Hayır",
+                  'hayir'.tr,
                   style: Constants.getTextStyle(Colors.white, 11.0.sp),
                 ),
               ),
@@ -48,7 +49,7 @@ class BackFunctions {
                     ),
                   ),
                   child: Text(
-                    "Evet",
+                    'evet'.tr,
                     style: Constants.getTextStyle(Colors.white, 11.0.sp),
                   ),
                 ),
@@ -68,7 +69,7 @@ class BackFunctions {
               borderRadius: BorderRadius.circular(10.sp),
             ),
             title: Text(
-              "Bir önceki sayfaya dönmek istiyor musunuz?",
+              'back'.tr,
               style: Constants.getTextStyle(Colors.black, 17.0.sp),
             ),
             actions: <Widget>[
@@ -81,7 +82,7 @@ class BackFunctions {
                   ),
                 ),
                 child: Text(
-                  "Hayır",
+                  'hayir'.tr,
                   style: Constants.getTextStyle(Colors.white, 11.0.sp),
                 ),
               ),
@@ -101,7 +102,7 @@ class BackFunctions {
                     ),
                   ),
                   child: Text(
-                    "Evet",
+                    'evet'.tr,
                     style: Constants.getTextStyle(Colors.white, 11.0.sp),
                   ),
                 ),
@@ -121,7 +122,7 @@ class BackFunctions {
           borderRadius: BorderRadius.circular(10.sp),
         ),
         title: Text(
-          "Bir önceki sayfaya dönmek istiyor musunuz?",
+          'back'.tr,
           style: Constants.getTextStyle(Colors.black, 17.0.sp),
         ),
         actions: <Widget>[
@@ -134,7 +135,7 @@ class BackFunctions {
               ),
             ),
             child: Text(
-              "Hayır",
+              'hayir'.tr,
               style: Constants.getTextStyle(Colors.white, 11.0.sp),
             ),
           ),
@@ -151,7 +152,7 @@ class BackFunctions {
                 ),
               ),
               child: Text(
-                "Evet",
+                'evet'.tr,
                 style: Constants.getTextStyle(Colors.white, 11.0.sp),
               ),
             ),

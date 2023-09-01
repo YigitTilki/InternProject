@@ -67,8 +67,8 @@ Future<dynamic> addUserPopUp(
                   context: context,
                   builder: (BuildContext context) {
                     return areYouSureUser(
-                      "Ad-Soyad: ${myController1.text.toString()}",
-                      "Sicil No: ${myController2.text.toString()}",
+                      "${'ad-soyad:'.tr}${myController1.text.toString()}",
+                      "${'sicil:'.tr}${myController2.text.toString()}",
                       "",
                       collectionReference,
                       context,
@@ -82,7 +82,7 @@ Future<dynamic> addUserPopUp(
             ),
           ),
           Expanded(
-            child: backElevatedButton(context, "Geri Dön"),
+            child: backElevatedButton(context, 'geri-don'.tr),
           ),
         ],
       );
@@ -99,7 +99,7 @@ Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
 
         return alertDialogProcess(
           Text(
-            "Katılımcı Sil",
+            'katilimci-sil'.tr,
             textAlign: TextAlign.center,
             style: Constants.getTextStyle(Colors.black, 20.0.sp),
           ),
@@ -111,26 +111,26 @@ Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
             child: Expanded(
                 flex: 2,
                 child: textFormFieldProcess(
-                    "Sicil No", myController2, [sicilFormatter])),
+                    'sicil'.tr, myController2, [sicilFormatter])),
           )),
           [
             Expanded(
               child: elevatedButtonProcess(
-                const Text("Sil"),
+                Text('sil'.tr),
                 () {
                   Navigator.pop(context);
                   return showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return areYouSureUser(
-                          "Silinecek Kullanıcı: ${myController2.text.toString()}",
+                          "${'silinecek-kullanici'.tr}${myController2.text.toString()}",
                           "",
                           "",
                           collectionReference,
                           context,
                           deleteUser,
                           elevatedButtonProcess(
-                            const Text("Onaylıyorum"),
+                            Text('onay'.tr),
                             () async {
                               final docRef = collectionReference
                                   .doc(myController2.text.toString());
@@ -151,7 +151,7 @@ Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       title: Text(
-                                        "Böyle bir sicil no yok",
+                                        'boyle-sicil-yok'.tr,
                                         textAlign: TextAlign.center,
                                         style: Constants.getTextStyle(
                                             Colors.red, 48.0.sp),
@@ -168,7 +168,7 @@ Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
               ),
             ),
             Expanded(
-              child: backElevatedButton(context, "Geri Dön"),
+              child: backElevatedButton(context, 'geri-don'.tr),
             ),
           ],
         );
@@ -192,7 +192,7 @@ Future<dynamic> addUserEpopUp(
 
       return alertDialogProcess(
         Text(
-          "Eğitimci Ekle",
+          'egitimci-ekle'.tr,
           textAlign: TextAlign.center,
           style: Constants.getTextStyle(Colors.black, 20.0.sp),
         ),
@@ -205,16 +205,16 @@ Future<dynamic> addUserEpopUp(
               children: [
                 Expanded(
                     flex: 2,
-                    child: textFormFieldProcess("Ad-Soyad", myController1,
+                    child: textFormFieldProcess('ad-soyad'.tr, myController1,
                         [UppercaseInputFormatter(), nameFormatter])),
                 Expanded(
                     flex: 2,
                     child: textFormFieldProcess(
-                        "Sicil No", myController2, [sicilFormatter])),
+                        'sicil'.tr, myController2, [sicilFormatter])),
                 Expanded(
                     flex: 2,
                     child:
-                        textFormFieldProcess("Password", myController3, null)),
+                        textFormFieldProcess('sifre'.tr, myController3, null)),
               ],
             ),
           ),
@@ -222,7 +222,7 @@ Future<dynamic> addUserEpopUp(
         [
           Expanded(
             child: elevatedButtonProcess(
-              const Text("Ekle/Güncelle"),
+              Text('ekle-guncelle'.tr),
               () {
                 Navigator.pop(context);
 
@@ -230,15 +230,15 @@ Future<dynamic> addUserEpopUp(
                   context: context,
                   builder: (BuildContext context) {
                     return areYouSureUser(
-                        "Ad-Soyad: ${myController1.text.toString()}",
-                        "Sicil No: ${myController2.text.toString()}",
-                        "Şifre: ${myController3.text.toString()}",
+                        "${'ad-soyad:'.tr}${myController1.text.toString()}",
+                        "${'sicil:'.tr}${myController2.text.toString()}",
+                        "${'sifre:'.tr}${myController3.text.toString()}",
                         attendance,
                         context,
                         null,
                         elevatedButtonProcess(
                           Text(
-                            "Onaylıyorum",
+                            'onay'.tr,
                             style:
                                 Constants.getTextStyle(Colors.white, 11.0.sp),
                           ),
@@ -275,7 +275,8 @@ Future<dynamic> addUserEpopUp(
                                               child: Padding(
                                                 padding: EdgeInsets.all(8.0.sp),
                                                 child: Text(
-                                                  "Böyle bir sicil mevcut ismi ve şifreyi güncellemek ister misin?",
+                                                  'sicil-mevcut-ismi-ve-sifre-gunc'
+                                                      .tr,
                                                   textAlign: TextAlign.center,
                                                   style: Constants.getTextStyle(
                                                       Colors.white, 18.0.sp),
@@ -290,7 +291,7 @@ Future<dynamic> addUserEpopUp(
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     elevatedButtonProcess(
-                                                      const Text("Güncelle"),
+                                                      Text('güncelle'.tr),
                                                       () async {
                                                         await attendance
                                                             .doc(myController2
@@ -320,7 +321,7 @@ Future<dynamic> addUserEpopUp(
                                                       width: 20.sp,
                                                     ),
                                                     backElevatedButton(
-                                                        context, "İptal"),
+                                                        context, 'iptal'.tr),
                                                   ],
                                                 ),
                                               ),
@@ -348,8 +349,8 @@ Future<dynamic> addUserEpopUp(
                               }
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Hatalı Giriş.'),
+                                SnackBar(
+                                  content: Text('hatali-giris'.tr),
                                 ),
                               );
                             }
@@ -361,7 +362,7 @@ Future<dynamic> addUserEpopUp(
             ),
           ),
           Expanded(
-            child: backElevatedButton(context, "Geri Dön"),
+            child: backElevatedButton(context, 'geri-don'.tr),
           ),
         ],
       );
@@ -376,7 +377,7 @@ AlertDialog deleteUserEpopUp(
     Future<void> Function() deleteUserE) {
   return alertDialogProcess(
     Text(
-      "Eğitimci Sil",
+      'egitimci-sil'.tr,
       textAlign: TextAlign.center,
       style: Constants.getTextStyle(Colors.black, 20.0.sp),
     ),
@@ -387,12 +388,12 @@ AlertDialog deleteUserEpopUp(
       width: 500.sp,
       child: Expanded(
           flex: 2,
-          child: textFormFieldProcess("Sicil No", myController2, null)),
+          child: textFormFieldProcess('sicil'.tr, myController2, null)),
     )),
     [
       Expanded(
         child: elevatedButtonProcess(
-          const Text("Sil"),
+          Text('sil'.tr),
           () {
             Navigator.pop(context);
 
@@ -400,14 +401,14 @@ AlertDialog deleteUserEpopUp(
               context: context,
               builder: (BuildContext context) {
                 return areYouSureUser(
-                  "Silinecek Kullanıcı: ${myController2.text.toString()}",
+                  "${'silinecek-kullanici'.tr}${myController2.text.toString()}",
                   "",
                   "",
                   attendance,
                   context,
                   deleteUserE,
                   elevatedButtonProcess(
-                    const Text("Onaylıyorum"),
+                    Text('onay'.tr),
                     () async {
                       final docRef =
                           attendance.doc(myController2.text.toString());
@@ -432,7 +433,7 @@ AlertDialog deleteUserEpopUp(
                                 borderRadius: BorderRadius.circular(20.sp),
                               ),
                               title: Text(
-                                "Böyle bir sicil no yok",
+                                'boyle-sicil-yok'.tr,
                                 textAlign: TextAlign.center,
                                 style:
                                     Constants.getTextStyle(Colors.red, 30.0.sp),
@@ -450,7 +451,7 @@ AlertDialog deleteUserEpopUp(
         ),
       ),
       Expanded(
-        child: backElevatedButton(context, "Geri Dön"),
+        child: backElevatedButton(context, 'geri-don'.tr),
       ),
     ],
   );
@@ -468,7 +469,7 @@ Future<dynamic> addDeleteLessonPopUp(
 
       return alertDialogProcess(
         Text(
-          "Eğitim",
+          'ders'.tr,
           textAlign: TextAlign.center,
           style: Constants.getTextStyle(Colors.black, 20.0.sp),
         ),
@@ -479,7 +480,7 @@ Future<dynamic> addDeleteLessonPopUp(
             height: 60.sp,
             child: Column(
               children: [
-                textFormFieldProcess("Eğitim Adı", myController1,
+                textFormFieldProcess('egitim-ad'.tr, myController1,
                     [UppercaseInputFormatter(), sicilFormatter]),
               ],
             ),
@@ -504,21 +505,21 @@ ElevatedButton deleteLessonButton(
   CollectionReference<Object?> attendance,
 ) {
   return elevatedButtonProcess(
-    const Text("Sil"),
+    Text('sil'.tr),
     () {
       Navigator.pop(context);
       return showDialog(
         context: context,
         builder: (BuildContext context) {
           return areYouSureUser(
-            "Silinecek Kullanıcı: ${myController1.text.toString()}",
+            "${'silinecek-kullanici'.tr}${myController1.text.toString()}",
             "",
             "",
             attendance,
             context,
             null,
             elevatedButtonProcess(
-              const Text("Onaylıyorum"),
+              Text('onay'.tr),
               () async {
                 if (myController1.text.toString().isNotEmpty) {
                   final docRef = attendance.doc(myController1.text.toString());
@@ -544,7 +545,7 @@ ElevatedButton deleteLessonButton(
                             borderRadius: BorderRadius.circular(20),
                           ),
                           title: Text(
-                            "Böyle bir ders yok",
+                            'boyle-ders-yok'.tr,
                             textAlign: TextAlign.center,
                             style: Constants.getTextStyle(Colors.red, 30.0.sp),
                           ),
@@ -554,8 +555,8 @@ ElevatedButton deleteLessonButton(
                   }
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Hatalı Giriş.'),
+                    SnackBar(
+                      content: Text('hatali-giris'.tr),
                     ),
                   );
                 }
@@ -574,21 +575,21 @@ ElevatedButton addLessonButton(
   CollectionReference<Object?> attendance,
 ) {
   return elevatedButtonProcess(
-    const Text("Ekle"),
+    Text('ekle'.tr),
     () {
       Navigator.pop(context);
       return showDialog(
         context: context,
         builder: (BuildContext context) {
           return areYouSureUser(
-            "Eklenilecek Kullanıcı: ${myController1.text.toString()}",
+            "${'eklenecek-kullanici'.tr}${myController1.text.toString()}",
             "",
             "",
             attendance,
             context,
             null,
             elevatedButtonProcess(
-              const Text("Onaylıyorum"),
+              Text('onay'.tr),
               () async {
                 if (myController1.text.toString().isNotEmpty) {
                   final docRef = attendance.doc(myController1.text.toString());
@@ -608,7 +609,7 @@ ElevatedButton addLessonButton(
                               borderRadius: BorderRadius.circular(20.sp),
                             ),
                             title: Text(
-                              "Böyle bir ders zaten var",
+                              'boyle-egitim-var'.tr,
                               textAlign: TextAlign.center,
                               style:
                                   Constants.getTextStyle(Colors.red, 30.0.sp),
@@ -627,8 +628,8 @@ ElevatedButton addLessonButton(
                   }
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Hatalı Giriş.'),
+                    SnackBar(
+                      content: Text('hatali-giris'.tr),
                     ),
                   );
                 }

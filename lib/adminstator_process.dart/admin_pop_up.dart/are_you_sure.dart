@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sanofi_main/widgets/containers.dart';
 import 'package:sanofi_main/widgets/elevated_button.dart';
 import 'package:sizer/sizer.dart';
+import 'package:get/get.dart';
 
 import '../../constants/constants.dart';
 
@@ -39,7 +40,7 @@ Padding areYouSureUser(
         height: 20.sp,
       ),
       Text(
-        "Bilgileri onaylıyor musunuz",
+        'bilgileri-onayliyor-musunuz'.tr,
         textAlign: TextAlign.center,
         style: Constants.getTextStyle(Colors.white, 18.0.sp),
       ),
@@ -53,7 +54,7 @@ Padding areYouSureUser(
           SizedBox(
             width: 15.sp,
           ),
-          backElevatedButton(context, "İptal"),
+          backElevatedButton(context, 'iptal'.tr),
         ],
       ),
     ],

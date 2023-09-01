@@ -5,6 +5,7 @@ import 'package:sanofi_main/pages/student_page.dart';
 import 'package:sanofi_main/widgets/elevated_button.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 import 'package:sizer/sizer.dart';
+import 'package:get/get.dart';
 
 import '../adminstator_process.dart/admin_router.dart';
 import '../constants/constants.dart';
@@ -44,7 +45,7 @@ class _LoginPageSState extends State<LoginPageS> {
               ),
               Constants.sanofiBig(),
               Text(
-                "Eğitim Yoklama Sistemi",
+                'egitim'.tr,
                 style: Constants.getTextStyle(Colors.black, 15.0.sp),
               ),
               Expanded(
@@ -53,19 +54,19 @@ class _LoginPageSState extends State<LoginPageS> {
                   height: 50.sp,
                 ),
               ),
-              textFormFieldProcess("Ad-Soyad", myController1,
+              textFormFieldProcess('ad-soyad'.tr, myController1,
                   [UppercaseInputFormatter(), nameFormatter]),
               SizedBox(
                 height: 10.sp,
               ),
-              textFormFieldProcess("Sicil No", myController2, [sicilFormatter]),
+              textFormFieldProcess("sicil".tr, myController2, [sicilFormatter]),
               SizedBox(
                 height: 15.sp,
               ),
               SizedBox(
                 child: elevatedButtonProcess(
                   Text(
-                    "Giriş",
+                    'giris'.tr,
                     style: Constants.getTextStyle(Colors.white, 12.0.sp),
                   ),
                   () async {
@@ -98,8 +99,8 @@ class _LoginPageSState extends State<LoginPageS> {
                       }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Sicil No alanını doldurun.'),
+                        SnackBar(
+                          content: Text('sicil-no-alani-doldurun'.tr),
                         ),
                       );
                     }
@@ -115,7 +116,7 @@ class _LoginPageSState extends State<LoginPageS> {
                   );
                 },
                 child: Text(
-                  "Eğitimci Girişi",
+                  'egitimci-giris'.tr,
                   style: Constants.getTextStyle(Colors.black, 12.0.sp),
                 ),
               ),

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sanofi_main/widgets/containers.dart';
 import 'package:sizer/sizer.dart';
+import 'package:get/get.dart';
 
 import '../../constants/constants.dart';
 
@@ -19,7 +20,7 @@ ElevatedButton iAmSureUser(
     Future<void> Function() updateUser) {
   return elevatedButtonProcess(
     Text(
-      "Onaylıyorum",
+      'onay'.tr,
       style: Constants.getTextStyle(Colors.white, 11.0.sp),
     ),
     () async {
@@ -50,7 +51,7 @@ ElevatedButton iAmSureUser(
                         child: Padding(
                           padding: EdgeInsets.all(8.0.sp),
                           child: Text(
-                            "Böyle bir sicil mevcut ismi güncellemek ister misin?",
+                            'sicil-mevcut'.tr,
                             textAlign: TextAlign.center,
                             style:
                                 Constants.getTextStyle(Colors.white, 18.0.sp),
@@ -64,7 +65,7 @@ ElevatedButton iAmSureUser(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               elevatedButtonProcess(
-                                const Text("Güncelle"),
+                                Text('güncelle'.tr),
                                 () async {
                                   await updateUser();
 
@@ -74,7 +75,7 @@ ElevatedButton iAmSureUser(
                               SizedBox(
                                 width: 20.sp,
                               ),
-                              backElevatedButton(context, "İptal"),
+                              backElevatedButton(context, 'iptal'.tr),
                             ],
                           ),
                         ),
@@ -95,8 +96,8 @@ ElevatedButton iAmSureUser(
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Hatalı Giriş.'),
+          SnackBar(
+            content: Text('hatali-giris'.tr),
           ),
         );
       }

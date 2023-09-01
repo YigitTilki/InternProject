@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sanofi_main/constants/constants.dart';
 import 'package:sanofi_main/widgets/alert_dialog.dart';
@@ -29,107 +30,6 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
   List<DocumentSnapshot> searchResults = [];
   TextEditingController myController1 = TextEditingController();
   TextEditingController myController2 = TextEditingController();
-
-  void firestoreVerileriniRealtimeDatabaseAktar() async {
-    try {
-      // Firestore'u başlatın
-
-      // Realtime Database'i başlatın
-      final FirebaseDatabase veritabani = FirebaseDatabase.instance;
-      DatabaseReference veritabaniReferansi =
-          veritabani.reference().child('Dersler/Ders03/');
-
-      // Firestore'dan veri çekin
-      QuerySnapshot sorguSonucu = await widget.collectionReference.get();
-
-      // Firestore belgelerini döngüyle gezin ve bunları Realtime Database'e yazın
-      for (var belge in sorguSonucu.docs) {
-        Map<String, dynamic> veri = belge.data() as Map<String, dynamic>;
-
-        // Realtime Database'e veriyi yazın
-        veritabaniReferansi.push().set({
-          'FullName': veri['FullName'],
-          'Sicil': veri['Sicil'],
-          'Tarih': veri['Tarih'],
-          'Saat': veri['Saat'],
-        });
-      }
-
-      debugPrint('Veriler Realtime Database\'e aktarıldı.');
-    } catch (e) {
-      debugPrint('Hata oluştu: $e');
-    }
-  }
-
-  Future<void> saveCSVToFile(List<Map<String, dynamic>> data) async {
-    List<List<dynamic>> rows = [];
-
-    // CSV başlıkları
-    rows.add(["FullName", "Sicil", "Tarih", "Saat"]);
-
-    // Verileri ekleyin
-    for (var item in data) {
-      rows.add([item['FullName'], item['Sicil'], item['Tarih'], item['Saat']]);
-    }
-
-    try {
-      // İndirilenler klasörünün yolu
-      final Directory? directory = await getExternalStorageDirectory();
-      if (directory != null) {
-        final downloadDirectory = Directory(directory.path);
-        if (!downloadDirectory.existsSync()) {
-          // "Download" dizini mevcut değilse oluşturun
-          downloadDirectory.createSync(recursive: true);
-        }
-
-        final filePath =
-            '${downloadDirectory.path}/${widget.collectionReference.toString()}.csv';
-        final file = File(filePath);
-
-        // CSV dosyasını oluşturun ve verileri yazın
-        String csv = const ListToCsvConverter().convert(rows);
-        await file.writeAsString(csv);
-
-        // Başarı mesajı
-        debugPrint('CSV dosyası kaydedildi: $filePath');
-
-        // Dosya kaydedildikten sonra kullanıcıya geri bildirim verin
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('CSV dosyası indirilenler klasörüne kaydedildi.'),
-          ),
-        );
-      } else {
-        // İndirilenler klasörü bulunamadı.
-        debugPrint('İndirilenler klasörüne erişilemiyor.');
-      }
-    } catch (e) {
-      debugPrint('Hata oluştu: $e');
-      // Hata durumunda kullanıcıya bir hata mesajı gösterebilirsiniz.
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('CSV dosyası kaydedilirken bir hata oluştu.'),
-        ),
-      );
-    }
-  }
-
-  void exportDataToCSV() {
-    List<Map<String, dynamic>> data = [];
-
-    for (var document in searchResults) {
-      Map<String, dynamic> itemData = document.data() as Map<String, dynamic>;
-      data.add({
-        'FullName': itemData['FullName'],
-        'Sicil': itemData['Sicil'],
-        'Tarih': itemData['Tarih'],
-        'Saat': itemData['Saat'],
-      });
-    }
-
-    // Verileri CSV'ye dönüştürüp kaydetme işlemi
-    saveCSVToFile(data);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +93,7 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
     return TextField(
       controller: _searchController,
       decoration: InputDecoration(
-        hintText: 'Arama yapın...',
+        hintText: 'arama-yap'.tr,
         prefixIcon: IconButton(
           onPressed: () {
             return _search();
@@ -265,9 +165,7 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
     return AppBar(
       actions: [
         IconButton(
-          onPressed: () async {
-            firestoreVerileriniRealtimeDatabaseAktar();
-          },
+          onPressed: () async {},
           icon: const Icon(Icons.sd_rounded),
         ),
         addAttendance(context, formattedDate, formattedTime),
@@ -284,7 +182,7 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
         )
       ],
       elevation: 0,
-      title: const Text("Katılımcılar"),
+      title: Text('katilimcilar'.tr),
       backgroundColor: Colors.purpleAccent.shade100,
     );
   }
@@ -300,7 +198,7 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
                     controller1: myController1, controller2: myController2);
                 return alertDialogProcess(
                   Text(
-                    "Katılımcı Ekle",
+                    'katilimci-ekle'.tr,
                     textAlign: TextAlign.center,
                     style: Constants.getTextStyle(Colors.black, 20.0.sp),
                   ),
@@ -315,14 +213,14 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
                           Expanded(
                             flex: 2,
                             child: textFormFieldProcess(
-                                "Ad-Soyad",
+                                'ad-soyad'.tr,
                                 myController1,
                                 [UppercaseInputFormatter(), nameFormatter]),
                           ),
                           Expanded(
                             flex: 2,
                             child: textFormFieldProcess(
-                                "Sicil No", myController2, [sicilFormatter]),
+                                'sicil'.tr, myController2, [sicilFormatter]),
                           ),
                         ],
                       ),
@@ -332,7 +230,7 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
                     Expanded(
                       child: elevatedButtonProcess(
                         Text(
-                          "Ekle",
+                          'ekle'.tr,
                           style: Constants.getTextStyle(Colors.white, 11.0.sp),
                         ),
                         () {
@@ -348,7 +246,7 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
                       ),
                     ),
                     Expanded(
-                      child: backElevatedButton(context, "Geri Dön"),
+                      child: backElevatedButton(context, 'geri-don'.tr),
                     ),
                   ],
                 );
@@ -360,15 +258,15 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
   Padding areYouSure(
       BuildContext context, String formattedDate, String formattedTime) {
     return areYouSureUser(
-      "Ad-Soyad: ${myController1.text.toString()}",
-      "Sicil No: ${myController2.text.toString()}",
+      "${'ad-soyad:'.tr}${myController1.text.toString()}",
+      "${'sicil:'.tr}${myController2.text.toString()}",
       "",
       widget.collectionReference,
       context,
       null,
       elevatedButtonProcess(
         Text(
-          "Onaylıyorum",
+          'onay'.tr,
           style: Constants.getTextStyle(Colors.white, 11.0.sp),
         ),
         () async {
@@ -399,7 +297,7 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
                             child: Padding(
                               padding: EdgeInsets.all(8.0.sp),
                               child: Text(
-                                "Böyle bir katılımcı zaten var?",
+                                'boyle-katilimci-var'.tr,
                                 textAlign: TextAlign.center,
                                 style: Constants.getTextStyle(
                                     Colors.white, 24.0.sp),
@@ -430,8 +328,8 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
             }
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Hatalı Giriş.'),
+              SnackBar(
+                content: Text('hatali-giris'.tr),
               ),
             );
           }

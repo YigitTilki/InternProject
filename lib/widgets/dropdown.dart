@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:get/get.dart';
 
 import '../constants/constants.dart';
 
@@ -26,11 +27,11 @@ class _DropDownState extends State<DropDown> {
       stream: lessons.snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Bir hata oluştu: ${snapshot.error}');
+          return Text('${'hata'.tr}${snapshot.error}');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text('Veriler yükleniyor...');
+          return Text('veriler-yükleniyor'.tr);
         }
 
         List<DocumentSnapshot> documents = snapshot.data!.docs;
@@ -42,7 +43,7 @@ class _DropDownState extends State<DropDown> {
 
         return DropdownButton<String>(
           hint: Text(
-            "Ders Seçiniz",
+            'ders-seciniz'.tr,
             style: Constants.getTextStyle(Colors.grey, 12.0.sp),
           ),
           value: widget.selectedLesson,

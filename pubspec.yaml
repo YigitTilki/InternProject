@@ -47,6 +47,7 @@ dependencies:
   path_provider: ^2.1.1
   csv: ^5.0.2
   get: ^4.6.5
+  permission_handler: ^10.4.3
   
   
 

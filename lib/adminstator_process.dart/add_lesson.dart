@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:sanofi_main/widgets/containers.dart';
 
@@ -17,6 +18,6 @@ GestureDetector lessonAdd(context) {
     onTap: () async {
       await addDeleteLessonPopUp(context, myController1, attendance);
     },
-    child: adminPageContainerDesign("assets/library.png", "Eğitim"),
+    child: adminPageContainerDesign("assets/library.png", 'ders'.tr),
   );
 }

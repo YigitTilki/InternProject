@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sanofi_main/widgets/dropdown.dart';
 import 'package:sanofi_main/pages/login_page_s.dart';
+import 'package:get/get.dart';
 
 import 'package:sanofi_main/pages/teacher_page.dart';
 import 'package:sanofi_main/widgets/elevated_button.dart';
@@ -51,7 +52,7 @@ class _LoginPageTState extends State<LoginPageT> {
               ),
               Constants.sanofiBig(),
               Text(
-                "Eğitim Yoklama Sistemi",
+                "egitim".tr,
                 style: Constants.getTextStyle(Colors.black, 15.0.sp),
               ),
               Expanded(
@@ -59,16 +60,16 @@ class _LoginPageTState extends State<LoginPageT> {
                   height: 100.sp,
                 ),
               ),
-              textFormFieldProcess("Ad-Soyad", myController1,
+              textFormFieldProcess('ad-soyad'.tr, myController1,
                   [UppercaseInputFormatter(), nameFormatter]),
               SizedBox(
                 height: 10.sp,
               ),
-              textFormFieldProcess("Sicil No", myController2, [sicilFormatter]),
+              textFormFieldProcess('sicil'.tr, myController2, [sicilFormatter]),
               SizedBox(
                 height: 10.sp,
               ),
-              textFormFieldProcess("Şifre", myController3, null),
+              textFormFieldProcess("sifre".tr, myController3, null),
               SizedBox(
                 height: 10.sp,
               ),
@@ -85,38 +86,40 @@ class _LoginPageTState extends State<LoginPageT> {
               SizedBox(
                   child: elevatedButtonProcess(
                 Text(
-                  "Giriş",
+                  "giris".tr,
                   style: Constants.getTextStyle(Colors.white, 12.sp),
                 ),
                 () async {
-                  final docRef = db
-                      .collection("UsersE")
-                      .doc(myController2.text.toString());
-                  try {
-                    final doc = await docRef.get();
-                    final data = doc.data() as Map<String, dynamic>;
-                    if (data["FullName"].toString() ==
-                            myController1.text.toString() &&
-                        data["Sicil"].toString() ==
-                            myController2.text.toString() &&
-                        data["Password"].toString() ==
-                            myController3.text.toString()) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TeacherPage(
-                            data1: myController1,
-                            data2: myController2,
-                            data3: myController3,
-                            data4: selectedLesson,
+                  if (myController2.text.isNotEmpty) {
+                    final docRef = db
+                        .collection("UsersE")
+                        .doc(myController2.text.toString());
+                    try {
+                      final doc = await docRef.get();
+                      final data = doc.data() as Map<String, dynamic>;
+                      if (data["FullName"].toString() ==
+                              myController1.text.toString() &&
+                          data["Sicil"].toString() ==
+                              myController2.text.toString() &&
+                          data["Password"].toString() ==
+                              myController3.text.toString()) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TeacherPage(
+                              data1: myController1,
+                              data2: myController2,
+                              data3: myController3,
+                              data4: selectedLesson,
+                            ),
                           ),
-                        ),
-                      );
-                    } else {
-                      debugPrint("olmadı");
+                        );
+                      } else {
+                        debugPrint("olmadı");
+                      }
+                    } catch (e) {
+                      debugPrint("Hata: $e");
                     }
-                  } catch (e) {
-                    debugPrint("Hata: $e");
                   }
                 },
               )),
@@ -129,7 +132,7 @@ class _LoginPageTState extends State<LoginPageT> {
                   );
                 },
                 child: Text(
-                  "Öğrenci Girişi",
+                  'ogrenci-giris'.tr,
                   style: Constants.getTextStyle(Colors.black, 12.0.sp),
                 ),
               ),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sizer/sizer.dart';
+import 'package:get/get.dart';
 
 import '../constants/constants.dart';
 import '../widgets/arrow_back.dart';
@@ -60,7 +61,7 @@ class _TeacherPageState extends State<TeacherPage> {
               ),
             ),
             Text(
-              "${widget.data4 ?? ""} için QR kod",
+              "${widget.data4 ?? ""}${'icin-qr-kod'.tr}",
               style: Constants.getTextStyle(Colors.black, 20.0.sp),
             ),
             generateQR(widget.data4 ?? "", docref, context),
