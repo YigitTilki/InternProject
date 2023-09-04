@@ -14,6 +14,7 @@ import 'package:sizer/sizer.dart';
 import '../adminstator_process.dart/admin_router.dart';
 import '../constants/constants.dart';
 import '../widgets/back_buttons.dart';
+import '../widgets/scaffold_messanger.dart';
 
 class LoginPageT extends StatefulWidget {
   const LoginPageT({super.key});
@@ -30,6 +31,8 @@ class _LoginPageTState extends State<LoginPageT> {
   final myController3 = TextEditingController();
   String? selectedLesson;
   final passwordController = TextEditingController();
+  bool isLessonSelected =
+      false; // Ders seçilip seçilmediğini kontrol etmek için
 
   Future<bool> _onBackPressed() async {
     return await BackFunctions.onBackPressed(context);
@@ -57,8 +60,19 @@ class _LoginPageTState extends State<LoginPageT> {
               ),
               Expanded(
                 child: SizedBox(
-                  height: 100.sp,
+                  height: 70.sp,
                 ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10.sp, bottom: 10.sp),
+                child: DropDown(
+                    selectedLesson: selectedLesson,
+                    onSelectionChanged: (newValue) {
+                      setState(() {
+                        selectedLesson = newValue;
+                        isLessonSelected = newValue != null;
+                      });
+                    }),
               ),
               textFormFieldProcess('ad-soyad'.tr, myController1,
                   [UppercaseInputFormatter(), nameFormatter]),
@@ -71,17 +85,7 @@ class _LoginPageTState extends State<LoginPageT> {
               ),
               textFormFieldProcess("sifre".tr, myController3, null),
               SizedBox(
-                height: 10.sp,
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 15.sp, bottom: 50.sp),
-                child: DropDown(
-                    selectedLesson: selectedLesson,
-                    onSelectionChanged: (newValue) {
-                      setState(() {
-                        selectedLesson = newValue;
-                      });
-                    }),
+                height: 50.sp,
               ),
               SizedBox(
                   child: elevatedButtonProcess(
@@ -90,36 +94,51 @@ class _LoginPageTState extends State<LoginPageT> {
                   style: Constants.getTextStyle(Colors.white, 12.sp),
                 ),
                 () async {
-                  if (myController2.text.isNotEmpty) {
+                  if (isLessonSelected &&
+                      myController2.text.isNotEmpty &&
+                      myController1.text.toString().isNotEmpty &&
+                      myController3.text.toString().isNotEmpty) {
                     final docRef = db
                         .collection("UsersE")
                         .doc(myController2.text.toString());
                     try {
                       final doc = await docRef.get();
-                      final data = doc.data() as Map<String, dynamic>;
-                      if (data["FullName"].toString() ==
-                              myController1.text.toString() &&
-                          data["Sicil"].toString() ==
-                              myController2.text.toString() &&
-                          data["Password"].toString() ==
-                              myController3.text.toString()) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TeacherPage(
-                              data1: myController1,
-                              data2: myController2,
-                              data3: myController3,
-                              data4: selectedLesson,
+                      if (doc.exists) {
+                        final data = doc.data() as Map<String, dynamic>;
+                        if (data["FullName"].toString() ==
+                                myController1.text.toString() &&
+                            data["Sicil"].toString() ==
+                                myController2.text.toString() &&
+                            data["Password"].toString() ==
+                                myController3.text.toString()) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TeacherPage(
+                                data1: myController1,
+                                data2: myController2,
+                                data3: myController3,
+                                data4: selectedLesson,
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        } else {
+                          return ScaffoldMessenger.of(context).showSnackBar(
+                            snackBar(),
+                          );
+                        }
                       } else {
-                        debugPrint("olmadı");
+                        return ScaffoldMessenger.of(context).showSnackBar(
+                          snackBar(),
+                        );
                       }
                     } catch (e) {
                       debugPrint("Hata: $e");
                     }
+                  } else {
+                    return ScaffoldMessenger.of(context).showSnackBar(
+                      snackBar(),
+                    );
                   }
                 },
               )),

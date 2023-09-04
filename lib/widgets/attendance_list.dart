@@ -10,6 +10,7 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sanofi_main/constants/constants.dart';
 import 'package:sanofi_main/widgets/alert_dialog.dart';
+import 'package:sanofi_main/widgets/scaffold_messanger.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 import 'package:sizer/sizer.dart';
 
@@ -400,9 +401,7 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
             }
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('hatali-giris'.tr),
-              ),
+              snackBar(),
             );
           }
         },

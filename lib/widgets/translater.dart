@@ -61,6 +61,11 @@ class Dil extends Translations {
           'ekle': 'Add',
           'eklenecek-kullanici': 'User to be added: ',
           'boyle-egitim-var': 'Such training already exists.',
+          'wifi-yok': 'No Internet connection',
+          'wifi-kontrol': 'Please check your internet connection.',
+          'wifi-ayar': 'WiFi Settings',
+          'devam-et': 'Continue',
+          'uygulama-kapat': 'Close Application',
         },
         'tr_TR': {
           'giris': 'Giriş',
@@ -114,6 +119,11 @@ class Dil extends Translations {
           'ekle': 'Ekle',
           'eklenecek-kullanici': 'Eklenecek Kullanıcı: ',
           'boyle-egitim-var': 'Böyle bir eğitim zaten var.',
+          'wifi-yok': 'İnternet Bağlantısı Yok',
+          'wifi-kontrol': 'Lütfen internet bağlantınızı kontrol edin.',
+          'wifi-ayar': 'WiFi Ayarları',
+          'devam-et': 'Devam Et',
+          'uygulama-kapat': 'Uygulamayı Kapat',
         }
       };
 }

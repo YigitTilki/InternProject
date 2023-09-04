@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../../constants/constants.dart';
 
 import '../../widgets/elevated_button.dart';
+import '../../widgets/scaffold_messanger.dart';
 
 ElevatedButton iAmSureUser(
     TextEditingController myController1,
@@ -96,9 +97,7 @@ ElevatedButton iAmSureUser(
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('hatali-giris'.tr),
-          ),
+          snackBar(),
         );
       }
     },

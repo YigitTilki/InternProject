@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +12,7 @@ import 'package:sizer/sizer.dart';
 import '../adminstator_process.dart/admin_router.dart';
 import '../constants/constants.dart';
 import '../widgets/back_buttons.dart';
+import '../widgets/scaffold_messanger.dart';
 
 class LoginPageS extends StatefulWidget {
   const LoginPageS({Key? key}) : super(key: key);
@@ -61,7 +64,7 @@ class _LoginPageSState extends State<LoginPageS> {
               ),
               textFormFieldProcess('sicil'.tr, myController2, [sicilFormatter]),
               SizedBox(
-                height: 15.sp,
+                height: 60.sp,
               ),
               SizedBox(
                 child: elevatedButtonProcess(
@@ -78,34 +81,44 @@ class _LoginPageSState extends State<LoginPageS> {
 
                       try {
                         final doc = await docRef.get();
-                        final data = doc.data() as Map<String, dynamic>;
 
-                        if (data["FullName"].toString() ==
-                                myController1.text.toString() &&
-                            data["Sicil"].toString() ==
-                                myController2.text.toString()) {
-                          // ignore: use_build_context_synchronously
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => StudentPage(
-                                data1: myController1,
-                                data2: myController2,
+                        if (doc.exists) {
+                          final data = doc.data() as Map<String, dynamic>;
+
+                          if (data != null &&
+                              data["FullName"].toString() ==
+                                  myController1.text.toString() &&
+                              data["Sicil"].toString() ==
+                                  myController2.text.toString()) {
+                            // Doğru verilerle ana student sayfasına yönlendirme işlemi
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => StudentPage(
+                                  data1: myController1,
+                                  data2: myController2,
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          } else {
+                            // Yanlış veri girdi uyarısı
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              snackBar(),
+                            );
+                          }
                         } else {
-                          debugPrint("olmadı");
+                          // Handle the case where the document does not exist in Firestore.
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            snackBar(),
+                          );
                         }
                       } catch (e) {
                         debugPrint("Error: $e");
                       }
                     } else {
+                      // Boş alanları doldurun uyarısı
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: Colors.purple,
-                          content: Text('sicil-no-alani-doldurun'.tr),
-                        ),
+                        snackBar(),
                       );
                     }
                   },
@@ -125,7 +138,7 @@ class _LoginPageSState extends State<LoginPageS> {
                 ),
               ),
               SizedBox(
-                height: 170.sp,
+                height: 90.sp,
               ),
               GestureDetector(
                 onLongPress: () {

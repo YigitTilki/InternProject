@@ -1,66 +1,109 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
-import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/rendering.dart';
+import 'package:sanofi_main/constants/constants.dart';
+import 'package:sizer/sizer.dart'; // Import the dropdown_search package
 
-import '../constants/constants.dart';
+class DropDown extends StatelessWidget {
+  const DropDown({
+    Key? key,
+    required this.selectedLesson,
+    required this.onSelectionChanged,
+  }) : super(key: key);
 
-class DropDown extends StatefulWidget {
-  const DropDown(
-      {super.key,
-      required this.selectedLesson,
-      required this.onSelectionChanged});
   final String? selectedLesson;
   final void Function(String?) onSelectionChanged;
-  @override
-  State<DropDown> createState() => _DropDownState();
-}
-
-class _DropDownState extends State<DropDown> {
-  CollectionReference lessons =
-      FirebaseFirestore.instance.collection('Dersler');
-  List<String> lessonList = [];
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: lessons.snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('${'hata'.tr}${snapshot.error}');
-        }
-
+    return FutureBuilder<List<String>>(
+      future: getLessonList(),
+      builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text('veriler-yükleniyor'.tr);
+          return const CircularProgressIndicator();
         }
 
-        List<DocumentSnapshot> documents = snapshot.data!.docs;
+        if (snapshot.hasError) {
+          return Text('Hata: ${snapshot.error}');
+        }
 
-        lessonList = documents.map((doc) {
-          var lessonData = doc.data() as Map<String, dynamic>;
-          return "${lessonData["Ders"]}";
-        }).toList();
+        List<String> lessonList = snapshot.data ?? [];
 
-        return DropdownButton<String>(
-          hint: Text(
-            'ders-seciniz'.tr,
-            style: Constants.getTextStyle(Colors.grey, 12.0.sp),
-          ),
-          value: widget.selectedLesson,
-          items: lessonList.map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(
-                value,
-                style: Constants.getTextStyle(Colors.black, 12.0.sp),
+        return Padding(
+          padding: EdgeInsets.only(left: 25.0.sp, right: 25.0.sp),
+          child: DropdownSearch<String>(
+            popupProps: PopupProps.dialog(
+              scrollbarProps: ScrollbarProps(
+                  thumbColor: Colors.red,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20))),
+              searchFieldProps: TextFieldProps(
+                  padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                  style: Constants.getTextStyle(Colors.black, 14.0.sp)),
+              listViewProps: const ListViewProps(
+                padding: EdgeInsets.all(5),
               ),
-            );
-          }).toList(),
-          onChanged: (String? newValue) {
-            widget.onSelectionChanged(newValue);
-          },
+              dialogProps: DialogProps(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14.sp))),
+              showSelectedItems: true,
+              showSearchBox: true,
+            ),
+            items: lessonList,
+            onChanged: (String? newValue) {
+              onSelectionChanged(newValue);
+            },
+            dropdownDecoratorProps: DropDownDecoratorProps(
+              dropdownSearchDecoration: InputDecoration(
+                labelText: "Ders seçiniz",
+                labelStyle: Constants.getTextStyle(Colors.grey, 11.0.sp),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14.sp),
+                ),
+              ),
+            ),
+            selectedItem: selectedLesson,
+            validator: (String? item) {
+              if (item == null || item.isEmpty) {
+                return 'Ders seçmek zorunludur.';
+              }
+              return null;
+            },
+          ),
         );
+
+        /*DropdownSearch<String>(
+          mode: Mode.DIALOG, // Set the search mode to MENU
+          showSearchBox: true,
+          showSelectedItems: true,
+          items: lessonList,
+          hint: 'Ders Seçiniz', // Label for the dropdown
+          onChanged: (String? newValue) {
+            onSelectionChanged(newValue);
+          },
+          selectedItem: selectedLesson,
+          validator: (String? item) {
+            if (item == null || item.isEmpty) {
+              return 'Ders seçmek zorunludur.';
+            }
+            return null;
+          },
+        );*/
       },
     );
+  }
+
+  Future<List<String>> getLessonList() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('Dersler').get();
+    List<String> lessonList = querySnapshot.docs.map((doc) {
+      var lessonData = doc.data() as Map<String, dynamic>;
+      return "${lessonData["Ders"]}";
+    }).toList();
+    return lessonList;
   }
 }
