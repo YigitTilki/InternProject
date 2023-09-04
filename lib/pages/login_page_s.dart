@@ -1,13 +1,17 @@
 // ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
 
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sanofi_main/pages/login_page_t.dart';
 import 'package:sanofi_main/pages/student_page.dart';
+import 'package:sanofi_main/widgets/connection_popup.dart';
 import 'package:sanofi_main/widgets/elevated_button.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 import 'package:sizer/sizer.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../adminstator_process.dart/admin_router.dart';
 import '../constants/constants.dart';
@@ -26,9 +30,36 @@ class _LoginPageSState extends State<LoginPageS> {
   final myController1 = TextEditingController();
   final myController2 = TextEditingController();
   final passwordController = TextEditingController();
-
+  bool hasInternet = true; // Başlangıçta internetin olduğunu varsayalım
   Future<bool> _onBackPressed() async {
     return await BackFunctions.onBackPressed(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // İnternet bağlantısını sürekli izlemek için listener ekleyin
+    wifiConnector();
+  }
+
+  StreamSubscription<ConnectivityResult> wifiConnector() {
+    return Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.none) {
+        // İnternet bağlantısı yoksa hasInternet'i false olarak ayarla
+        setState(() {
+          hasInternet = false;
+        });
+        // İnternet bağlantısı kesildiğinde popup göster
+        showNoInternetDialog(context);
+      } else {
+        // İnternet bağlantısı varsa hasInternet'i true olarak ayarla
+        setState(() {
+          hasInternet = true;
+        });
+      }
+    });
   }
 
   @override

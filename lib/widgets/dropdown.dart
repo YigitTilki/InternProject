@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:sanofi_main/constants/constants.dart';
 import 'package:sizer/sizer.dart'; // Import the dropdown_search package
 
@@ -35,21 +35,29 @@ class DropDown extends StatelessWidget {
           child: DropdownSearch<String>(
             popupProps: PopupProps.dialog(
               scrollbarProps: ScrollbarProps(
-                  thumbColor: Colors.red,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20))),
+                thumbColor: Colors.purple,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.sp),
+                ),
+              ),
               searchFieldProps: TextFieldProps(
-                  padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20))),
-                  style: Constants.getTextStyle(Colors.black, 14.0.sp)),
-              listViewProps: const ListViewProps(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.fromLTRB(13.sp, 20.sp, 13.sp, 10.sp),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.purple),
+                    borderRadius: BorderRadius.circular(20.sp),
+                  ),
+                ),
+                style: Constants.getTextStyle(Colors.black, 14.0.sp),
+              ),
+              listViewProps: ListViewProps(
+                padding: EdgeInsets.all(5.sp),
               ),
               dialogProps: DialogProps(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14.sp))),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14.sp),
+                ),
+              ),
               showSelectedItems: true,
               showSearchBox: true,
             ),
@@ -59,7 +67,7 @@ class DropDown extends StatelessWidget {
             },
             dropdownDecoratorProps: DropDownDecoratorProps(
               dropdownSearchDecoration: InputDecoration(
-                labelText: "Ders seçiniz",
+                labelText: "ders-seciniz".tr,
                 labelStyle: Constants.getTextStyle(Colors.grey, 11.0.sp),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14.sp),
@@ -75,24 +83,6 @@ class DropDown extends StatelessWidget {
             },
           ),
         );
-
-        /*DropdownSearch<String>(
-          mode: Mode.DIALOG, // Set the search mode to MENU
-          showSearchBox: true,
-          showSelectedItems: true,
-          items: lessonList,
-          hint: 'Ders Seçiniz', // Label for the dropdown
-          onChanged: (String? newValue) {
-            onSelectionChanged(newValue);
-          },
-          selectedItem: selectedLesson,
-          validator: (String? item) {
-            if (item == null || item.isEmpty) {
-              return 'Ders seçmek zorunludur.';
-            }
-            return null;
-          },
-        );*/
       },
     );
   }

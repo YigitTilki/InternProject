@@ -162,7 +162,6 @@ class BackFunctions {
     );
 
     if (shouldNavigate) {
-      // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginPageT()),
       );

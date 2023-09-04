@@ -1,7 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:sanofi_main/widgets/connection_popup.dart';
 import 'package:sanofi_main/widgets/dropdown.dart';
 import 'package:sanofi_main/pages/login_page_s.dart';
 import 'package:get/get.dart';
@@ -33,6 +37,33 @@ class _LoginPageTState extends State<LoginPageT> {
   final passwordController = TextEditingController();
   bool isLessonSelected =
       false; // Ders seçilip seçilmediğini kontrol etmek için
+  bool hasInternet = true; // Başlangıçta internetin olduğunu varsayalım
+  @override
+  void initState() {
+    super.initState();
+    // İnternet bağlantısını sürekli izlemek için listener ekleyin
+    wifiConnector();
+  }
+
+  StreamSubscription<ConnectivityResult> wifiConnector() {
+    return Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.none) {
+        // İnternet bağlantısı yoksa hasInternet'i false olarak ayarla
+        setState(() {
+          hasInternet = false;
+        });
+        // İnternet bağlantısı kesildiğinde popup göster
+        showNoInternetDialog(context);
+      } else {
+        // İnternet bağlantısı varsa hasInternet'i true olarak ayarla
+        setState(() {
+          hasInternet = true;
+        });
+      }
+    });
+  }
 
   Future<bool> _onBackPressed() async {
     return await BackFunctions.onBackPressed(context);
@@ -50,7 +81,7 @@ class _LoginPageTState extends State<LoginPageT> {
               Expanded(
                 flex: 2,
                 child: SizedBox(
-                  height: 100.sp,
+                  height: 60.sp,
                 ),
               ),
               Constants.sanofiBig(),
@@ -60,19 +91,8 @@ class _LoginPageTState extends State<LoginPageT> {
               ),
               Expanded(
                 child: SizedBox(
-                  height: 70.sp,
+                  height: 60.sp,
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10.sp, bottom: 10.sp),
-                child: DropDown(
-                    selectedLesson: selectedLesson,
-                    onSelectionChanged: (newValue) {
-                      setState(() {
-                        selectedLesson = newValue;
-                        isLessonSelected = newValue != null;
-                      });
-                    }),
               ),
               textFormFieldProcess('ad-soyad'.tr, myController1,
                   [UppercaseInputFormatter(), nameFormatter]),
@@ -85,7 +105,18 @@ class _LoginPageTState extends State<LoginPageT> {
               ),
               textFormFieldProcess("sifre".tr, myController3, null),
               SizedBox(
-                height: 50.sp,
+                height: 10.sp,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10.sp, bottom: 10.sp),
+                child: DropDown(
+                    selectedLesson: selectedLesson,
+                    onSelectionChanged: (newValue) {
+                      setState(() {
+                        selectedLesson = newValue;
+                        isLessonSelected = newValue != null;
+                      });
+                    }),
               ),
               SizedBox(
                   child: elevatedButtonProcess(
@@ -156,7 +187,7 @@ class _LoginPageTState extends State<LoginPageT> {
                 ),
               ),
               SizedBox(
-                height: 50.sp,
+                height: 30.sp,
               ),
               GestureDetector(
                 onLongPress: () {

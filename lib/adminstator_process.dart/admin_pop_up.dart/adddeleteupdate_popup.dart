@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sanofi_main/widgets/error_alert.dart';
 import 'package:sanofi_main/widgets/scaffold_messanger.dart';
 import 'package:sizer/sizer.dart';
 
@@ -153,20 +154,8 @@ Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        elevation: 0,
-                                        backgroundColor: Colors.transparent,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        title: Text(
-                                          'boyle-sicil-yok'.tr,
-                                          textAlign: TextAlign.center,
-                                          style: Constants.getTextStyle(
-                                              Colors.red, 48.0.sp),
-                                        ),
-                                      );
+                                      return errorAlertDialog(
+                                          'boyle-sicil-yok'.tr);
                                     },
                                   );
                                 }
@@ -453,19 +442,7 @@ AlertDialog deleteUserEpopUp(
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return AlertDialog(
-                                elevation: 0,
-                                backgroundColor: Colors.transparent,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.sp),
-                                ),
-                                title: Text(
-                                  'boyle-sicil-yok'.tr,
-                                  textAlign: TextAlign.center,
-                                  style: Constants.getTextStyle(
-                                      Colors.red, 30.0.sp),
-                                ),
-                              );
+                              return errorAlertDialog('boyle-sicil-yok'.tr);
                             },
                           );
                         }
@@ -575,19 +552,7 @@ ElevatedButton deleteLessonButton(
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AlertDialog(
-                            elevation: 0,
-                            backgroundColor: Colors.transparent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            title: Text(
-                              'boyle-ders-yok'.tr,
-                              textAlign: TextAlign.center,
-                              style:
-                                  Constants.getTextStyle(Colors.red, 30.0.sp),
-                            ),
-                          );
+                          return errorAlertDialog('boyle-ders-yok'.tr);
                         },
                       );
                     }
@@ -645,19 +610,7 @@ ElevatedButton addLessonButton(
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AlertDialog(
-                              elevation: 0,
-                              backgroundColor: Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.sp),
-                              ),
-                              title: Text(
-                                'boyle-egitim-var'.tr,
-                                textAlign: TextAlign.center,
-                                style:
-                                    Constants.getTextStyle(Colors.red, 30.0.sp),
-                              ),
-                            );
+                            return errorAlertDialog('boyle-egitim-var'.tr);
                           },
                         );
                       } else {

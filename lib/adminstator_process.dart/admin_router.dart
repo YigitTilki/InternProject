@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sanofi_main/widgets/error_alert.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 
@@ -39,18 +40,7 @@ Future<dynamic> adminRouter(
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      elevation: 0,
-                      backgroundColor: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      title: Text(
-                        'sifre-hata'.tr,
-                        textAlign: TextAlign.center,
-                        style: Constants.getTextStyle(Colors.red, 48.0.sp),
-                      ),
-                    );
+                    return errorAlertDialog('sifre-hata'.tr);
                   },
                 );
               }

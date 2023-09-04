@@ -1,7 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sanofi_main/widgets/connection_popup.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -22,11 +26,33 @@ class StudentPage extends StatefulWidget {
 }
 
 class _StudentPageState extends State<StudentPage> {
+  bool hasInternet = true; // Başlangıçta internetin olduğunu varsayalım
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.bottom]);
     super.initState();
+    wifiConnector();
+  }
+
+  StreamSubscription<ConnectivityResult> wifiConnector() {
+    return Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.none) {
+        // İnternet bağlantısı yoksa hasInternet'i false olarak ayarla
+        setState(() {
+          hasInternet = false;
+        });
+        // İnternet bağlantısı kesildiğinde popup göster
+        showNoInternetDialog(context);
+      } else {
+        // İnternet bağlantısı varsa hasInternet'i true olarak ayarla
+        setState(() {
+          hasInternet = true;
+        });
+      }
+    });
   }
 
   Future<bool> _onBackPressed() async {

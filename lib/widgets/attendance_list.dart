@@ -16,8 +16,8 @@ import 'package:sizer/sizer.dart';
 
 import '../adminstator_process.dart/admin_pop_up.dart/are_you_sure.dart';
 
-import 'containers.dart';
 import 'elevated_button.dart';
+import 'error_alert.dart';
 
 class AttendanceListBuilder extends StatefulWidget {
   const AttendanceListBuilder(
@@ -360,31 +360,11 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
                   return showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return areYouSureContainer(
-                        [
-                          SizedBox(
-                            height: 50.sp,
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0.sp),
-                              child: Text(
-                                'boyle-katilimci-var'.tr,
-                                textAlign: TextAlign.center,
-                                style: Constants.getTextStyle(
-                                    Colors.white, 24.0.sp),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 50.sp,
-                          ),
-                        ],
-                      );
+                      return errorAlertDialog('boyle-katilimci-var'.tr);
                     },
                   );
                 }
+              } else if (adSoyad == null) {
               } else {
                 await widget.collectionReference
                     .doc(myController2.text.toString())

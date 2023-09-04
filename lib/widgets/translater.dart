@@ -36,6 +36,7 @@ class Dil extends Translations {
           'katilimci': 'Participant',
           'ders': 'Training',
           'onay': 'I approve',
+          'boyle-katilimci-var': 'The participant already exists.',
           'sicil-mevcut':
               'Would you like to update such a registry existing name?',
           'güncelle': 'Update',
@@ -73,6 +74,7 @@ class Dil extends Translations {
           'ad-soyad': 'Ad-Soyad',
           'sicil': 'Sicil Numarası',
           'egitimci-giris': 'Eğitimci Girişi',
+          'boyle-katilimci-var': 'Katılımcı zaten var.',
           'sicil-no-alani-doldurun': 'Sicil numarası alanını doldurun.',
           'sifre': 'Şifre',
           'ogrenci-giris': 'Kursiyer Girişi',
