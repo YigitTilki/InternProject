@@ -45,10 +45,13 @@ class _AdminPageState extends State<AdminPage> {
                 flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(127, 50, 127, 100),
-                  child: Image.asset(
-                    "assets/adminicon.png",
-                    height: 80.sp,
-                    width: 80.sp,
+                  child: GestureDetector(
+                    onDoubleTap: () => _showDeveloperNamesDialog(context),
+                    child: Image.asset(
+                      "assets/adminicon.png",
+                      height: 80.sp,
+                      width: 80.sp,
+                    ),
                   ),
                 ),
               ),
@@ -70,4 +73,50 @@ class _AdminPageState extends State<AdminPage> {
       ),
     );
   }
+}
+
+void _showDeveloperNamesDialog(context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Center(
+          child: Text(
+            'Saygılarla',
+            style: Constants.getTextStyle(Colors.black, 20.sp),
+          ),
+        ),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Center(
+              child: Text(
+                'Yiğit Tilki',
+                style: Constants.getTextStyle(Colors.black, 15.sp),
+              ),
+            ),
+            Center(
+              child: Text(
+                'İbrahim Çerkezoğlu',
+                style: Constants.getTextStyle(Colors.black, 15.sp),
+              ),
+            ),
+            // Add more developer names here as needed
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'Close',
+              style: Constants.getTextStyle(Colors.black, 10.sp),
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }
