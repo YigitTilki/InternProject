@@ -36,7 +36,6 @@ class Dil extends Translations {
           'katilimci': 'Participant',
           'ders': 'Training',
           'onay': 'I approve',
-          'boyle-katilimci-var': 'The participant already exists.',
           'sicil-mevcut':
               'Would you like to update such a registry existing name?',
           'güncelle': 'Update',
@@ -67,6 +66,9 @@ class Dil extends Translations {
           'wifi-ayar': 'WiFi Settings',
           'devam-et': 'Continue',
           'uygulama-kapat': 'Close Application',
+          'boyle-katilimci-var': 'The participant already exists.',
+          'dev': 'Developers',
+          'kapat': 'Close',
         },
         'tr_TR': {
           'giris': 'Giriş',
@@ -74,7 +76,6 @@ class Dil extends Translations {
           'ad-soyad': 'Ad-Soyad',
           'sicil': 'Sicil Numarası',
           'egitimci-giris': 'Eğitimci Girişi',
-          'boyle-katilimci-var': 'Katılımcı zaten var.',
           'sicil-no-alani-doldurun': 'Sicil numarası alanını doldurun.',
           'sifre': 'Şifre',
           'ogrenci-giris': 'Kursiyer Girişi',
@@ -126,6 +127,9 @@ class Dil extends Translations {
           'wifi-ayar': 'WiFi Ayarları',
           'devam-et': 'Devam Et',
           'uygulama-kapat': 'Uygulamayı Kapat',
+          'boyle-katilimci-var': 'Katılımcı zaten var.',
+          'dev': 'Geliştiriciler',
+          'kapat': 'Kapat',
         }
       };
 }

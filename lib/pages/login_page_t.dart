@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 
 import 'package:sanofi_main/pages/teacher_page.dart';
 import 'package:sanofi_main/widgets/elevated_button.dart';
+import 'package:sanofi_main/widgets/text_button_process.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 import 'package:sizer/sizer.dart';
 
@@ -35,13 +36,12 @@ class _LoginPageTState extends State<LoginPageT> {
   final myController3 = TextEditingController();
   String? selectedLesson;
   final passwordController = TextEditingController();
-  bool isLessonSelected =
-      false; // Ders seçilip seçilmediğini kontrol etmek için
-  bool hasInternet = true; // Başlangıçta internetin olduğunu varsayalım
+  bool isLessonSelected = false;
+
   @override
   void initState() {
     super.initState();
-    // İnternet bağlantısını sürekli izlemek için listener ekleyin
+
     wifiConnector();
   }
 
@@ -50,14 +50,12 @@ class _LoginPageTState extends State<LoginPageT> {
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       if (result == ConnectivityResult.none) {
-        // İnternet bağlantısı yoksa hasInternet'i false olarak ayarla
         setState(() {
           hasInternet = false;
         });
-        // İnternet bağlantısı kesildiğinde popup göster
+
         showNoInternetDialog(context);
       } else {
-        // İnternet bağlantısı varsa hasInternet'i true olarak ayarla
         setState(() {
           hasInternet = true;
         });
@@ -118,74 +116,8 @@ class _LoginPageTState extends State<LoginPageT> {
                       });
                     }),
               ),
-              SizedBox(
-                  child: elevatedButtonProcess(
-                Text(
-                  "giris".tr,
-                  style: Constants.getTextStyle(Colors.white, 12.sp),
-                ),
-                () async {
-                  if (isLessonSelected &&
-                      myController2.text.isNotEmpty &&
-                      myController1.text.toString().isNotEmpty &&
-                      myController3.text.toString().isNotEmpty) {
-                    final docRef = db
-                        .collection("UsersE")
-                        .doc(myController2.text.toString());
-                    try {
-                      final doc = await docRef.get();
-                      if (doc.exists) {
-                        final data = doc.data() as Map<String, dynamic>;
-                        if (data["FullName"].toString() ==
-                                myController1.text.toString() &&
-                            data["Sicil"].toString() ==
-                                myController2.text.toString() &&
-                            data["Password"].toString() ==
-                                myController3.text.toString()) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TeacherPage(
-                                data1: myController1,
-                                data2: myController2,
-                                data3: myController3,
-                                data4: selectedLesson,
-                              ),
-                            ),
-                          );
-                        } else {
-                          return ScaffoldMessenger.of(context).showSnackBar(
-                            snackBar(),
-                          );
-                        }
-                      } else {
-                        return ScaffoldMessenger.of(context).showSnackBar(
-                          snackBar(),
-                        );
-                      }
-                    } catch (e) {
-                      debugPrint("Hata: $e");
-                    }
-                  } else {
-                    return ScaffoldMessenger.of(context).showSnackBar(
-                      snackBar(),
-                    );
-                  }
-                },
-              )),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const LoginPageS(),
-                    ),
-                  );
-                },
-                child: Text(
-                  'ogrenci-giris'.tr,
-                  style: Constants.getTextStyle(Colors.black, 12.0.sp),
-                ),
-              ),
+              SizedBox(child: loginButton(context)),
+              textButton(context, const LoginPageS(), "ogrenci-giris"),
               SizedBox(
                 height: 30.sp,
               ),
@@ -209,6 +141,61 @@ class _LoginPageTState extends State<LoginPageT> {
           ),
         ),
       ),
+    );
+  }
+
+  ElevatedButton loginButton(BuildContext context) {
+    return elevatedButtonProcess(
+      Text(
+        "giris".tr,
+        style: Constants.getTextStyle(Colors.white, 12.sp),
+      ),
+      () async {
+        if (isLessonSelected &&
+            myController2.text.isNotEmpty &&
+            myController1.text.toString().isNotEmpty &&
+            myController3.text.toString().isNotEmpty) {
+          final docRef =
+              db.collection("UsersE").doc(myController2.text.toString());
+          try {
+            final doc = await docRef.get();
+            if (doc.exists) {
+              final data = doc.data() as Map<String, dynamic>;
+              if (data["FullName"].toString() ==
+                      myController1.text.toString() &&
+                  data["Sicil"].toString() == myController2.text.toString() &&
+                  data["Password"].toString() ==
+                      myController3.text.toString()) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TeacherPage(
+                      data1: myController1,
+                      data2: myController2,
+                      data3: myController3,
+                      data4: selectedLesson,
+                    ),
+                  ),
+                );
+              } else {
+                return ScaffoldMessenger.of(context).showSnackBar(
+                  snackBar(),
+                );
+              }
+            } else {
+              return ScaffoldMessenger.of(context).showSnackBar(
+                snackBar(),
+              );
+            }
+          } catch (e) {
+            debugPrint("Hata: $e");
+          }
+        } else {
+          return ScaffoldMessenger.of(context).showSnackBar(
+            snackBar(),
+          );
+        }
+      },
     );
   }
 }

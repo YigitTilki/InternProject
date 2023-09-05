@@ -15,6 +15,7 @@ import 'package:sizer/sizer.dart';
 
 import '../widgets/arrow_back.dart';
 import '../widgets/back_buttons.dart';
+import '../widgets/show_developers.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -24,13 +25,12 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
-  bool hasInternet = true; // Başlangıçta internetin olduğunu varsayalım
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.bottom]);
     super.initState();
-    // İnternet bağlantısını sürekli izlemek için listener ekleyin
+
     wifiConnector();
   }
 
@@ -39,14 +39,12 @@ class _AdminPageState extends State<AdminPage> {
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       if (result == ConnectivityResult.none) {
-        // İnternet bağlantısı yoksa hasInternet'i false olarak ayarla
         setState(() {
           hasInternet = false;
         });
-        // İnternet bağlantısı kesildiğinde popup göster
+
         showNoInternetDialog(context);
       } else {
-        // İnternet bağlantısı varsa hasInternet'i true olarak ayarla
         setState(() {
           hasInternet = true;
         });
@@ -71,9 +69,9 @@ class _AdminPageState extends State<AdminPage> {
               Expanded(
                 flex: 1,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(127, 50, 127, 100),
+                  padding: EdgeInsets.fromLTRB(70.sp, 40.sp, 70.sp, 40.sp),
                   child: GestureDetector(
-                    onDoubleTap: () => _showDeveloperNamesDialog(context),
+                    onDoubleTap: () => showDeveloperNamesDialog(context),
                     child: Image.asset(
                       "assets/adminicon.png",
                       height: 80.sp,
@@ -90,7 +88,7 @@ class _AdminPageState extends State<AdminPage> {
                 ],
               ),
               SizedBox(
-                height: 21.sp,
+                height: 20.sp,
               ),
               teacherAdd(context),
               Expanded(flex: 1, child: Constants.sanofiBig())
@@ -100,50 +98,4 @@ class _AdminPageState extends State<AdminPage> {
       ),
     );
   }
-}
-
-void _showDeveloperNamesDialog(context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Center(
-          child: Text(
-            'Saygılarla',
-            style: Constants.getTextStyle(Colors.black, 20.sp),
-          ),
-        ),
-        content: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Center(
-              child: Text(
-                'Yiğit Tilki',
-                style: Constants.getTextStyle(Colors.black, 15.sp),
-              ),
-            ),
-            Center(
-              child: Text(
-                'İbrahim Çerkezoğlu',
-                style: Constants.getTextStyle(Colors.black, 15.sp),
-              ),
-            ),
-            // Add more developer names here as needed
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              'Close',
-              style: Constants.getTextStyle(Colors.black, 10.sp),
-            ),
-          ),
-        ],
-      );
-    },
-  );
 }

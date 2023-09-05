@@ -131,11 +131,14 @@ class _QRViewExampleState extends State<QRViewExample> {
                 ),
                 actions: [
                   Center(
-                    child: Text(
-                      'yoklamaya-katildiniz'.tr,
-                      style: Constants.getTextStyle(Colors.green, 24.0.sp),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'yoklamaya-katildiniz'.tr,
+                        style: Constants.getTextStyle(Colors.green, 15.0.sp),
+                      ),
                     ),
-                  )
+                  ),
                 ],
               );
             });

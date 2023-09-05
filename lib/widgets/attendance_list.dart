@@ -1,23 +1,17 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously, unnecessary_null_comparison, deprecated_member_use
 
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sanofi_main/constants/constants.dart';
 import 'package:sanofi_main/widgets/alert_dialog.dart';
 import 'package:sanofi_main/widgets/scaffold_messanger.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 import 'package:sizer/sizer.dart';
-
-import '../adminstator_process.dart/admin_pop_up.dart/are_you_sure.dart';
-
+import '../adminstator_process.dart/admin_pop_up.dart/widgets/are_you_sure.dart';
 import 'elevated_button.dart';
 import 'error_alert.dart';
+import 'export_excel.dart';
 
 class AttendanceListBuilder extends StatefulWidget {
   const AttendanceListBuilder(
@@ -35,74 +29,8 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
   TextEditingController myController1 = TextEditingController();
   TextEditingController myController2 = TextEditingController();
 
-  Future<void> saveCSVToFile(List<Map<String, dynamic>> data) async {
-    List<List<dynamic>> rows = [];
-
-    // CSV başlıkları
-    rows.add(["FullName", "Sicil", "Tarih", "Saat"]);
-
-    // Verileri ekleyin
-    for (var item in data) {
-      rows.add([item['FullName'], item['Sicil'], item['Tarih'], item['Saat']]);
-    }
-
-    try {
-      // Uygulamanın dahili depolama dizini
-      final directory = await getExternalStorageDirectory();
-      final filePath = '${directory!.path}/${widget.colStr}.csv';
-      final file = File(filePath);
-      if (!(await file.parent.exists())) {
-        await file.parent.create(recursive: true);
-      }
-      // CSV dosyasını oluşturun ve verileri yazın
-      String csv = const ListToCsvConverter().convert(rows);
-      await file.writeAsString(csv);
-      await OpenFile.open(filePath);
-
-      // Başarı mesajı
-      debugPrint('CSV dosyası kaydedildi: $filePath');
-
-      // Dosya kaydedildikten sonra kullanıcıya geri bildirim verin
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('CSV dosyası dahili depolama alanına kaydedildi.'),
-        ),
-      );
-    } catch (e) {
-      debugPrint('Hata oluştu: $e');
-      // Hata durumunda kullanıcıya bir hata mesajı gösterebilirsiniz.
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('CSV dosyası kaydedilirken bir hata oluştu.'),
-        ),
-      );
-    }
-  }
-
-  void exportDataToCSV() {
-    List<Map<String, dynamic>> data = [];
-
-    for (var document in searchResults) {
-      Map<String, dynamic> itemData = document.data() as Map<String, dynamic>;
-      data.add({
-        'FullName': itemData['FullName'],
-        'Sicil': itemData['Sicil'],
-        'Tarih': itemData['Tarih'],
-        'Saat': itemData['Saat'],
-      });
-    }
-
-    // Verileri CSV'ye dönüştürüp kaydetme işlemi
-    saveCSVToFile(data);
-  }
-
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-
-    // Tarih ve saat bilgisini biçimlendir
-    String formattedDate = "${now.day}/${now.month}/${now.year}";
-    String formattedTime = "${now.hour}:${now.minute}:${now.second}";
     return StreamBuilder<QuerySnapshot>(
       stream: widget.collectionReference.snapshots(),
       builder: (context, snapshot) {
@@ -232,7 +160,7 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
         IconButton(
           onPressed: () async {
             _search();
-            exportDataToCSV();
+            exportDataToCSV(searchResults, context, widget.colStr);
             QuerySnapshot querySnapshot =
                 await widget.collectionReference.get();
             for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {

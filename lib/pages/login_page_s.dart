@@ -17,6 +17,7 @@ import '../adminstator_process.dart/admin_router.dart';
 import '../constants/constants.dart';
 import '../widgets/back_buttons.dart';
 import '../widgets/scaffold_messanger.dart';
+import '../widgets/text_button_process.dart';
 
 class LoginPageS extends StatefulWidget {
   const LoginPageS({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _LoginPageSState extends State<LoginPageS> {
   final myController1 = TextEditingController();
   final myController2 = TextEditingController();
   final passwordController = TextEditingController();
-  bool hasInternet = true; // Başlangıçta internetin olduğunu varsayalım
+
   Future<bool> _onBackPressed() async {
     return await BackFunctions.onBackPressed(context);
   }
@@ -38,7 +39,7 @@ class _LoginPageSState extends State<LoginPageS> {
   @override
   void initState() {
     super.initState();
-    // İnternet bağlantısını sürekli izlemek için listener ekleyin
+
     wifiConnector();
   }
 
@@ -47,14 +48,12 @@ class _LoginPageSState extends State<LoginPageS> {
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       if (result == ConnectivityResult.none) {
-        // İnternet bağlantısı yoksa hasInternet'i false olarak ayarla
         setState(() {
           hasInternet = false;
         });
-        // İnternet bağlantısı kesildiğinde popup göster
+
         showNoInternetDialog(context);
       } else {
-        // İnternet bağlantısı varsa hasInternet'i true olarak ayarla
         setState(() {
           hasInternet = true;
         });
@@ -88,86 +87,26 @@ class _LoginPageSState extends State<LoginPageS> {
                   height: 50.sp,
                 ),
               ),
-              textFormFieldProcess('ad-soyad'.tr, myController1,
-                  [UppercaseInputFormatter(), nameFormatter]),
+              textFormFieldProcess(
+                'ad-soyad'.tr,
+                myController1,
+                [UppercaseInputFormatter(), nameFormatter],
+              ),
               SizedBox(
                 height: 10.sp,
               ),
-              textFormFieldProcess('sicil'.tr, myController2, [sicilFormatter]),
+              textFormFieldProcess(
+                'sicil'.tr,
+                myController2,
+                [sicilFormatter],
+              ),
               SizedBox(
                 height: 60.sp,
               ),
               SizedBox(
-                child: elevatedButtonProcess(
-                  Text(
-                    'giris'.tr,
-                    style: Constants.getTextStyle(Colors.white, 12.0.sp),
-                  ),
-                  () async {
-                    final sicilNo = myController2.text.toString();
-                    final fullName = myController1.text.toString();
-
-                    if (sicilNo.isNotEmpty && fullName.isNotEmpty) {
-                      final docRef = db.collection("Users").doc(sicilNo);
-
-                      try {
-                        final doc = await docRef.get();
-
-                        if (doc.exists) {
-                          final data = doc.data() as Map<String, dynamic>;
-
-                          if (data != null &&
-                              data["FullName"].toString() ==
-                                  myController1.text.toString() &&
-                              data["Sicil"].toString() ==
-                                  myController2.text.toString()) {
-                            // Doğru verilerle ana student sayfasına yönlendirme işlemi
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => StudentPage(
-                                  data1: myController1,
-                                  data2: myController2,
-                                ),
-                              ),
-                            );
-                          } else {
-                            // Yanlış veri girdi uyarısı
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              snackBar(),
-                            );
-                          }
-                        } else {
-                          // Handle the case where the document does not exist in Firestore.
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            snackBar(),
-                          );
-                        }
-                      } catch (e) {
-                        debugPrint("Error: $e");
-                      }
-                    } else {
-                      // Boş alanları doldurun uyarısı
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        snackBar(),
-                      );
-                    }
-                  },
-                ),
+                child: loginButton(context),
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const LoginPageT(),
-                    ),
-                  );
-                },
-                child: Text(
-                  'egitimci-giris'.tr,
-                  style: Constants.getTextStyle(Colors.black, 12.0.sp),
-                ),
-              ),
+              textButton(context, const LoginPageT(), "egitimci-giris"),
               SizedBox(
                 height: 90.sp,
               ),
@@ -191,6 +130,60 @@ class _LoginPageSState extends State<LoginPageS> {
           ),
         ),
       ),
+    );
+  }
+
+  ElevatedButton loginButton(BuildContext context) {
+    return elevatedButtonProcess(
+      Text(
+        'giris'.tr,
+        style: Constants.getTextStyle(Colors.white, 12.0.sp),
+      ),
+      () async {
+        final sicilNo = myController2.text.toString();
+        final fullName = myController1.text.toString();
+
+        if (sicilNo.isNotEmpty && fullName.isNotEmpty) {
+          final docRef = db.collection("Users").doc(sicilNo);
+
+          try {
+            final doc = await docRef.get();
+
+            if (doc.exists) {
+              final data = doc.data() as Map<String, dynamic>;
+
+              if (data != null &&
+                  data["FullName"].toString() ==
+                      myController1.text.toString() &&
+                  data["Sicil"].toString() == myController2.text.toString()) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => StudentPage(
+                      data1: myController1,
+                      data2: myController2,
+                    ),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  snackBar(),
+                );
+              }
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                snackBar(),
+              );
+            }
+          } catch (e) {
+            debugPrint("Error: $e");
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            snackBar(),
+          );
+        }
+      },
     );
   }
 }

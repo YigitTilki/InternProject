@@ -5,7 +5,7 @@ import 'package:sanofi_main/widgets/elevated_button.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 
-import '../../constants/constants.dart';
+import '../../../constants/constants.dart';
 
 Padding areYouSureUser(
   String? containerText1,

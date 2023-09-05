@@ -26,7 +26,6 @@ class StudentPage extends StatefulWidget {
 }
 
 class _StudentPageState extends State<StudentPage> {
-  bool hasInternet = true; // Başlangıçta internetin olduğunu varsayalım
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
@@ -40,14 +39,12 @@ class _StudentPageState extends State<StudentPage> {
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       if (result == ConnectivityResult.none) {
-        // İnternet bağlantısı yoksa hasInternet'i false olarak ayarla
         setState(() {
           hasInternet = false;
         });
-        // İnternet bağlantısı kesildiğinde popup göster
+
         showNoInternetDialog(context);
       } else {
-        // İnternet bağlantısı varsa hasInternet'i true olarak ayarla
         setState(() {
           hasInternet = true;
         });
@@ -61,12 +58,6 @@ class _StudentPageState extends State<StudentPage> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-
-    // Tarih ve saat bilgisini biçimlendir
-    String formattedDate = "${now.day}/${now.month}/${now.year}";
-    String formattedTime = "${now.hour}:${now.minute}:${now.second}";
-
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(

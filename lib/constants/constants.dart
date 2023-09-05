@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
@@ -59,3 +61,29 @@ FilteringTextInputFormatter sicilFormatter = FilteringTextInputFormatter.deny(
   RegExp(
       r'[+/\=!@#%^&*(),.?":{}|<>üÜğ$\-+/;Ğİı~`•√π÷×¶∆£¢€¥°=\\©®™✓\[\]ŞşÇçöÖ]'),
 );
+
+bool hasInternet = true;
+
+DateTime now = DateTime.now();
+
+String formattedDate = "${now.day}/${now.month}/${now.year}";
+String formattedTime = "${now.hour}:${now.minute}:${now.second}";
+
+Color showDeveloperNamesDialog_bgcolor =
+    const Color.fromARGB(255, 231, 96, 255);
+Color main1 = Colors.black;
+Color main2 = Colors.white;
+Color hp_Connectiondialog_bg = const Color.fromARGB(255, 172, 69, 190);
+Color teacherP_bg = const Color.fromARGB(255, 246, 198, 255);
+Color main3 = Colors.purple;
+Color ListTileColor = Colors.purple.withOpacity(0.8);
+Color subTitleSicil = Colors.grey.shade300;
+Color katilimcilarBg = Colors.purpleAccent.shade100;
+Color ConnectionPopupBg = const Color.fromARGB(255, 172, 69, 190);
+Color adminPageContainerDesignDec = const Color(0xCC7B00EB);
+Color areYouSureContainerDec = Colors.black.withOpacity(0.8);
+Color main4 = Colors.red;
+Color main5 = Colors.grey;
+Color main6 = Colors.green;
+Color QRViewBorderColor = const Color.fromARGB(255, 239, 183, 249);
+Color userInfoColor = const Color.fromRGBO(83, 42, 155, 1);

@@ -1,20 +1,17 @@
 // ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
 
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sanofi_main/widgets/connection_popup.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
-
 import '../constants/constants.dart';
 import '../widgets/arrow_back.dart';
-import '../widgets/attendance_list.dart';
 import '../widgets/back_buttons.dart';
+import '../widgets/generate_qr.dart';
 import '../widgets/user_info.dart';
 
 // ignore: must_be_immutable
@@ -30,7 +27,6 @@ class TeacherPage extends StatefulWidget {
 }
 
 class _TeacherPageState extends State<TeacherPage> {
-  bool hasInternet = true; // Başlangıçta internetin olduğunu varsayalım
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
@@ -44,14 +40,12 @@ class _TeacherPageState extends State<TeacherPage> {
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       if (result == ConnectivityResult.none) {
-        // İnternet bağlantısı yoksa hasInternet'i false olarak ayarla
         setState(() {
           hasInternet = false;
         });
-        // İnternet bağlantısı kesildiğinde popup göster
+
         showNoInternetDialog(context);
       } else {
-        // İnternet bağlantısı varsa hasInternet'i true olarak ayarla
         setState(() {
           hasInternet = true;
         });
@@ -106,29 +100,4 @@ class _TeacherPageState extends State<TeacherPage> {
       ),
     );
   }
-}
-
-generateQR(String data, CollectionReference collectionReference, context) {
-  return GestureDetector(
-    onLongPress: () {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => AttendanceListBuilder(
-                collectionReference: collectionReference,
-                colStr: data,
-              )));
-    },
-    child: Expanded(
-      child: SizedBox(
-        height: 250,
-        width: 250,
-        child: Center(
-          child: QrImageView(
-            data: data,
-            version: QrVersions.auto,
-            size: 250,
-          ),
-        ),
-      ),
-    ),
-  );
 }

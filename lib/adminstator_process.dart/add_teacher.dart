@@ -4,9 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sanofi_main/widgets/containers.dart';
 import 'package:get/get.dart';
-
 import '../db_helper.dart/db_process.dart';
-import 'admin_pop_up.dart/adddeleteupdate_popup.dart';
+import 'admin_pop_up.dart/user_e_popup.dart';
 
 GestureDetector teacherAdd(context) {
   TextEditingController myController1 = TextEditingController();

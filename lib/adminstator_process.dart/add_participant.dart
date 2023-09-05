@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../widgets/containers.dart';
 
-import 'admin_pop_up.dart/adddeleteupdate_popup.dart';
+import 'admin_pop_up.dart/user_popup.dart';
 
 GestureDetector participantAdd(context) {
   TextEditingController myController1 = TextEditingController();

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_if_null_operators
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 
@@ -32,8 +34,6 @@ class _MyAppState extends State<MyApp> {
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         translations: Dil(),
-        //supportedLocales: Dil.diller,
-        // ignore: prefer_if_null_operators
         locale: Get.locale == null ? Get.deviceLocale : Get.locale,
         fallbackLocale: Dil.varsayilan,
         home: const HomePage(),

@@ -3,10 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:sanofi_main/widgets/containers.dart';
-
-import 'admin_pop_up.dart/adddeleteupdate_popup.dart';
+import 'admin_pop_up.dart/lesson_popup.dart';
 
 GestureDetector lessonAdd(context) {
   TextEditingController myController1 = TextEditingController();

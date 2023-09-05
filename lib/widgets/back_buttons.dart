@@ -11,9 +11,9 @@ class BackFunctions {
     return await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            backgroundColor: Colors.white, // Popup arka plan rengi
+            backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.sp), // Şekil ayarı
+              borderRadius: BorderRadius.circular(20.sp),
             ),
             title: Text(
               'cikis'.tr,
@@ -23,12 +23,10 @@ class BackFunctions {
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(false),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      Colors.purple, // İstenilen renge ayarlayabilirsiniz
+                  backgroundColor: Colors.purple,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.sp),
                   ),
-                  // Diğer stil ayarları
                 ),
                 child: Text(
                   'hayir'.tr,
@@ -115,36 +113,24 @@ class BackFunctions {
 
   static Future<bool> onBackPressedFromAppBarAdmin(context) async {
     bool shouldNavigate = await showDialog(
+      barrierDismissible: false,
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.sp),
-        ),
-        title: Text(
-          'back'.tr,
-          style: Constants.getTextStyle(Colors.black, 17.0.sp),
-        ),
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.purple,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.sp),
-              ),
-            ),
-            child: Text(
-              'hayir'.tr,
-              style: Constants.getTextStyle(Colors.white, 11.0.sp),
-            ),
+      builder: (context) => WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.sp),
           ),
-          Padding(
-            padding: EdgeInsets.only(right: 10.sp),
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
+          title: Text(
+            'back'.tr,
+            style: Constants.getTextStyle(Colors.black, 17.0.sp),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(false),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.purple,
                 shape: RoundedRectangleBorder(
@@ -152,12 +138,31 @@ class BackFunctions {
                 ),
               ),
               child: Text(
-                'evet'.tr,
+                'hayir'.tr,
                 style: Constants.getTextStyle(Colors.white, 11.0.sp),
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.only(right: 10.sp),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.sp),
+                  ),
+                ),
+                child: Text(
+                  'evet'.tr,
+                  style: Constants.getTextStyle(Colors.white, 11.0.sp),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
 
