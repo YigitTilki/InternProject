@@ -204,51 +204,42 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
                     style: Constants.getTextStyle(Colors.black, 20.0.sp),
                   ),
                   null,
-                  Expanded(
-                    flex: 1,
-                    child: SizedBox(
-                      width: 500.sp,
-                      height: 115.sp,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: textFormFieldProcess(
-                                'ad-soyad'.tr,
-                                myController1,
-                                [UppercaseInputFormatter(), nameFormatter]),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: textFormFieldProcess(
-                                'sicil'.tr, myController2, [sicilFormatter]),
-                          ),
-                        ],
-                      ),
+                  SizedBox(
+                    width: 500.sp,
+                    height: 115.sp,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: textFormFieldProcess(
+                              'ad-soyad'.tr,
+                              myController1,
+                              [UppercaseInputFormatter(), nameFormatter]),
+                        ),
+                        Expanded(
+                          child: textFormFieldProcess(
+                              'sicil'.tr, myController2, [sicilFormatter]),
+                        ),
+                      ],
                     ),
                   ),
                   [
-                    Expanded(
-                      child: elevatedButtonProcess(
-                        Text(
-                          'ekle'.tr,
-                          style: Constants.getTextStyle(Colors.white, 11.0.sp),
-                        ),
-                        () {
-                          Navigator.pop(context);
-                          return showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return areYouSure(
-                                  context, formattedDate, formattedTime);
-                            },
-                          );
-                        },
+                    elevatedButtonProcess(
+                      Text(
+                        'ekle'.tr,
+                        style: Constants.getTextStyle(Colors.white, 11.0.sp),
                       ),
+                      () {
+                        Navigator.pop(context);
+                        return showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return areYouSure(
+                                context, formattedDate, formattedTime);
+                          },
+                        );
+                      },
                     ),
-                    Expanded(
-                      child: backElevatedButton(context, 'geri-don'.tr),
-                    ),
+                    backElevatedButton(context, 'geri-don'.tr),
                   ],
                 );
               });

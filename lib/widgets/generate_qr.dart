@@ -13,16 +13,14 @@ generateQR(String data, CollectionReference collectionReference, context) {
                 colStr: data,
               )));
     },
-    child: Expanded(
-      child: SizedBox(
-        height: 250,
-        width: 250,
-        child: Center(
-          child: QrImageView(
-            data: data,
-            version: QrVersions.auto,
-            size: 250,
-          ),
+    child: SizedBox(
+      height: 250,
+      width: 250,
+      child: Center(
+        child: QrImageView(
+          data: data,
+          version: QrVersions.auto,
+          size: 250,
         ),
       ),
     ),

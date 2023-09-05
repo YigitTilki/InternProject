@@ -29,28 +29,21 @@ Future<dynamic> addDeleteLessonPopUp(
           style: Constants.getTextStyle(Colors.black, 20.0.sp),
         ),
         null,
-        Expanded(
-          child: SizedBox(
-            width: 500.sp,
-            height: 60.sp,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: textFormFieldProcess('egitim-ad'.tr, myController1,
-                      [UppercaseInputFormatter(), sicilFormatter]),
-                ),
-              ],
-            ),
+        SizedBox(
+          height: 60.sp,
+          width: 500.sp,
+          child: Column(
+            children: [
+              Expanded(
+                child: textFormFieldProcess('egitim-ad'.tr, myController1,
+                    [UppercaseInputFormatter(), sicilFormatter]),
+              ),
+            ],
           ),
         ),
         [
-          Expanded(
-            child: addLessonButton(context, myController1, attendance),
-          ),
-          Expanded(
-            child: deleteLessonButton(context, myController1, attendance),
-          ),
+          addLessonButton(context, myController1, attendance),
+          deleteLessonButton(context, myController1, attendance),
         ],
       );
     },
@@ -84,7 +77,6 @@ ElevatedButton deleteLessonButton(
                     final docRef =
                         attendance.doc(myController1.text.toString());
 
-                    // Dökümanı veritabanından alın.
                     final doc = await docRef.get();
                     if (doc.exists) {
                       await attendance
