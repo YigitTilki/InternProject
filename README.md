@@ -21,11 +21,11 @@ Sanofi stajım sürerken 12 günde geliştirdiğim bu uygulama online olarak imz
 
 ## Images from Project
 
-<img src="https://github.com/ibrahimcerkezoglu/sanofi_main/assets/126337225/a7ea1825-fc00-41e5-aa57-f85b9efea915" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/sanofi_main/assets/126337225/066add38-a0c6-46bd-891c-80c5b54f039b" width="180" height="400">
-<img src="https://github.com/ibrahimcerkezoglu/sanofi_main/assets/126337225/6f1dc7e1-45ec-49ae-b0dd-7a5a1e7360de" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/sanofi_main/assets/126337225/7c3d1218-2f85-4baf-8fa8-bca508ecbefc" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/sanofi_main/assets/126337225/e7e05be0-b4d6-4381-966e-64cb9e64879a" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/sanofi_main/assets/126337225/0b7aec50-b590-4fcf-92d1-76802df6b336" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/sanofi_main/assets/126337225/6306177e-26ac-4642-a689-5637c9ee2b95" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/sanofi_main/assets/126337225/c68756c1-ce3a-460d-bdc7-c416c25d4f0b" width = "180" height = "400">
+<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/a31c82d3-ea00-40b8-ac8e-302c2a8ff4ce" width = "180" height = "400">
+<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/a498b8d8-f40e-44ce-ba0d-773f690c3565" width = "180" height = "400">
+<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/0bc052b4-0a9b-4aec-99ed-275e97e277f8" width = "180" height = "400">
+<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/2bd711f6-7cc5-47c3-99b0-c5ff7374035e" width = "180" height = "400">
+<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/73885415-ff4a-487f-9489-6a304b259bad" width = "180" height = "400">
+<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/55b6e20c-bfd7-42c7-b4d3-5493ce90d5b4" width = "180" height = "400">
+<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/2bbd3fdb-d88a-4514-b619-a6e6441a88c7" width = "180" height = "400">
+<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/8a869e36-3143-4de8-8c28-832979934086" width = "180" height = "400">
