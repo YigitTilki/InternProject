@@ -66,7 +66,7 @@ class _TeacherPageState extends State<TeacherPage> {
       onWillPop: _onBackPressed,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: const Color.fromARGB(255, 246, 198, 255),
+        backgroundColor: teacherandstudent_bg,
         appBar: arrowBack(context, widget.data1, widget.data2, widget.data3),
         body: Column(
           children: [

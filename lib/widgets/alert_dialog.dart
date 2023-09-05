@@ -28,18 +28,21 @@ AlertDialog alertDialogProcess(
 AlertDialog noNetAlert(BuildContext context) {
   return AlertDialog(
     backgroundColor: const Color.fromARGB(255, 172, 69, 190),
-    title: Row(
+    title: Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
+        const Icon(
+          Icons.wifi_off_sharp,
+          color: Colors.white,
+        ),
+        SizedBox(
+          height: 15.sp,
+        ),
         Text(
           'wifi-yok'.tr,
           textAlign: TextAlign.center,
           style: Constants.getTextStyle(Colors.white, 12.sp),
         ),
-        const Icon(
-          Icons.wifi_off_sharp,
-          color: Colors.white,
-        )
       ],
     ),
     content: Text(
