@@ -12,7 +12,6 @@ import 'package:sanofi_main/widgets/elevated_button.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
 import 'package:sizer/sizer.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-
 import '../adminstator_process.dart/admin_router.dart';
 import '../constants/constants.dart';
 import '../widgets/back_buttons.dart';

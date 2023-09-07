@@ -2,12 +2,15 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 import 'package:sanofi_main/pages/home_page.dart';
 
 import 'package:flutter/material.dart';
+import 'package:sanofi_main/provider/theme_provider.dart';
 
 import 'db_helper.dart/firebase_options.dart';
+
 import 'package:sizer/sizer.dart';
 
 import 'widgets/translater.dart';
@@ -17,7 +20,14 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -31,8 +41,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
+      final themeProvider = Provider.of<ThemeProvider>(context);
+
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.system,
+        theme:
+            themeProvider.isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
+        darkTheme: MyThemes.darkTheme,
         translations: Dil(),
         locale: Get.locale == null ? Get.deviceLocale : Get.locale,
         fallbackLocale: Dil.varsayilan,

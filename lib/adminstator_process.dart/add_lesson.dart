@@ -37,50 +37,54 @@ class _LessonAddWidgetState extends State<LessonAddWidget> {
 
     return GestureDetector(
       onLongPress: () async {
-        await showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return alertDialogProcess(
-                Text(
-                  "Ders Seç",
-                  textAlign: TextAlign.center,
-                  style: Constants.getTextStyle(Colors.black, 20.sp),
-                ),
-                null,
-                DropDown(
-                    selectedLesson: selectedLesson,
-                    onSelectionChanged: (newValue) {
-                      setState(() {
-                        selectedLesson = newValue;
-                        isLessonSelected = newValue != null;
-                      });
-                    }),
-                [
-                  elevatedButtonProcess(
-                    const Icon(Icons.check),
-                    () async {
-                      CollectionReference lessonCollect = FirebaseFirestore
-                          .instance
-                          .collection(selectedLesson.toString());
-
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => AdminAttendanceListBuilder(
-                            collectionReference: lessonCollect,
-                            colStr: selectedLesson.toString(),
-                          ),
-                        ),
-                      );
-                    },
-                  )
-                ],
-              );
-            });
+        await lessonAttendanceProcess(context, selectedLesson);
       },
       onTap: () async {
         await addDeleteLessonPopUp(context, myController1, attendance);
       },
       child: adminPageContainerDesign("assets/library.png", 'ders'.tr),
     );
+  }
+
+  Future<dynamic> lessonAttendanceProcess(
+      BuildContext context, String? selectedLesson) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alertDialogProcess(
+            Text(
+              "Ders Seç",
+              textAlign: TextAlign.center,
+              style: Constants.getTextStyle(Colors.black, 20.sp),
+            ),
+            null,
+            DropDown(
+                selectedLesson: selectedLesson,
+                onSelectionChanged: (newValue) {
+                  setState(() {
+                    selectedLesson = newValue;
+                    isLessonSelected = newValue != null;
+                  });
+                }),
+            [
+              elevatedButtonProcess(
+                const Icon(Icons.check),
+                () async {
+                  CollectionReference lessonCollect = FirebaseFirestore.instance
+                      .collection(selectedLesson.toString());
+
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AdminAttendanceListBuilder(
+                        collectionReference: lessonCollect,
+                        colStr: selectedLesson.toString(),
+                      ),
+                    ),
+                  );
+                },
+              )
+            ],
+          );
+        });
   }
 }
