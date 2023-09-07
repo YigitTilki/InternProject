@@ -13,8 +13,8 @@ import 'elevated_button.dart';
 import 'error_alert.dart';
 import 'export_excel.dart';
 
-class AttendanceListBuilder extends StatefulWidget {
-  const AttendanceListBuilder({
+class AdminAttendanceListBuilder extends StatefulWidget {
+  const AdminAttendanceListBuilder({
     super.key,
     required this.collectionReference,
     required this.colStr,
@@ -23,10 +23,12 @@ class AttendanceListBuilder extends StatefulWidget {
   final String colStr;
 
   @override
-  State<AttendanceListBuilder> createState() => _AttendanceListBuilderState();
+  State<AdminAttendanceListBuilder> createState() =>
+      _AdminAttendanceListBuilderState();
 }
 
-class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
+class _AdminAttendanceListBuilderState
+    extends State<AdminAttendanceListBuilder> {
   final TextEditingController _searchController = TextEditingController();
   List<DocumentSnapshot> searchResults = [];
   TextEditingController myController1 = TextEditingController();
@@ -160,27 +162,86 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
       String formattedTime, void Function() _search) {
     return AppBar(
       actions: [
-        IconButton(
-          onPressed: () async {
-            _search();
-            exportDataToCSV(searchResults, context, widget.colStr);
-
-            /*QuerySnapshot querySnapshot =
-                await widget.collectionReference.get();
-            for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
-              await documentSnapshot.reference.delete();
-            }*/
+        PopupMenuButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          color: Colors.purple,
+          icon: Image.asset(
+            "assets/SNY.png",
+            height: 20.sp,
+            width: 20.sp,
+          ),
+          itemBuilder: (context) {
+            return [
+              PopupMenuItem<int>(
+                value: 0,
+                child: Row(
+                  children: [
+                    const Icon(Icons.download),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Download",
+                      style: Constants.getTextStyle(Colors.white, 11.sp),
+                    ),
+                  ],
+                ),
+              ),
+              PopupMenuItem<int>(
+                value: 1,
+                child: Row(
+                  children: [
+                    const Icon(Icons.add),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Add",
+                      style: Constants.getTextStyle(Colors.white, 11.sp),
+                    ),
+                  ],
+                ),
+              ),
+              PopupMenuItem<int>(
+                value: 2,
+                child: Row(
+                  children: [
+                    const Icon(Icons.delete),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Delete",
+                      style: Constants.getTextStyle(Colors.white, 11.sp),
+                    ),
+                  ],
+                ),
+              ),
+            ];
           },
-          icon: const Icon(Icons.download),
-        ),
-        addAttendance(context, formattedDate, formattedTime),
-        SizedBox(
-          width: 20.sp,
-        ),
-        Image.asset(
-          "assets/SNY.png",
-          height: 20.sp,
-          width: 20.sp,
+          onSelected: (value) async {
+            if (value == 0) {
+              _search();
+              exportDataToCSV(searchResults, context, widget.colStr);
+            } else if (value == 1) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    FieldUtils.clearFields(
+                        controller1: myController1, controller2: myController2);
+                    return addAttendance(context, formattedDate, formattedTime);
+                  });
+            } else if (value == 2) {
+              QuerySnapshot querySnapshot =
+                  await widget.collectionReference.get();
+              for (QueryDocumentSnapshot documentSnapshot
+                  in querySnapshot.docs) {
+                await documentSnapshot.reference.delete();
+              }
+            }
+          },
         ),
         SizedBox(
           width: 10.sp,
@@ -192,63 +253,50 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
     );
   }
 
-  IconButton addAttendance(
+  AlertDialog addAttendance(
       BuildContext context, String formattedDate, String formattedTime) {
-    return IconButton(
-        onPressed: () {
-          showDialog(
+    return alertDialogProcess(
+      Text(
+        'katilimci-ekle'.tr,
+        textAlign: TextAlign.center,
+        style: Constants.getTextStyle(Colors.black, 20.0.sp),
+      ),
+      null,
+      SizedBox(
+        width: 500.sp,
+        height: 115.sp,
+        child: Column(
+          children: [
+            Expanded(
+              child: textFormFieldProcess('ad-soyad'.tr, myController1,
+                  [UppercaseInputFormatter(), nameFormatter]),
+            ),
+            Expanded(
+              child: textFormFieldProcess(
+                  'sicil'.tr, myController2, [sicilFormatter]),
+            ),
+          ],
+        ),
+      ),
+      [
+        elevatedButtonProcess(
+          Text(
+            'ekle'.tr,
+            style: Constants.getTextStyle(Colors.white, 11.0.sp),
+          ),
+          () {
+            Navigator.pop(context);
+            return showDialog(
               context: context,
               builder: (BuildContext context) {
-                FieldUtils.clearFields(
-                    controller1: myController1, controller2: myController2);
-                return alertDialogProcess(
-                  Text(
-                    'katilimci-ekle'.tr,
-                    textAlign: TextAlign.center,
-                    style: Constants.getTextStyle(Colors.black, 20.0.sp),
-                  ),
-                  null,
-                  SizedBox(
-                    width: 500.sp,
-                    height: 115.sp,
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: textFormFieldProcess(
-                              'ad-soyad'.tr,
-                              myController1,
-                              [UppercaseInputFormatter(), nameFormatter]),
-                        ),
-                        Expanded(
-                          child: textFormFieldProcess(
-                              'sicil'.tr, myController2, [sicilFormatter]),
-                        ),
-                      ],
-                    ),
-                  ),
-                  [
-                    elevatedButtonProcess(
-                      Text(
-                        'ekle'.tr,
-                        style: Constants.getTextStyle(Colors.white, 11.0.sp),
-                      ),
-                      () {
-                        Navigator.pop(context);
-                        return showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return areYouSure(
-                                context, formattedDate, formattedTime);
-                          },
-                        );
-                      },
-                    ),
-                    backElevatedButton(context, 'geri-don'.tr),
-                  ],
-                );
-              });
-        },
-        icon: const Icon(Icons.add));
+                return areYouSure(context, formattedDate, formattedTime);
+              },
+            );
+          },
+        ),
+        backElevatedButton(context, 'geri-don'.tr),
+      ],
+    );
   }
 
   Padding areYouSure(

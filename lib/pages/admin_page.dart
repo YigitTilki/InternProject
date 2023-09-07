@@ -84,7 +84,7 @@ class _AdminPageState extends State<AdminPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   participantAdd(context),
-                  lessonAdd(context),
+                  const LessonAddWidget(),
                 ],
               ),
               SizedBox(
