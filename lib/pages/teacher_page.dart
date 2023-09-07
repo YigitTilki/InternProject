@@ -66,7 +66,6 @@ class _TeacherPageState extends State<TeacherPage> {
       onWillPop: _onBackPressed,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: teacherandstudent_bg,
         appBar: arrowBack(context, widget.data1, widget.data2, widget.data3),
         body: Column(
           children: [
@@ -82,7 +81,8 @@ class _TeacherPageState extends State<TeacherPage> {
             ),
             Text(
               "${widget.data4 ?? ""}${'icin-qr-kod'.tr}",
-              style: Constants.getTextStyle(Colors.black, 20.0.sp),
+              style: Constants.getTextStyle(
+                  Theme.of(Get.context!).hintColor, 20.0.sp),
             ),
             generateQR(widget.data4 ?? "", docref, context),
             Expanded(
@@ -91,7 +91,7 @@ class _TeacherPageState extends State<TeacherPage> {
                 height: 70.sp,
               ),
             ),
-            Constants.sanofiBig(),
+            Constants.sanofiBig(context),
             SizedBox(
               height: 100.sp,
             )

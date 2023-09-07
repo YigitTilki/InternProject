@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart';
@@ -29,9 +31,9 @@ AppBar arrowBack(context, data1, data2, data3) {
     leading: IconButton(
       icon: Padding(
         padding: EdgeInsets.only(left: 10.sp, top: 10.sp),
-        child: const Icon(
+        child: Icon(
           Icons.arrow_back,
-          color: Colors.black,
+          color: Theme.of(Get.context!).hintColor,
           size: 40,
         ),
       ),
@@ -51,9 +53,9 @@ AppBar arrowBackAdmin(context) {
     leading: IconButton(
       icon: Padding(
         padding: EdgeInsets.only(left: 10.sp, top: 10.sp),
-        child: const Icon(
+        child: Icon(
           Icons.arrow_back,
-          color: Colors.black,
+          color: Theme.of(Get.context!).hintColor,
           size: 40,
         ),
       ),

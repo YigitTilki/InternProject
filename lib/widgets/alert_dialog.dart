@@ -12,7 +12,7 @@ AlertDialog alertDialogProcess(
   return AlertDialog(
     title: title,
     elevation: 0,
-    backgroundColor: Colors.white,
+    backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     icon: icon,
     content: content,
@@ -21,19 +21,20 @@ AlertDialog alertDialogProcess(
     actionsAlignment: MainAxisAlignment.center,
     actionsPadding: EdgeInsets.all(5.sp),
     actions: actions,
-    titleTextStyle: Constants.getTextStyle(Colors.black, 16.0.sp),
+    titleTextStyle:
+        Constants.getTextStyle(Theme.of(Get.context!).hintColor, 16.0.sp),
   );
 }
 
 AlertDialog noNetAlert(BuildContext context) {
   return AlertDialog(
-    backgroundColor: const Color.fromARGB(255, 172, 69, 190),
+    backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
     title: Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        const Icon(
+        Icon(
           Icons.wifi_off_sharp,
-          color: Colors.white,
+          color: Theme.of(Get.context!).hintColor,
         ),
         SizedBox(
           height: 15.sp,
@@ -41,21 +42,22 @@ AlertDialog noNetAlert(BuildContext context) {
         Text(
           'wifi-yok'.tr,
           textAlign: TextAlign.center,
-          style: Constants.getTextStyle(Colors.white, 12.sp),
+          style:
+              Constants.getTextStyle(Theme.of(Get.context!).hintColor, 12.sp),
         ),
       ],
     ),
     content: Text(
       'wifi-kontrol'.tr,
       textAlign: TextAlign.center,
-      style: Constants.getTextStyle(Colors.white, 11.sp),
+      style: Constants.getTextStyle(Theme.of(Get.context!).hintColor, 11.sp),
     ),
     actionsAlignment: MainAxisAlignment.center,
     actions: <Widget>[
       TextButton(
         child: Text(
           'wifi-ayar'.tr,
-          style: Constants.getTextStyle(Colors.white, 8.sp),
+          style: Constants.getTextStyle(Theme.of(Get.context!).hintColor, 8.sp),
         ),
         onPressed: () {
           openWifiSettings();
@@ -64,7 +66,7 @@ AlertDialog noNetAlert(BuildContext context) {
       TextButton(
         child: Text(
           'devam-et'.tr,
-          style: Constants.getTextStyle(Colors.white, 8.sp),
+          style: Constants.getTextStyle(Theme.of(Get.context!).hintColor, 8.sp),
         ),
         onPressed: () {
           Navigator.push(
@@ -76,7 +78,7 @@ AlertDialog noNetAlert(BuildContext context) {
       TextButton(
         child: Text(
           'uygulama-kapat'.tr,
-          style: Constants.getTextStyle(Colors.white, 8.sp),
+          style: Constants.getTextStyle(Theme.of(Get.context!).hintColor, 8.sp),
         ),
         onPressed: () {
           SystemNavigator.pop();

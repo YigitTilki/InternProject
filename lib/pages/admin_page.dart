@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_lesson.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_participant.dart';
 import 'package:sanofi_main/adminstator_process.dart/add_teacher.dart';
@@ -13,6 +14,7 @@ import 'package:sanofi_main/widgets/connection_popup.dart';
 
 import 'package:sizer/sizer.dart';
 
+import '../provider/theme_provider.dart';
 import '../widgets/arrow_back.dart';
 import '../widgets/back_buttons.dart';
 import '../widgets/show_developers.dart';
@@ -58,6 +60,9 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider =
+        Provider.of<ThemeProvider>(context); // ThemeProvider'ı alın
+    final isDarkMode = themeProvider.isDarkMode; // Tema modunu alın
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
@@ -73,7 +78,9 @@ class _AdminPageState extends State<AdminPage> {
                   child: GestureDetector(
                     onDoubleTap: () => showDeveloperNamesDialog(context),
                     child: Image.asset(
-                      "assets/adminicon.png",
+                      isDarkMode
+                          ? 'assets/light_adminicon.png'
+                          : 'assets/adminicon.png',
                       height: 80.sp,
                       width: 80.sp,
                     ),
@@ -91,7 +98,7 @@ class _AdminPageState extends State<AdminPage> {
                 height: 20.sp,
               ),
               teacherAdd(context),
-              Expanded(flex: 1, child: Constants.sanofiBig())
+              Expanded(flex: 1, child: Constants.sanofiBig(context))
             ],
           ),
         ),

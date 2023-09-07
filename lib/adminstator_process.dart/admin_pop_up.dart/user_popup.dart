@@ -31,7 +31,8 @@ Future<dynamic> addUserPopUp(
         Text(
           'katilimci-ekle'.tr,
           textAlign: TextAlign.center,
-          style: Constants.getTextStyle(Colors.black, 20.0.sp),
+          style:
+              Constants.getTextStyle(Theme.of(Get.context!).hintColor, 20.0.sp),
         ),
         null,
         SizedBox(
@@ -99,7 +100,8 @@ Future<dynamic> deleteUserPopUp(context, TextEditingController myController2,
           Text(
             'katilimci-sil'.tr,
             textAlign: TextAlign.center,
-            style: Constants.getTextStyle(Colors.black, 20.0.sp),
+            style: Constants.getTextStyle(
+                Theme.of(Get.context!).hintColor, 20.0.sp),
           ),
           null,
           SizedBox(

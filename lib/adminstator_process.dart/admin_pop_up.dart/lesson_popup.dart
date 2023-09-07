@@ -26,7 +26,8 @@ Future<dynamic> addDeleteLessonPopUp(
         Text(
           'ders'.tr,
           textAlign: TextAlign.center,
-          style: Constants.getTextStyle(Colors.black, 20.0.sp),
+          style:
+              Constants.getTextStyle(Theme.of(Get.context!).hintColor, 20.0.sp),
         ),
         null,
         SizedBox(

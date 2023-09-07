@@ -11,13 +11,14 @@ class BackFunctions {
     return await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.sp),
             ),
             title: Text(
               'cikis'.tr,
-              style: Constants.getTextStyle(Colors.black, 17.0.sp),
+              style: Constants.getTextStyle(
+                  Theme.of(Get.context!).hintColor, 17.0.sp),
             ),
             actions: <Widget>[
               ElevatedButton(
@@ -62,13 +63,14 @@ class BackFunctions {
     return await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.sp),
             ),
             title: Text(
               'back'.tr,
-              style: Constants.getTextStyle(Colors.black, 17.0.sp),
+              style: Constants.getTextStyle(
+                  Theme.of(Get.context!).hintColor, 17.0.sp),
             ),
             actions: <Widget>[
               ElevatedButton(
@@ -120,13 +122,14 @@ class BackFunctions {
           return false;
         },
         child: AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.sp),
           ),
           title: Text(
             'back'.tr,
-            style: Constants.getTextStyle(Colors.black, 17.0.sp),
+            style: Constants.getTextStyle(
+                Theme.of(Get.context!).hintColor, 17.0.sp),
           ),
           actions: <Widget>[
             ElevatedButton(

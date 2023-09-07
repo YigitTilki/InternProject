@@ -53,9 +53,10 @@ class _LessonAddWidgetState extends State<LessonAddWidget> {
         builder: (BuildContext context) {
           return alertDialogProcess(
             Text(
-              "Ders Seç",
+              'ders'.tr,
               textAlign: TextAlign.center,
-              style: Constants.getTextStyle(Colors.black, 20.sp),
+              style: Constants.getTextStyle(
+                  Theme.of(Get.context!).hintColor, 20.sp),
             ),
             null,
             DropDown(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -21,8 +22,10 @@ Padding textFormFieldProcess(String labeltext, TextEditingController controller,
       inputFormatters: inputFormatter,
       decoration: InputDecoration(
         labelText: labeltext,
-        labelStyle: Constants.getTextStyle(Colors.grey, 11.0.sp),
+        labelStyle:
+            Constants.getTextStyle(Theme.of(Get.context!).hintColor, 11.0.sp),
         border: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(Get.context!).hintColor),
           borderRadius: BorderRadius.circular(14.sp),
         ),
       ),

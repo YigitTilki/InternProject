@@ -3,7 +3,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:sanofi_main/constants/constants.dart';
+import 'package:sanofi_main/provider/theme_provider.dart';
 import 'package:sanofi_main/widgets/alert_dialog.dart';
 import 'package:sanofi_main/widgets/scaffold_messanger.dart';
 import 'package:sanofi_main/widgets/text_form_field.dart';
@@ -64,13 +66,13 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
         }
 
         return Scaffold(
-          backgroundColor: const Color.fromARGB(255, 246, 198, 255),
+          backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
           appBar:
               attendanceAppBar(context, formattedDate, formattedTime, _search),
           body: Column(
             children: [
               Container(
-                color: Colors.purple,
+                color: Theme.of(Get.context!).scaffoldBackgroundColor,
                 height: 40.sp,
                 width: double.infinity,
                 child: searchProcess(_search),
@@ -94,16 +96,16 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
           onPressed: () {
             return _search();
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.search,
-            color: Colors.purple,
+            color: Theme.of(Get.context!).hintColor,
           ),
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.purple),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(Get.context!).dividerColor),
         ),
         filled: true,
-        fillColor: const Color.fromARGB(255, 246, 198, 255),
+        fillColor: Theme.of(Get.context!).scaffoldBackgroundColor,
       ),
       onChanged: (value) => _search(),
     );
@@ -119,36 +121,43 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
         return ListTile(
           contentPadding:
               EdgeInsets.symmetric(horizontal: 18.0.sp, vertical: 6.0.sp),
-          tileColor: Colors.purple.withOpacity(0.8),
+          tileColor: Theme.of(Get.context!).dividerColor.withOpacity(0.8),
           leading: Padding(
             padding: EdgeInsets.only(top: 6.0.sp),
-            child: const Icon(Icons.person),
+            child: Icon(
+              Icons.person,
+              color: Theme.of(Get.context!).hintColor,
+            ),
           ),
           title: Text(
             data['FullName'],
-            style: Constants.getTextStyle(Colors.white, 16.0.sp),
+            style: Constants.getTextStyle(
+                Theme.of(Get.context!).hintColor, 16.0.sp),
           ),
           subtitle: Text(
             data['Sicil'],
-            style: Constants.getTextStyle(Colors.grey.shade300, 12.0.sp),
+            style: Constants.getTextStyle(
+                Theme.of(Get.context!).hintColor, 12.0.sp),
           ),
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
                 data['Tarih'],
-                style: Constants.getTextStyle(Colors.white, 12.0.sp),
+                style: Constants.getTextStyle(
+                    Theme.of(Get.context!).hintColor, 12.0.sp),
               ),
               Text(
                 data['Saat'],
-                style: Constants.getTextStyle(Colors.white, 12.0.sp),
+                style: Constants.getTextStyle(
+                    Theme.of(Get.context!).hintColor, 12.0.sp),
               ),
             ],
           ),
           shape: RoundedRectangleBorder(
             side: BorderSide(
               width: 0.3.sp,
-              color: Colors.white,
+              color: Theme.of(Get.context!).hintColor,
             ),
           ),
         );
@@ -158,27 +167,27 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
 
   AppBar attendanceAppBar(BuildContext context, String formattedDate,
       String formattedTime, void Function() _search) {
+    final themeProvider =
+        Provider.of<ThemeProvider>(context); // ThemeProvider'ı alın
+    final isDarkMode = themeProvider.isDarkMode; // Tema modunu alın
     return AppBar(
       actions: [
         IconButton(
           onPressed: () async {
             _search();
             exportDataToCSV(searchResults, context, widget.colStr);
-
-            /*QuerySnapshot querySnapshot =
-                await widget.collectionReference.get();
-            for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
-              await documentSnapshot.reference.delete();
-            }*/
           },
-          icon: const Icon(Icons.download),
+          icon: Icon(
+            Icons.download,
+            color: Theme.of(Get.context!).hintColor,
+          ),
         ),
         addAttendance(context, formattedDate, formattedTime),
         SizedBox(
           width: 20.sp,
         ),
         Image.asset(
-          "assets/SNY.png",
+          isDarkMode ? 'assets/light_SNY.png' : 'assets/SNY.png',
           height: 20.sp,
           width: 20.sp,
         ),
@@ -187,8 +196,11 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
         )
       ],
       elevation: 0,
-      title: Text('katilimcilar'.tr),
-      backgroundColor: Colors.purpleAccent.shade100,
+      title: Text(
+        'katilimcilar'.tr,
+        style: Constants.getTextStyle(Theme.of(Get.context!).hintColor, 18.sp),
+      ),
+      backgroundColor: Theme.of(Get.context!).dividerColor,
     );
   }
 
@@ -205,7 +217,8 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
                   Text(
                     'katilimci-ekle'.tr,
                     textAlign: TextAlign.center,
-                    style: Constants.getTextStyle(Colors.black, 20.0.sp),
+                    style: Constants.getTextStyle(
+                        Theme.of(Get.context!).hintColor, 20.0.sp),
                   ),
                   null,
                   SizedBox(
@@ -230,7 +243,8 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
                     elevatedButtonProcess(
                       Text(
                         'ekle'.tr,
-                        style: Constants.getTextStyle(Colors.white, 11.0.sp),
+                        style: Constants.getTextStyle(
+                            Theme.of(Get.context!).hintColor, 11.0.sp),
                       ),
                       () {
                         Navigator.pop(context);
@@ -248,7 +262,10 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
                 );
               });
         },
-        icon: const Icon(Icons.add));
+        icon: Icon(
+          Icons.add,
+          color: Theme.of(Get.context!).hintColor,
+        ));
   }
 
   Padding areYouSure(
@@ -263,7 +280,8 @@ class _AttendanceListBuilderState extends State<AttendanceListBuilder> {
       elevatedButtonProcess(
         Text(
           'onay'.tr,
-          style: Constants.getTextStyle(Colors.white, 11.0.sp),
+          style:
+              Constants.getTextStyle(Theme.of(Get.context!).hintColor, 11.0.sp),
         ),
         () async {
           final sicilNo = myController2.text.toString();

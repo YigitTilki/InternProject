@@ -84,7 +84,8 @@ class _QRViewExampleState extends State<QRViewExample> {
                 : Center(
                     child: Text(
                     'scan-code'.tr,
-                    style: Constants.getTextStyle(Colors.black, 24.0.sp),
+                    style: Constants.getTextStyle(
+                        Theme.of(Get.context!).hintColor, 24.0.sp),
                   )),
           ),
         ],
@@ -123,7 +124,7 @@ class _QRViewExampleState extends State<QRViewExample> {
             builder: (BuildContext context) {
               return AlertDialog(
                 elevation: 0,
-                backgroundColor: Colors.white,
+                backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
                 content: Image.asset(
                   "assets/check-green-unscreen.gif",
                   height: 35.sp,

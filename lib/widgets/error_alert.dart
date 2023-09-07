@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sanofi_main/constants/constants.dart';
 import 'package:sizer/sizer.dart';
 
@@ -7,7 +8,7 @@ Padding errorAlertDialog(String message) {
     padding: const EdgeInsets.only(top: 50, bottom: 55, left: 50, right: 50),
     child: AlertDialog(
       elevation: 0,
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -24,7 +25,8 @@ Padding errorAlertDialog(String message) {
           Text(
             message,
             textAlign: TextAlign.center,
-            style: Constants.getTextStyle(Colors.black, 15.sp),
+            style:
+                Constants.getTextStyle(Theme.of(Get.context!).hintColor, 15.sp),
           ),
         ],
       ),

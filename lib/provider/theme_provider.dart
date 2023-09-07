@@ -22,16 +22,21 @@ class ThemeProvider extends ChangeNotifier {
 
 class MyThemes {
   static final darkTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.grey.shade800,
-    primaryColor: Colors.grey.shade800,
-    colorScheme: ColorScheme.dark(),
-    iconTheme: IconThemeData(color: Colors.black, opacity: 0.8),
-  );
+      scaffoldBackgroundColor: const Color.fromARGB(255, 88, 0, 99),
+      primaryColor: const Color.fromARGB(255, 187, 38, 38),
+      dividerColor: Colors.purple,
+      hintColor: Colors.white,
+      colorScheme:
+          const ColorScheme.dark(primary: Color.fromRGBO(138, 33, 231, 1)),
+      highlightColor: Colors.black);
 
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
+    highlightColor: Colors.purple,
+    hintColor: Colors.black,
+    dividerColor: const Color.fromARGB(255, 246, 198, 255),
     primaryColor: Colors.white,
-    colorScheme: ColorScheme.light(),
-    iconTheme: IconThemeData(color: Colors.black, opacity: 0.8),
+    colorScheme:
+        const ColorScheme.light(primary: Color.fromRGBO(83, 42, 155, 1)),
   );
 }

@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sanofi_main/widgets/connection_popup.dart';
 import 'package:sanofi_main/widgets/dropdown.dart';
 import 'package:sanofi_main/pages/login_page_s.dart';
@@ -18,6 +19,7 @@ import 'package:sizer/sizer.dart';
 
 import '../adminstator_process.dart/admin_router.dart';
 import '../constants/constants.dart';
+import '../provider/theme_provider.dart';
 import '../widgets/back_buttons.dart';
 import '../widgets/scaffold_messanger.dart';
 
@@ -69,6 +71,8 @@ class _LoginPageTState extends State<LoginPageT> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDarkMode = themeProvider.isDarkMode;
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
@@ -82,10 +86,11 @@ class _LoginPageTState extends State<LoginPageT> {
                   height: 60.sp,
                 ),
               ),
-              Constants.sanofiBig(),
+              Constants.sanofiBig(context),
               Text(
                 "egitim".tr,
-                style: Constants.getTextStyle(Colors.black, 15.0.sp),
+                style: Constants.getTextStyle(
+                    Theme.of(Get.context!).hintColor, 15.0.sp),
               ),
               Expanded(
                 child: SizedBox(
@@ -126,7 +131,7 @@ class _LoginPageTState extends State<LoginPageT> {
                   adminRouter(context, passwordController);
                 },
                 child: Image.asset(
-                  "assets/SNY.png",
+                  isDarkMode ? 'assets/light_SNY.png' : 'assets/SNY.png',
                   height: 20.sp,
                   width: 20.sp,
                 ),

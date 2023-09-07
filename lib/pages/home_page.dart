@@ -2,7 +2,9 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sanofi_main/pages/login_page_s.dart';
+import 'package:sanofi_main/provider/theme_provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import '../widgets/alert_dialog.dart';
@@ -59,12 +61,16 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider =
+        Provider.of<ThemeProvider>(context); // ThemeProvider'ı alın
+    final isDarkMode = themeProvider.isDarkMode; // Tema modunu alın
     return Scaffold(
       body: Center(
         child: SizedBox(
           height: 170.sp,
           width: 150.sp,
-          child: Image.asset("assets/SNY.png"),
+          child: Image.asset(
+              isDarkMode ? 'assets/light_SNY.png' : 'assets/SNY.png'),
         ),
       ),
     );

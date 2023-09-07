@@ -15,7 +15,7 @@ TextButton textButton(BuildContext context, route, String title) {
     },
     child: Text(
       title.tr,
-      style: Constants.getTextStyle(Colors.black, 12.0.sp),
+      style: Constants.getTextStyle(Theme.of(Get.context!).hintColor, 12.0.sp),
     ),
   );
 }

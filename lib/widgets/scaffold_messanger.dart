@@ -10,7 +10,7 @@ SnackBar snackBar() {
         borderRadius: BorderRadius.circular(10),
         side: const BorderSide(color: Colors.purple, width: 2)),
     behavior: SnackBarBehavior.floating,
-    backgroundColor: Colors.white,
+    backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
     content: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -21,7 +21,8 @@ SnackBar snackBar() {
         ),
         Text(
           'hatali-giris'.tr,
-          style: Constants.getTextStyle(Colors.black, 16.sp),
+          style:
+              Constants.getTextStyle(Theme.of(Get.context!).hintColor, 16.sp),
         ),
         Image.asset(
           "assets/giphy-unscreen.gif",

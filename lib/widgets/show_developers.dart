@@ -12,11 +12,12 @@ void showDeveloperNamesDialog(context) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.sp),
         ),
-        backgroundColor: const Color.fromARGB(255, 231, 96, 255),
+        backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
         title: Center(
           child: Text(
             'dev'.tr,
-            style: Constants.getTextStyle(Colors.white, 20.sp),
+            style:
+                Constants.getTextStyle(Theme.of(Get.context!).hintColor, 20.sp),
           ),
         ),
         content: Column(
@@ -26,7 +27,8 @@ void showDeveloperNamesDialog(context) {
             Center(
               child: Text(
                 'Yiğit Tilki',
-                style: Constants.getTextStyle(Colors.black, 15.sp),
+                style: Constants.getTextStyle(
+                    Theme.of(Get.context!).hintColor, 15.sp),
               ),
             ),
             Center(
@@ -34,7 +36,8 @@ void showDeveloperNamesDialog(context) {
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(
                   'İbrahim Çerkezoğlu',
-                  style: Constants.getTextStyle(Colors.black, 15.sp),
+                  style: Constants.getTextStyle(
+                      Theme.of(Get.context!).hintColor, 15.sp),
                 ),
               ),
             ),

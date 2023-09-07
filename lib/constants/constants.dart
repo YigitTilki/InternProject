@@ -2,7 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+
+import '../provider/theme_provider.dart';
 
 class Constants {
   Constants._();
@@ -14,13 +17,19 @@ class Constants {
         decoration: TextDecoration.none);
   }
 
-  static Padding sanofiBig() {
+  static Padding sanofiBig(context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDarkMode = themeProvider.isDarkMode;
+
+    // Tema moduna göre farklı bir resim dosya adını belirleyin
+    final assetName =
+        isDarkMode ? "assets/light_SNY_BIG.png" : "assets/SNY_BIG.png";
     return Padding(
       padding: EdgeInsets.only(top: 16.0.sp, bottom: 8.sp),
       child: SizedBox(
         height: 50.sp,
         width: 250.sp,
-        child: Image.asset("assets/SNY_BIG.png"),
+        child: Image.asset(assetName),
       ),
     );
   }

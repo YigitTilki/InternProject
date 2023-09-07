@@ -5,11 +5,14 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:sanofi_main/widgets/connection_popup.dart';
 
 import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart';
+import '../provider/theme_provider.dart';
 import '../widgets/arrow_back.dart';
 import '../widgets/back_buttons.dart';
 import '../widgets/scan_qr.dart';
@@ -58,11 +61,13 @@ class _StudentPageState extends State<StudentPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider =
+        Provider.of<ThemeProvider>(context); // ThemeProvider'ı alın
+    final isDarkMode = themeProvider.isDarkMode;
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: teacherandstudent_bg,
         appBar: arrowBack(context, widget.data1, widget.data2, null),
         body: Center(
           child: Column(
@@ -88,11 +93,14 @@ class _StudentPageState extends State<StudentPage> {
                     Icon(
                       Icons.camera_alt_outlined,
                       size: 100.sp,
+                      color: Theme.of(Get.context!).hintColor,
                     ),
                     Opacity(
                       opacity: 0.5,
                       child: Image.asset(
-                        "assets/pngwing.com.png",
+                        isDarkMode
+                            ? 'assets/light_pngwing.com.png'
+                            : 'assets/pngwing.com.png',
                         width: 150.sp,
                         height: 150.sp,
                       ),
@@ -100,7 +108,7 @@ class _StudentPageState extends State<StudentPage> {
                   ],
                 ),
               ),
-              Constants.sanofiBig(),
+              Constants.sanofiBig(context),
             ],
           ),
         ),

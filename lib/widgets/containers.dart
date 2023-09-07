@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart';
@@ -8,7 +9,7 @@ Container adminPageContainerDesign(String image, String text) {
     width: 120.sp,
     height: 90.sp,
     decoration: ShapeDecoration(
-      color: const Color(0xCC7B00EB),
+      color: Theme.of(Get.context!).dividerColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.sp),
       ),

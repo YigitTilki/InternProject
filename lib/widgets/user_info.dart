@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart';
@@ -15,7 +16,8 @@ Column userInfo(data1, data2) {
             padding: EdgeInsets.only(top: 25.sp),
             child: Text(
               data1?.text.toString() ?? "",
-              style: Constants.getTextStyle(Colors.black, 24.0.sp),
+              style: Constants.getTextStyle(
+                  Theme.of(Get.context!).hintColor, 24.0.sp),
             ),
           ),
         ),
@@ -25,7 +27,7 @@ Column userInfo(data1, data2) {
         child: Text(
           data2?.text.toString() ?? "",
           style: Constants.getTextStyle(
-              const Color.fromRGBO(83, 42, 155, 1), 24.0.sp),
+              Theme.of(Get.context!).colorScheme.primary, 24.0.sp),
         ),
       ),
     ],

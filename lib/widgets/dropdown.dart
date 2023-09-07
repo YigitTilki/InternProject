@@ -68,8 +68,11 @@ class DropDown extends StatelessWidget {
             dropdownDecoratorProps: DropDownDecoratorProps(
               dropdownSearchDecoration: InputDecoration(
                 labelText: "ders-seciniz".tr,
-                labelStyle: Constants.getTextStyle(Colors.grey, 11.0.sp),
+                labelStyle: Constants.getTextStyle(
+                    Theme.of(Get.context!).hintColor, 11.0.sp),
                 border: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Theme.of(Get.context!).hintColor),
                   borderRadius: BorderRadius.circular(14.sp),
                 ),
               ),
