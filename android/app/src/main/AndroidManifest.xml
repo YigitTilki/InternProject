@@ -9,7 +9,7 @@
     <application
         android:label="intern_project"
         android:name="${applicationName}"
-        android:icon="@mipmap/sanofi">
+        android:icon="@mipmap/sny">
         <activity
             android:name=".MainActivity"
             android:exported="true"
