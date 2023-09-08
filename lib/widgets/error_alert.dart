@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sanofi_main/constants/constants.dart';
+
 import 'package:sizer/sizer.dart';
+
+import '../constants/constants.dart';
 
 Padding errorAlertDialog(String message) {
   return Padding(

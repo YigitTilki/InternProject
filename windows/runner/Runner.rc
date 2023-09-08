@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "sanofi_main" "\0"
+            VALUE "FileDescription", "intern_project" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "sanofi_main" "\0"
+            VALUE "InternalName", "intern_project" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "sanofi_main.exe" "\0"
-            VALUE "ProductName", "sanofi_main" "\0"
+            VALUE "OriginalFilename", "intern_project.exe" "\0"
+            VALUE "ProductName", "intern_project" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

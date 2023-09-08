@@ -2,12 +2,12 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:get/get.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:sanofi_main/constants/constants.dart';
 import 'package:sizer/sizer.dart';
+
+import '../constants/constants.dart';
 
 class QRViewExample extends StatefulWidget {
   final String? fullName;

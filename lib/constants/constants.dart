@@ -17,7 +17,7 @@ class Constants {
         decoration: TextDecoration.none);
   }
 
-  static Padding sanofiBig(context) {
+  static Padding snyBIG(context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final isDarkMode = themeProvider.isDarkMode;
 

@@ -1,27 +1,24 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sanofi_main/widgets/connection_popup.dart';
-import 'package:sanofi_main/widgets/dropdown.dart';
-import 'package:sanofi_main/pages/login_page_s.dart';
 import 'package:get/get.dart';
-
-import 'package:sanofi_main/pages/teacher_page.dart';
-import 'package:sanofi_main/widgets/elevated_button.dart';
-import 'package:sanofi_main/widgets/text_button_process.dart';
-import 'package:sanofi_main/widgets/text_form_field.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
 import '../adminstator_process.dart/admin_router.dart';
 import '../constants/constants.dart';
 import '../provider/theme_provider.dart';
 import '../widgets/back_buttons.dart';
+import '../widgets/connection_popup.dart';
+import '../widgets/dropdown.dart';
+import '../widgets/elevated_button.dart';
 import '../widgets/scaffold_messanger.dart';
+import '../widgets/text_button_process.dart';
+import '../widgets/text_form_field.dart';
+import 'login_page_s.dart';
+import 'teacher_page.dart';
 
 class LoginPageT extends StatefulWidget {
   const LoginPageT({super.key});
@@ -86,7 +83,7 @@ class _LoginPageTState extends State<LoginPageT> {
                   height: 60.sp,
                 ),
               ),
-              Constants.sanofiBig(context),
+              Constants.snyBIG(context),
               Text(
                 "egitim".tr,
                 style: Constants.getTextStyle(

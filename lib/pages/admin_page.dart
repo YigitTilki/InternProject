@@ -6,17 +6,17 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:sanofi_main/adminstator_process.dart/add_lesson.dart';
-import 'package:sanofi_main/adminstator_process.dart/add_participant.dart';
-import 'package:sanofi_main/adminstator_process.dart/add_teacher.dart';
-import 'package:sanofi_main/constants/constants.dart';
-import 'package:sanofi_main/widgets/connection_popup.dart';
 
 import 'package:sizer/sizer.dart';
 
+import '../adminstator_process.dart/add_lesson.dart';
+import '../adminstator_process.dart/add_participant.dart';
+import '../adminstator_process.dart/add_teacher.dart';
+import '../constants/constants.dart';
 import '../provider/theme_provider.dart';
 import '../widgets/arrow_back.dart';
 import '../widgets/back_buttons.dart';
+import '../widgets/connection_popup.dart';
 import '../widgets/show_developers.dart';
 
 class AdminPage extends StatefulWidget {
@@ -98,7 +98,7 @@ class _AdminPageState extends State<AdminPage> {
                 height: 20.sp,
               ),
               teacherAdd(context),
-              Expanded(flex: 1, child: Constants.sanofiBig(context))
+              Expanded(flex: 1, child: Constants.snyBIG(context))
             ],
           ),
         ),

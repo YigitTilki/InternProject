@@ -3,15 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:sanofi_main/constants/constants.dart';
-import 'package:sanofi_main/widgets/admin_attendance.dart';
-import 'package:sanofi_main/widgets/alert_dialog.dart';
 
-import 'package:sanofi_main/widgets/containers.dart';
-import 'package:sanofi_main/widgets/dropdown.dart';
-import 'package:sanofi_main/widgets/elevated_button.dart';
 import 'package:sizer/sizer.dart';
 
+import '../constants/constants.dart';
+import '../widgets/admin_attendance.dart';
+import '../widgets/alert_dialog.dart';
+import '../widgets/containers.dart';
+import '../widgets/dropdown.dart';
+import '../widgets/elevated_button.dart';
 import 'admin_pop_up.dart/lesson_popup.dart';
 
 class LessonAddWidget extends StatefulWidget {

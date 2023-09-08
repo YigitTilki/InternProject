@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sanofi_main/widgets/error_alert.dart';
+
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +7,7 @@ import '../constants/constants.dart';
 import '../pages/admin_page.dart';
 import '../widgets/alert_dialog.dart';
 import '../widgets/elevated_button.dart';
+import '../widgets/error_alert.dart';
 import '../widgets/text_form_field.dart';
 
 Future<dynamic> adminRouter(

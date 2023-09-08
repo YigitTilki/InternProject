@@ -3,11 +3,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sanofi_main/pages/login_page_s.dart';
-import 'package:sanofi_main/provider/theme_provider.dart';
+
 import 'package:sizer/sizer.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import '../provider/theme_provider.dart';
 import '../widgets/alert_dialog.dart';
+import 'login_page_s.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});

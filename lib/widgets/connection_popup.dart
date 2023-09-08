@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sanofi_main/widgets/alert_dialog.dart';
+import 'alert_dialog.dart';
 
 Future<void> showNoInternetDialog(context) async {
   showDialog(

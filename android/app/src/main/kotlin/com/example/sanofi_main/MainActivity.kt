@@ -1,4 +1,4 @@
-package com.example.sanofi_main
+package com.example.intern_project
 
 import android.content.Intent
 import android.os.Bundle

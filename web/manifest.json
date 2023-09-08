@@ -1,6 +1,6 @@
 {
-    "name": "sanofi_main",
-    "short_name": "sanofi_main",
+    "name": "intern_project",
+    "short_name": "intern_project",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

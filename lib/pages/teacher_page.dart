@@ -5,12 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sanofi_main/widgets/connection_popup.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import '../constants/constants.dart';
 import '../widgets/arrow_back.dart';
 import '../widgets/back_buttons.dart';
+import '../widgets/connection_popup.dart';
 import '../widgets/generate_qr.dart';
 import '../widgets/user_info.dart';
 
@@ -91,7 +91,7 @@ class _TeacherPageState extends State<TeacherPage> {
                 height: 70.sp,
               ),
             ),
-            Constants.sanofiBig(context),
+            Constants.snyBIG(context),
             SizedBox(
               height: 100.sp,
             )

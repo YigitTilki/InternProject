@@ -3,12 +3,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sanofi_main/widgets/error_alert.dart';
-import 'package:sanofi_main/widgets/scaffold_messanger.dart';
+
 import 'package:sizer/sizer.dart';
 import '../../constants/constants.dart';
 import '../../widgets/alert_dialog.dart';
 import '../../widgets/elevated_button.dart';
+import '../../widgets/error_alert.dart';
+import '../../widgets/scaffold_messanger.dart';
 import '../../widgets/text_form_field.dart';
 import 'widgets/are_you_sure.dart';
 
