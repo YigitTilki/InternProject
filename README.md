@@ -1,5 +1,5 @@
-# Sanofi Intern Attendance Project
-Sanofi stajım sürerken 12 günde geliştirdiğim bu uygulama online olarak imza yetkisi sağlıyor. Uygulamaya sadece Sanofi bünyesinde çalışan kişilerin girebileceği şekilde düzenlenen uygulama Firabase database kullanarak verileri saklıyor. QR kod okutularak eğitime katılım sağlanılıyor. Telefon diline göre (en/tur) dil seçenekleri mevcut. Aynı zamanda database'e veri ekleme, çekme ve silme işlmeleri admin saayfasından kontrol edilebiliyor. 
+# Intern Attendance Project
+ Stajım sürerken 12 günde geliştirdiğim bu uygulama online olarak imza yetkisi sağlıyor. Uygulamaya sadece Fabrika bünyesinde çalışan kişilerin girebileceği şekilde düzenlenen uygulama Firabase database kullanarak verileri saklıyor. QR kod okutularak eğitime katılım sağlanılıyor. Telefon diline göre (en/tur) dil seçenekleri mevcut. Aynı zamanda database'e veri ekleme, çekme ve silme işlmeleri admin saayfasından kontrol edilebiliyor. 
 
 ## Packages
 - [cupertino_icons](https://pub.dev/packages/cupertino_icons) v1.0.2
