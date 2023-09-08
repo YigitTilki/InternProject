@@ -19,13 +19,4 @@
 - [dropdown_search](https://pub.dev/packages/dropdown_search) v5.0.6
 - [connectivity_plus](https://pub.dev/packages/connectivity_plus) v4.0.2
 
-## Images from Project
 
-<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/a31c82d3-ea00-40b8-ac8e-302c2a8ff4ce" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/a498b8d8-f40e-44ce-ba0d-773f690c3565" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/0bc052b4-0a9b-4aec-99ed-275e97e277f8" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/2bd711f6-7cc5-47c3-99b0-c5ff7374035e" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/73885415-ff4a-487f-9489-6a304b259bad" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/55b6e20c-bfd7-42c7-b4d3-5493ce90d5b4" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/2bbd3fdb-d88a-4514-b619-a6e6441a88c7" width = "180" height = "400">
-<img src="https://github.com/ibrahimcerkezoglu/QR-Polling-System/assets/126337225/8a869e36-3143-4de8-8c28-832979934086" width = "180" height = "400">
