@@ -1,10 +1,6 @@
 # Intern Attendance Project
-<<<<<<< HEAD
  Stajım sürerken 12 günde geliştirdiğim bu uygulama online olarak imza yetkisi sağlıyor. Uygulamaya sadece Fabrika bünyesinde çalışan kişilerin girebileceği şekilde düzenlenen uygulama Firabase database kullanarak verileri saklıyor. QR kod okutularak eğitime katılım sağlanılıyor. Telefon diline göre (en/tur) dil seçenekleri mevcut. Aynı zamanda database'e veri ekleme, çekme ve silme işlmeleri admin saayfasından kontrol edilebiliyor. 
-=======
- Stajım sürerken 12 günde geliştirdiğim bu uygulama online olarak imza yetkisi sağlıyor. Uygulamaya sadece Sanofi bünyesinde çalışan kişilerin girebileceği şekilde düzenlenen uygulama Firabase database kullanarak verileri saklıyor. QR kod okutularak eğitime katılım sağlanılıyor. Telefon diline göre (en/tur) dil seçenekleri mevcut. Aynı zamanda database'e veri ekleme, çekme ve silme işlmeleri admin saayfasından kontrol edilebiliyor. 
->>>>>>> ad71dfe23d298100bf8dd3d29163ee6062610274
-
+ 
 ## Packages
 - [cupertino_icons](https://pub.dev/packages/cupertino_icons) v1.0.2
 - [qr_flutter](https://pub.dev/packages/qr_flutter) v4.1.0
